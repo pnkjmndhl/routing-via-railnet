@@ -1,0 +1,783 @@
+﻿A & R Terminal Railroad ART 926
+Aberdeen & Rockfish RR. AR 009
+Aberdeen, Carolina & Western Ry. ACWR 410
+Acadiana Ry. AKDN 590
+Adams – Warnock Railway, Inc. AWRY 041
+Adrian & Blissfield RR. ADBF 024
+Affton Terminal Services Railroad, LLC AT 336
+AG Valley Railroad, LLC AVRR 710
+Aiken Railway Company, LLC AIKR 164
+Airlake Terminal Railway Company ALT 033
+Akron Barberton Cluster Railway Co. AB 003
+Alabama & Florida Railway Company AF 030
+Alabama & Gulf Coast Railway LLC. AGR 127
+Alabama & Tennessee River Railway LLC ATN 853
+Alabama RR. Co. ALAB 072
+Alabama Southern Railroad ABS 927
+Alabama Warrior Railway ABWR 019
+Alamo Gulf Coast RR. Co. AGCR 031
+Alaska RR. ARR 005
+Albany & Eastern Railroad Company AERC 034
+Alberta Prairie Railway APR 045
+Aliquippa & Ohio River Railroad Company, The AOR 036
+Allegheny Southern Railroad Inc. ASR 023
+Allegheny Valley Railroad Company AVR 028
+Allentown and Auburn Railroad ALLN 806
+Alliance Terminal Railroad LLC ATR 845
+Altex Energy LTD ANRG 486
+Alton & Southern Ry. ALS 032
+AMTRAK (National Railroad Passenger Corp.) AMTK 999
+AN Railway LLC AN 012
+Angelina & Neches River RR. ANR 035
+Ann Arbor RR. AA 006
+Apache Ry. APA 011
+Appalachian & Ohio Railroad Inc. AO 893
+Appanoose County Community RR. APNC 226
+Arcade & Attica RR. ARA 013
+Arizona & California Railroad Company ARZC 070
+Arizona Central RR. AZCR 054
+Arizona Eastern Railway Company AZER 091
+Arkansas & Missouri Railroad Co. AM 906
+Arkansas Louisiana & Mississippi RR. ALM 016
+Arkansas Midland Railroad Co., Inc. AKMD 077
+Arkansas Southern Railroad ARS 922
+Arkansas-Oklahoma Railroad, Inc. AOK 029
+Ashland Ry. ASRY 576
+Ashtabula Carson & Jefferson RR. ACJR 235
+AT&L Railroad Co Inc ATLT 514
+Athabasca Northern Railway Ltd. ANY 047
+Athens Line, LLC, The ABR 439
+Atlantic and Western Railway, L.P. ATW 025
+Austin Western Railroad AWRR 071
+Autauga Northern Railroad LLC AUT 937
+B & H Rail Corp. BH 351
+Baja California Railroad Inc. BJRR 073
+Ballard Terminal Railroad Co. LLC BDTL 052
+Baltimore & Ohio Chicago Terminal RR. BOCT 064
+Batten Kill RR. BKRR 086
+Bauxite & Northern Ry. BXN 084
+Bay Coast Railroad BCR 974
+Bay Colony RR. BCLR 082
+Bay Line Railroad, L.L.C. BAYL 088
+Bayway Terminal Switching Company LLC BAWT 018
+Belfast & Moosehead Lake RR. BML 087
+Bellingham International Railroad LLC BIRR 125
+Belt Railway Co. of Chicago BRC 083
+Belvidere & Delaware River Railway BDRV 059
+Bessemer & Lake Erie RR. BLE 061
+BG & CM Railroad BGCM 913
+BHP Nevada Railroad Company BHP 068
+Big Four Terminal Railroad, LLC BFT 412
+Big Sky Rail Corp BGS 706
+Big Spring Rail System, Inc. BSR 950
+Bighorn Divide & Wyoming Railroad, Inc. BDW 234
+Birmingham Southern RR. BS 065
+Birmingham Terminal Railway LLC BHRR 849
+Bi-State Development Agency BSDA 055
+Black River & Western Corp. BRW 066
+Blacklands Railroad, The BLR 051
+Blackwell Northern Gateway Railroad Company BNG 931
+Bloomer Line, The BLOL 223
+Blue Ridge Southern Railroad L.L.C BLU 418
+BNSF Railway Company BNSF 777
+Bogalusa Bayou Railroad LLC BBAY 498
+Boise Valley Railroad, LLC BVRR 021
+Boone & Scenic Valley Railroad BSVY 048
+Border Pacific RR. BOP 225
+Boston & Maine Corp. BM 069
+Brandon Railroad LLC BRAN 081
+Brandywine Valley RR. Co. BVRY 067
+Brookhaven Rail, LLC BHR 483
+Brownsville & Rio Grande International Railway, LLC BRG 170
+Buckingham Branch RR. BB 108
+Buffalo & Pittsburgh RR. BPRR 154
+Buffalo Southern RR. BSOR 085
+Burlington Junction Ry. BJRY 383
+C & NC Railroad Corporation CNUR 129
+C&S Railroad Corp. CSKR 904
+Caddo Valley Railroad Company CVYR 580
+California Northern Railroad Company, LP CFNR 346
+Camden & Southern Railroad Inc CSR 236
+Camp Chase Industrial Railroad Corporation CCRA 189
+Camp Chase Railway Company, LLC CAMY 650
+Canadian National Ry. CN 103
+Canadian Pacific Railway CPRS 105
+Cando Contracting Ltd. d/b/a Barrie-Collingwood Railway BCRY 074
+Caney Fork & Western Ry. CFWR 187
+Canton RR. CTN 097
+Cape Breton & Central Nova Scotia Railway, Limited CBNS 218
+Cape Fear Rys. CF 099
+Cape May Seashore Lines CMSL 807
+Carlton Trail Railway Company CTRW 128
+Carolina Coastal Ry. CLNA 107
+Carolina Piedmont Division, South Carolina Central RR. CPDR 142
+Carolina Southern Railroad Company CALA 053
+Carrizo Gorge Railway, Inc. CZRY 132
+Cascade and Columbia River Railroad Company CSCD 124
+CaterParrott Railnet, LLC CPR 215
+CCET, LLC. CCET 494
+Cedar Rapids & Iowa City Ry. CIC 111
+Cedar River RR. CEDR 078
+Cen-Tex Rail Link, Ltd. CTE 109
+Central California Traction CCT 112
+Central Illinois Railroad Company CIRY 178
+Central Indiana & Western RR. CEIW 949
+Central Maine & Quebec Railway CMQ 622
+Central Manitoba Railway, Inc. CEMR 150
+Central Michigan Ry. CMGN 472
+Central Midland Railway Company CMR 386
+Central Montana RR. CM 374
+Central New England Railroad Co., Inc. CNZR 092
+Central New York Railroad Corporation CNYK 859
+Central Oregon & Pacific Railroad Company, Inc. CORP 157
+Central Railroad Co. of Indiana CIND 188
+Central Railroad Co. of Indianapolis CERA 183
+Central Texas & Colorado River Railway, LLC CTXR 352
+Central Washington Railroad Company CWA 872
+CG Railway, Inc. CGR 173
+Charlotte Southern Railway Company CHS 159
+Chattahoochee Industrial RR. CIRR 222
+Chattooga & Chickamauga Railway Co. CCKY 116
+Chesapeake & Albermarle RR. Co., Inc. CA 098
+Chesapeake and Indiana Railroad Company, Inc. CKIN 260
+Chessie Logistics Co., LLC CLCY 167
+Chestnut Ridge Ry. CHR 117
+Chicago Central & Pacific RR. CC 569
+Chicago Junction Railway Company, LLC CJR 925
+Chicago Port & Rail, LLC CPRL 397
+Chicago Port Railroad Company CPC 104
+Chicago SouthShore & South Bend RR. CSS 168
+Chicago Terminal Railroad CTM 172
+Chicago-Chemung RR. CCUO 161
+Cicero Central Railroad, L.L.C. CERR 362
+Cimarron Valley Railroad, L.C. CVR 122
+City of Columbia d/b/a Columbia Terminal CT 090
+City of Prineville Ry. COP 166
+City of Rochelle, Illinois CIR 138
+City of Tacoma d/b/a Tacoma Rail Mountain Division TRMW 816
+Claremont & Concord Ry. CCRR 095
+Clarendon & Pittsford RR. CLP 169
+Cleveland Commercial Railroad Company LLC CCRL 725
+Cleveland Harbor Belt Railroad, LLC CHB 148
+Cleveland Works Railway Company CWRO 502
+Clinton Terminal Railroad Company CTR 118
+Cloquet Terminal Railway Company Inc. CTRR 119
+Coffen and Western Railroad CAEG 431
+Colorado & Wyoming Ry. CW 158
+Columbia & Cowlitz Ry. CLC 163
+Columbia & Northern Railway Co. CNOW 201
+Columbia & Reading Railway Co. CORY 180
+Columbia Basin Railroad Company, Inc. CBRW 203
+Columbus & Chattahoochee Railroad, Inc. CCH 581
+Columbus & Greenville Ry. CAGY 177
+Columbus & Ohio River Railroad Company CUOH 156
+Commonwealth Ry., Inc. CWRY 146
+Compania de Ferrocarriles Chiapas Mayab, S.A. de C.V. FCCM 378
+Conecuh Valley Railroad COEH 289
+Connecticut Southern Railroad, Inc. CSO 094
+Connotton Valley Railway Inc. CVRI 522
+Coopersville & Marne Railway Co. CPMY 147
+Coos Bay Railroad Operating Co., LLC CBR 796
+Copper Basin Ry. CBRY 909
+Corpus Christi Terminal Railroad, Inc. CCPN 106
+Crab Orchard & Egyptian Railway a Division of Progressive COER 089
+CSX Transportation, Inc. CSXT 712
+CWRR, Inc. CWR 126
+CWW, LLC CWW 251
+D&I RR. DAIR 211
+Dakota Northern Railroad Inc. DN 935
+Dakota Rail Inc. DAKR 221
+Dakota Short Line DAKS 100
+Dakota Southern Ry. DSRC 526
+Dakota, Minnesota & Eastern RR. DME 912
+Dakota, Missouri Valley & Western RR. DMVW 369
+Dallas Terminal Railway DALT 562
+Dallas, Garland & Northeastern Railroad, Inc. DGNO 284
+Dansville & Mount Morris RR. DMM 220
+Dardanelle & Russellville RR. DR 191
+De Queen & Eastern RR. DQE 200
+Decatur Central Railroad, Inc. DCC 865
+Decatur Junction Railway Company DT 278
+Delaware & Hudson Railway Company, Inc. DH 195
+Delaware Coast Line RR. DCLR 214
+Delaware Valley Railway Company, Inc. DV 208
+Delaware/Lackawanna Railroad Co., Inc. DL 198
+Delmarva Central Railroad Company DCR 264
+Delray Connecting RR. DC 196
+Delta Southern RR. DSRR 184
+Delta Valley & Southern Ry. DVS 193
+Denver & Rio Grande Railway Co. DRGR 212
+Denver Rock Island Railroad DRIR 207
+Depew, Lancaster & Western Railroad DLWR 182
+Detroit Connecting Railroad Company DCON 294
+Devco Ry. (Cape Breton Dev. Corp.) DVR 711
+Dover & Rockaway River Railroad DRRV 216
+Drake Switching Company LLC DSC 694
+Dubois County Railroad DCRR 176
+Durbin and Greenbrier Valley RR Inc. D/B/A West Virginia Central Railroad DGVR 219
+E & N Railway Company (1998) Ltd. ENR 227
+East Broad Top Connecting Railroad EBTC 022
+East Brookfield & Spencer Railroad LLC EBSR 674
+East Camden & Highland RR. EACH 242
+East Chattanooga Belt Railway Company ECTB 174
+East Erie Commercial Railroad EEC 040
+East Jersey RR. & Terminal Co. EJR 245
+East Mahanoy & Hazelton Railroad EMHR 261
+East Penn Railroad LLC ESPN 274
+East Tennessee Railway, L.P. ETRY 257
+East Texas Central Railroad ETC 273
+Eastern Alabama Ry. EARY 343
+Eastern Berks Gateway Railroad EBG 063
+Eastern Idaho Railroad, LLC EIRR 387
+Eastern Illinois RR. EIRC 252
+Eastern Maine Railway Company EMRY 266
+Eastern Washington Gateway Railroad Company EWG 290
+Eastside Freight Service, LLC. ECYR 465
+Effingham Railroad Company EFRR 288
+El Dorado and Wesson Railway Company EDW 247
+Elizabethtown Industrial Railroad, LLC. EZR 441
+Elk River RR. ELKR 259
+Elkhart & Western Railroad Co. EWR 135
+Ellis & Eastern Company EE 279
+Escanaba & Lake Superior RR. ELS 241
+Essex Terminal Ry. ETL 228
+Evansville Western Railway Inc. EVWR 155
+Everett RR. EV 231
+Falls Road Railroad Co., Inc. FRR 307
+Farmrail FMRC 280
+Ferrocarril Mexicano S.A. de C.V. FXE 291
+Ferrosur S.A. de C.V. FSRR 333
+Fife Lake Railway Ltd. FLR 964
+Finger Lakes Railway Corp. FGLK 268
+First Coast Railroad Inc. FCRD 896
+Flats Industrial Railroad Company FIR 519
+Florida Central Railroad Co. FCEN 986
+Florida East Coast Railway, LLC FEC 263
+Florida Midland RR. FMID 507
+Florida Northern RR. FNOR 319
+Florida West Coast RR. FWCR 717
+Floydada & Plainview RR. Co. FAPR 282
+FNG Logistics FNG 381
+Fordyce & Princeton RR. FP 265
+Fore River Transportation Corporation FRVT 093
+Fort Smith RR. Co. FSR 297
+Fort Worth & Dallas Belt Railroad FWDB 298
+Fort Worth & Western RR. FWWR 277
+Forty Mile Railroad, Inc. FMR 329
+Fredonia Valley Railroad, Inc. FVRR 473
+Fremont Northwestern Railroad Inc. FNW 262
+Fulton County Railroad, Inc. FC 244
+Fulton County Railway LLC FCR 731
+Galveston RR., L.P. GVSR 567
+Garden City Western Ry. GCW 287
+Gardendale Railroad, Inc. GRD 499
+Gary Railway Company GRW 306
+Gateway Eastern Railway GWWE 293
+Geaux Geaux Railroad, LLC GOGR 134
+Genesee & Wyoming RR. GNWR 320
+Georges Creek Railway GCK 990
+Georgetown RR. GRR 302
+Georgia & Florida Railway GFRR 300
+Georgia Central Railway, L.P. GC 395
+Georgia Midland Railroad Inc. GMR 230
+Georgia Northeastern Railroad Co. GNRR 681
+Georgia Southern Railway GS 243
+Georgia Southwestern Railroad, Inc. GSWR 337
+Georgia Woodlands RR. GWRC 137
+Gettysburg & Northern Railroad Co. GET 204
+Goderich-Exeter Railway Company, Limited GEXR 283
+Golden Cat RR., The GCRC 152
+Golden Isles Terminal Railroad, Inc. GITM 313
+Golden Triangle RR. GTRA 295
+Goose Lake Railway, LLC GOOS 017
+Grafton & Upton RR. GU 323
+Grainbelt Corp. GNBC 443
+Grand Forks Railway Company GFR 299
+Grand Rapids Eastern Railroad, Inc. GR 292
+Grand Trunk Western Railroad Incorporated GTW 308
+The Great Lake Port Corporation D/B/A The Grand River Railway GRRY 559
+Great Lakes Central Railroad GLC 246
+Great Northwest Railroad, LLC GRNW 339
+Great River RR. GTR 271
+Great Smokey Mountains Ry. GSM 217
+Great Walton RR. GRWR 349
+Great Western Railway of Colorado LLC GWR 311
+Great Western Railway, Ltd. GWRS 044
+Green Mountain RR. GMRC 314
+Greenville & Western Railway Company LLC GRLW 370
+GWI Switching Services, L.P. GWSW 310
+Hainesport Industrial Railroad LLC HIRR 947
+Hainesport Secondary, LLC HSR 240
+Hampton Railway, Inc. HLSC 354
+Hardin Southern Railroad, Inc. HSRR 309
+Hartwell RR. HRT 334
+Heart of Georgia Railroad, Inc. HOG 469
+Heart of Texas Railroad, LP HTR 836
+Henderson Overton Branch HOB 658
+Heritage Railroad Corp. HR 353
+High Point, Thomasville & Denton RR. HPTD 366
+Hilton & Albany Railroad, Inc. HAL 951
+Hollis & Eastern Railroad Company HE 328
+Hondo Railway Inc. HRR 327
+Hoosier Southern Railroad HOS 356
+Housatonic RR. HRRC 782
+Houston Belt & Terminal Railway Company HBT 407
+Hudson Bay Railway Company HBRY 406
+Huntsville & Madison County RR. Authority HMCR 391
+Huron Central Railway, Inc. HCRY 345
+Huron & Eastern Ry. Hutchinson & Northern Ry. HESR 890
+Idaho & Sedalia Transportation Company LLC ISRC 822
+Idaho Northern & Pacific Railroad Company INPR 331
+Illinois & Midland Railroad Inc. IMRR 361
+Illinois Central Gulf RR. IC 350
+Illinois Rail Lake Terminal RR. LT 404
+Lancaster & Chester Ry. LC 426
+Landisville Terminal & Transfer Company LNVT 445
+Lapeer Industrial Railroad Company LIRR 438
+Last Mountain Railway LMR 478
+Laurinburg & Southern RR. LRS 427
+Lehigh Railway, LLC LRWY 414
+Lehigh Valley Rail Management LLC-Bethlehem Division LRVB 376
+Lehigh Valley Rail Management LLC-Johnstown Division LVRJ 477
+Lewis & Clark Ry. LINC 355
+Linea Coahuila Durango SA de CV LFCD 512
+Little Kanawha River Rail, Inc. LKRR 714
+Little Rock & Western Railway, L.P. LRWN 485
+Little Rock Port RR. LRPA 435
+Livonia, Avon & Lakeville RR. LAL 398
+Logansport & Eel River Short-Line Co. Inc. LER 304
+Long Creek Railroad Company Inc. LCRI 275
+Long Island RR. LI 436
+Longview Switching Company LSWR 662
+Los Angeles Junction Ry. LAJ 428
+Louisiana & Delta Railroad, Inc. LDRR 972
+Louisiana & North West RR. LNW 442
+Louisiana Southern Railroad LAS 715
+Louisville & Indiana Railroad LIRC 434
+Louisville & Wadley Ry. LW 451
+Louisville, New Albany & Corydon RR. LNAL 437
+Lowville & Beaver River RR. LBR 447
+Lubbock & Western Railway, L.L.C. LBWR 160
+Luxapalila Valley Railroad, Inc. LXVR 433
+Luzerne & Susquehanna Railway Company LS 432
+Lycoming Valley Railroad Company LVRR 444
+M & B Railroad, L.L.C. MNBR 480
+Madison RR. CMPA 144
+Madison Terminal Railway LLC MDSN 616
+Magma Arizona RR. MAA 453
+Mahoning Valley Ry. MVRY 504
+Maine Central RR. MEC 456
+Maine Northern Railway Company MNR 721
+Manatee County Port Authority MAUP 015
+Manning Rail, Inc. MAN 338
+Manufacturers' Junction Ry. MJ 459
+Marquette Rail LLC MQT 919
+Maryland & Delaware RR. MDDE 454
+Maryland Midland Ry. MMID 495
+Massachusetts Central RR. MCER 461
+Massachusetts Coastal Railroad LLC MC 464
+Massena Terminal RR. MSTR 471
+Maumee & Western Railroad Corporation MAW 458
+McCloud Ry. Co. MCR 466
+McLaughlin Line RR. MCLR 394
+Meeker Southern Railroad MSN 530
+Meridian Southern Railway LLC MDS 521
+MG Rail MGRI 388
+Michigan Air-Line Railway Co. MAL 992
+Michigan Shore RR. MS 547
+Michigan Southern RR. MSO 509
+Middletown & Hummelstown RR. MIDH 479
+Middletown & New Jersey Ry. MNJ 475
+Mid-Michigan RR. MMRR 785
+Midwest Rail, LLC DBA Toledo, Lake Erie and Western Railway TLE 181
+Mineral Range, Inc. MRA 538
+Minnesota Commercial Railway Co. MNNR 973
+Minnesota Northern Railroad, Inc. MNN 467
+Minnesota Prairie Lines Inc. MPLI 984
+Minnesota, Dakota & Western Ry. MDW 510
+Mission Mountain Railroad Company MMT 862
+Mississippi & Skuna Valley RR. MSV 503
+Mississippi Central Railroad Company MSCI 564
+Mississippi Delta RR. MD 903
+Mississippi Export RR. MSE 506
+Mississippi Southern Railroad MSR 897
+Mississippi Tennessee Railroad LLC MTNR 505
+Mississippian Ry. Cooperative, Inc. MSRW 985
+Missouri & Northern Arkansas Railroad, Inc. MNA 508
+Missouri Central Railroad Company MOC 533
+Mohall Central Railroad, Inc. MHC 924
+Mohall Railroad, Inc. MRI 468
+Mohawk, Adirondack & Northern RR. MHWA 455
+Montana Rail Link, Inc. MRL 871
+Montana Western Ry. MWRR 946
+Montgomery Short Line LLC MSL 430
+Morehead & South Fork Railroad Co., Inc. MHSF 202
+Morristown & Erie Railway Inc. D/B/A Octoraro Railroad OCTR 136
+Moscow, Camden & San Augustine RR. MCSA 548
+Motive Rail Inc. d/b/a Missouri North Central Railroad MNC 551
+Mt. Hood Railroad Company MH 516
+Municipality of East Troy Wisconsin RR. METW 523
+Napa Valley RR. NVRR 402
+Nash County RR. NCYR 776
+Nashville & Eastern RR. NERR 934
+Nashville & Western Railroad Corp. NWR 570
+Natchez Railway Inc. NTZR 462
+Naugatuck Railroad Company, Inc. NAUG 541
+NC Railroad Inc. NCRL 476
+NDC RR. NDCR 902
+Nebkota Railway, Inc. NRI 575
+Nebraska Central Railroad Company NCRC 565
+Nebraska, Kansas & Colorado Railnet, Inc. NKCR 484
+New Brunswick Southern Railway Company Limited NBSR 493
+New Castle Industrial Railroad NCIR 834
+New England Central Railroad, Inc. NECR 496
+New England Southern RR. NEGS 535
+New Hampshire and Vermont Railroad Co. NHVT 539
+New Hampshire Central Railroad, Inc. NHCR 552
+New Hampshire Northcoast Corp. NHN 787
+New Hope & Ivyland RR. d/b/a Bucks County RR. Preservation & Restoration Corp. NHRR 572
+New Jersey Rail Carrier LLC NJRC 489
+New Jersey Seashore Lines, Inc. NJSL 532
+New Mexico Gateway Railroad LLC NMGR 550
+New Orleans & Gulf Coast Railway Co., Inc. NOGC 487
+New Orleans Lower Coast RR. NOLR 592
+New Orleans Public Belt RR. NOPB 536
+New York & Atlantic Railway Company NYA 501
+New York & Greenwood Lake Railway NYGL 497
+New York & Lake Erie RR. NYLE 545
+New York & Ogdensburg Railway Company Inc. NYOG 585
+New York and Eastern Railway LLC NYER 561
+New York, New Jersey Rail LLC NYNJ 463
+New York, Susquehanna & Western RR. NYSW 546
+Newburgh & South Shore Railroad Co. NSR 982
+Nimishillen & Tuscarawas LLC NTRY 554
+Nittany & Bald Eagle RR. NBER 249
+Norfolk & Portsmouth Belt Line RR. NPB 549
+Norfolk Southern Ry. Co. NS 555
+North Carolina & Virginia RR. NCVA 531
+North Carolina Ports Railway Commission NCPR 571
+North Coast Railroad NCRR 540
+North Shore RR. NSHR 248
+Northern Indiana Commuter Transp. District NCID 542
+Northern Lights Rail Ltd. NLRL 917
+Northern Lines Railway LLC NLR 891
+North Louisiana & Arkansas Railroad NLA 620
+Northern Ohio & Western Railway, Ltd. NOW 500
+Northern Plains Railroad, Inc. NPR 544
+Northwestern Oklahoma RR. NOKL 591
+Northwestern Pacific Railroad Company NWP 020
+Oakdale Traction Corporation OTCR 520
+Oakland Terminal Ry. OTR 586
+Ogeechee Railroad Company ORC 595
+Ohio & Pennsylvania Railroad Company OHPA 584
+Ohio Central RR., Inc. OHCR 601
+Ohio Southern Railroad Co. OSRR 948
+Ohio Terminal Railway Company OHIO 988
+Ohio Valley Railroad Company OVR 630
+Ohi-Rail Corp. OHIC 579
+Oil Creek & Titusville Lines OCTL 945
+Okanagan Valley Railway Company OKAN 603
+Oklahoma Central RR. OCR 270
+Old Augusta Railroad LLC OAR 578
+Olympia & Belmore Railroad, Inc. OYLO 326
+Olympic RR. OLYR 801
+Omaha, Lincoln & Beatrice Ry. OLB 598
+Ontario Southland Railway Inc. OS 823
+Ontario Central RR. ONCT 589
+Ontario L'Orignal Railway, Inc. OLO 563
+Ontario Midland RR. OMID 588
+Ontario Northland Ry. ONT 754
+Orange Port Terminal Railway OPT 317
+Oregon Eastern Railroad OERR 269
+Oregon, Pacific & Eastern Ry. OPE 597
+Otter Tail Valley RR. OTVR 983
+Ottumwa Terminal RR. OTT 276
+Ouachita RR. OUCH 594
+Owego and Harford Railway, Inc. OHRY 560
+Owensville Terminal Co., Inc. OTCO 593
+Ozark Valley Railroad Inc. OVRR 618
+Pacific Harbor Line, Inc. PHL 600
+Pacific Sun Railroad, LLC PSRR 625
+Paducah & Louisville Ry. PAL 907
+Palouse River & Coulee City Railroad, LLC PCC 623
+Pan Am Southern, LLC PAS 490
+Panhandle Northern Railroad Company PNR 606
+Pearl River Valley RR. PRV 636
+Pecos Valley Permian Railroad LLC DBA Pecos Valley Southern Railway Company PVS 644
+Pee Dee River RR. PDRR 171
+Pend Oreille Valley RR. POVA 654
+Peninsula Terminal PT 643
+Penn Jersey Rail Lines, Inc. PJRL 617
+Pennsylvania & Southern Railway LLC PSCC 666
+Pennsylvania Northeastern Railroad, LLC PN 633
+Pennsylvania Southwestern Railroad, Inc. PSWR 942
+Peru Industrial Railroad, LLC PIR 558
+Pickens Railway Company PICK 647
+Piedmont and Northern Railroad LLC PNRW 699
+Pigeon River RR. PGRV 568
+Pine Belt Southern Railroad Co., Inc. PBRR 613
+Pioneer Industrial Railway Co. PRY 638
+Pioneer Valley RR. PVRR 611
+The Pittsburgh & Ohio Central Railroad Company POHC 653
+Pittsburgh, Allegheny & McKees Rocks RR. PAM 607
+Pittsburgh, Chartiers & Youghiogheny Ry. (CR) PCY 629
+Plainview Terminal Company PTC 775
+Point Comfort & Northern Ry. PCN 651
+Port Bienville RR. PBVR 677
+Port Harbor Railroad PHRR 680
+Port of Palm Beach District PPBD 038
+Port of Tillamook Bay RR. POTB 637
+Port Rail, Inc. PRI 342
+Portland & Western Railroad, Inc. PNWR 626
+Portland Terminal PTRC 649
+Portland Vancouver Junction Railroad LLC PVJR 488
+Prescott & Northwestern RR. PNW 634
+Progressive Rail Inc. PGR 668
+Progressive Rail Inc. D/B/A Cannon Valley Railroad Company CVRC 186
+Progressive Rail Inc. D/B/A Wisconsin Northern Railroad WN 774
+Providence & Worcester RR. PW 631
+The Puget Sound & Pacific Railroad Company, A Division of the Arizona & California Railroad Co. LP PSAP 640
+Pyco Industries PSC 628
+Quebec Gatineau Railway, Inc. QGRY 635
+Quebec North Shore and Labrador Railway Company QNSL 831
+R Bult Rail Lines Corp RBRM 199
+R. J. Corman Railroad Company Allentown Lines, Inc. RJCN 664
+R. J. Corman Railroad Company Bardstown Line RJCR 970
+R. J. Corman Railroad Company/Central Kentucky Lines RJCC 967
+R. J. Corman RR Company Cleveland Line RJCL 639
+R. J. Corman RR Company Memphis Line RJCM 792
+R. J. Corman Railroad Co/Carolina Lines RJCS 610
+R. J. Corman Railroad Company Pennsylvania Lines, Inc. RJCP 663
+R. J. Corman Railroad Company Tennessee Terminal LLC RJCK 928
+R. J. Corman Railroad Company/Texas Lines, LLC RJCD 450
+R. J. Corman Railroad Company Western Ohio Line RJCW 237
+R. J. Corman Railroad Company West Virginia Line RJCV 905
+RaiLink Canada Ltd, d/b/a RaiLink Ottawa Valley RLK 697
+RaiLink Canada Ltd, d/b/a RaiLink Southern Ontario RLHH 705
+Railroad Switching Service of Missouri, Inc. RSM 684
+Rapid City, Pierre & Eastern Railroad, Inc. RCPE 894
+Raritan Central Railway, LLC. RCRY 440
+Rarus Ry. RARW 518
+Reading Blue Mountain & Northern Railroad Company RBMN 641
+Red Coat Road & Rail Ltd. RCRR 895
+Red River Valley & Western RR. RRVW 321
+Red Springs & Northern RR. RSNR 239
+Riceboro Southern Railroad LLC RSOR 624
+Richmond Pacific Railroad Company RPRC 449
+Rio Valley Switching Company RVSC 713
+Ripley & New Albany Railroad Company RNA 599
+Roberval & Saguenay Ry. RS 669
+Rochelle Railroad Co. RRCO 693
+Rochester & Southern RR. RSR 941
+Rockdale, Sandow & Southern RR. RSS 675
+Rocky Mountain Railcar RMRR 915
+Roscoe, Synder & Pacific Ry. RSP 673
+Rogue Valley Terminal Railroad Corporation RVT 527
+RSL Railroad LLC. RSL 858
+Rusk, Palestine, & Pacific Railroad, LLC RPP 422
+Rutland Line, Inc. RL 671
+S&S Shortline Railroad SSR 281
+Sabine River & Northern Ry. SRN 678
+Sacramento Valley Railroad SAV 679
+Saginaw Bay Southern Railway Company SBS 920
+Saint Marys Railroad Company SM 682
+St. Croix Valley Railroad Company SCXY 727
+St. Lawrence & Atlantic Railroad Co. SLR 700
+St. Lawrence & Atlantic Railroad (Quebec) Inc. SLQ 723
+St. Lawrence & Hudson Railway Company Limited STLH 736
+St. Maries River RR. STMA 698
+St. Marys Railway West LLC SMW 676
+Salt Lake City Southern Railroad Co., Inc. SL 809
+Salt Lake, Garfield & Western Ry. SLGW 690
+San Antonio Central Railroad, LLC SAC 596
+San Diego & Imperial Valley RR. SDIY 315
+San Francisco Bay Railroad SFB 543
+San Joaquin Valley RR. SJVR 738
+San Jacinto Transportation Company, Incorporated SJR 123
+San Luis & Rio Grande Railroad Inc. SLRG 416
+San Luis Central RR. SLC 696
+San Manuel Arizona RR. SMA 794
+San Pedro Railroad Operating Co. LLC D/B/A San Pedro & Southwestern Railroad Company SPSR 513
+Sand Springs Ry. SS 707
+Sandersville RR. SAN 691
+Sandusky River Railroad SYRR 989
+Santa Cruz and Monterey Bay Railway Company SC 037
+Santa Cruz Big Trees & Pacific Ry. SCBG 914
+Santa Fe Southern Railway, Inc. SFS 810
+Santa Maria Valley RR. SMV 741
+Santa Teresa Southern Railroad, LLC. STS 385
+Saratoga & North Creek Railway SNC 954
+Sartigan Railway/Chemin De Fer Sartigan CFS 556
+Sault Ste. Marie Bridge Company SSAM 670
+Savage Bingham & Garfield Railroad Company SBG 692
+Savage Davenport Railway Company SD 396
+Savannah Port Terminal Railroad, Inc. SAPT 726
+SCTRR, LLC SCTR 672
+Seagraves, Whiteface & Lubbock RR. SWGR 683
+Seminole Gulf Ry. L.P. SGLR 932
+Semo Port Railroads, Inc. SE 788
+Sequatchie Valley RR. SQVR 910
+Shamokin Valley RR. SVRR 819
+Shawnee Terminal Railway Company, Inc. STR 778
+Sheffield Station Junction Railway SSJR 760
+Shenandoah Valley Railroad Co. SV 813
+Sidney & Lowe RR. SLGG 724
+Sierra RR. SERA 716
+Sierra Ry. Co. of CA SSRYC 851
+Sisseton Milbank Railroad SMRR 740
+SMS Rail Lines of New York LLC SNY 312
+SMS Rail Service, Inc. SLRS 728
+Societe du chemin de fer de la Gaspesie SFG 665
+Somerset RR. SOM 722
+Somerset Terminal Railway Co. SDBB 153
+Soo Line Railroad SOO 482
+South Branch Valley RR. Line SBVR 732
+South Buffalo Ry. SB 719
+South Carolina Central RR. SCRF 582
+South Central Florida Express, Inc. SCXF 805
+South Chicago & Indiana Harbor Railway Co. SCIH 557
+South Kansas & Oklahoma RR. SKOL 701
+South Plains Lamesa Railroad, Ltd. SLAL 921
+Southeast Kansas RR. SEKR 944
+Southeastern International Corporation SEI 733
+Southern Freight Railroad SFR 695
+Southern Indiana Ry. SIND 720
+Southern Railroad Co., of New Jersey SRNJ 820
+Southern Rails Cooperative Limited SORA 708
+Southern Railway of British Columbia SRY 689
+Southern Railway of Vancouver Island Limited SVI 730
+Southern Switching Company SSC 814
+Southwest Pennsylvania Railroad Company SWP 824
+Southwestern RR. Co. SW 749
+Squaw Creek Southern SCS 718
+Steelton & Highspire RR. SH 799
+Sterling Belt Line Ry. SBLN 737
+Stewart Southern Railway SSS 131
+Stewartstown RR. STRT 729
+Stillwater Central Railroad Company, LLC SLWC 797
+Stockton Terminal & Eastern RR. STE 739
+Stourbridge RR. Co. SBRR 702
+Sunflour Railroad SNR 847
+Sunset Ry. SUN 734
+Swan Ranch Railroad LLC SRRR 232
+Sydney Coal Railway SCR 923
+Tacoma Eastern Railway Co. TE 855
+Talleyrand Terminal Railroad Company, Inc. TTR 755
+Tazewell & Peoria Railroad Inc. TZPR 753
+Tecumseh Branch Connecting Railroad Company TCBY 748
+Temple & Central Texas Railway TC 534
+Tennessee Southern RR. Co. TSRR 798
+Tennken RR. TKEN 745
+Terminal Ferroviaria Del Valle de Mexico SA de CV TVFM 827
+Terminal RR. Asso.of St. Louis TRRA 757
+Terminal Ry. Alabama State Docks TASD 758
+Terre Haute, Brazil & Eastern RR. TBER 470
+Texas & Eastern Railroad, LLC TSR 971
+Texas & Northern Ry. TN 795
+Texas & Oklahoma RR. TXOR 784
+Texas Central Business Lines Corporation TCB 800
+Texas Central RR. TEXC 750
+Texas Mexican Railway Company TM 762
+Texas New Mexico Railway, L.L.C. TXN 997
+Texas North Western Ry. TXNW 747
+Texas Northeastern Division Mid-Michigan RR. TNER 790
+Texas Pacifico Transportation Ltd. TXPF 057
+Texas Rock Crusher Railway Company TXR 793
+Texas Transportation Co. TXTC 766
+Texas, Gonzales & Northern Railway Company TXGN 829
+Texas, Oklahoma & Eastern RR. TOE 764
+Texas-New Mexico R.R./Div. of Austin & Northwestern RR. TNMR 815
+The Nelson and Ft. Sheppard Railway Corporation NFTS 348
+Thermal Belt Ry. TBRY 751
+Three Notch Railroad Co Inc TNHR 102
+Thunder Rail Ltd. TRR 929
+Timber Rock Railroad, LLC TIBR 756
+Toledo, Peoria & Western Ry. Corp. TPW 769
+Tomahawk Ry., L.P. TR 772
+Torch River Rail Inc. TRV 573
+Towanda-Monroeton Shippers Lifeline TMSS 752
+Tradepoint Rail, LLC TPR 660
+TransDistribution Brookfield Railroad LLC TBFR 190
+TransDistribution Ridgeland Railroad LLC TRRR 253
+Transkentucky Transportation RR. TTIS 773
+Tri-City Railroad Company TCRY 980
+Trillium Railroad Co. Ltd. TRRY 423
+Trinidad Railway, Inc. TRIN 837
+Trona Ry. TRC 779
+Tshiuetin Rail Transportation Inc. TSH 901
+Tucson, Cornelia & Gila Bend RR. TCG 783
+Tulsa Sapulpa Union Railway Company TSU 709
+Turners Island, LLC TI 892
+Twin Cities & Western RR. TCWR 768
+Tyburn RR. Inc. TYBR 846
+Tyson Railroad, Inc. TSNR 771
+U.S. Rail of New York, LLC USNY 481
+Union County Industrial Railroad Company UCIR 826
+Union Pacific RR. UP 802
+Union Railroad Company, LLC URR 803
+Upper Merion & Plymouth RR. UMP 808
+US Rail Corp. USRP 864
+Utah Central Railway Company UCRY 963
+Utah Ry. UTAH 811
+Utah Southern Railroad USR 767
+V and S Railway, Inc. VSR 881
+Valdosta Ry., L.P. VR 861
+Vandalia RR. VRRC 781
+Vaughn Railroad Company VRR 936
+Ventura County Railroad VCRR 875
+Vermilion Valley Railroad Company Inc. VVRR 130
+Vermont Ry. VTR 817
+Vicksburg Southern Railroad, LLC VSOR 987
+Virginia Southern Railroad Division of North Carolina & Virginia RR. Co., Inc. VSRR 833
+Wabash Central Railroad Corporation WBCR 880
+Waccamaw Coast Line Railroad Co., Inc. Clinton Div. WCLC 863
+Waccamaw Coastline RR. WCLR 883
+Walkerville Southern Railroad WS 933
+Walking Horse & Eastern Ry. WHOE 390
+Wallowa Union Railroad Authority WURR 382
+Warren & Saline River RR.Warren & Trumbull Railroad Company WSR 832
+Washington & Idaho Railway Inc. WIR 943
+Washington County RR. WACR 812
+Waterloo RR. WLO 835
+WCTU Ry. WCTR 844
+Wellsboro & Corning Railroad LLC WCOR 965
+West Belt Railway LLC WBRW 296
+West Chester Railroad Co. c/o 4 States Railway Service, Inc. WCRL 868
+West Isle Line, Inc. WFS 884
+West Michigan Railroad Co. WMI 866
+West Shore RR. WTSE 882
+West Tennessee RR. WTNN 258
+West Texas and Lubbock Railroad Company, Inc. WTLC 205
+Western New York & Pennsylvania Railroad LLC WNYP 080
+Western Rail Switching Inc. WRS 842
+Western RR. WRRC 838
+Western Washington Railroad, LLC WWR 659
+Wheatland Rail Inc. WRI 645
+Wheeling & Lake Erie Ry. WE 856
+Wichita Terminal Association WTA 977
+Wichita, Tillman & Jackson Ry. WTJR 899
+Willamette & Pacific Railroad, Inc. WPRR 959
+Willamette Valley Railway WVR 940
+Wilmington & Western Ry. WWRC 371
+Wilmington Terminal RR. WTRY 981
+Winamac Southern Railway Company WSRY 939
+Winchester & Western RR. WW 850
+Windsor & Hantsport Railway Company, Limited WHRC 952
+Winston-Salem Southbound Ry. WSS 854
+Wiregrass Central RR. WGCR 763
+Wisconsin & Southern Railroad, LLC WSOR 879
+Wisconsin Central Limited WC 250
+Wisconsin Chicago Link Ltd. WCCL 900
+Wisconsin Great Northern Railroad Inc. WGNS 955
+WRL, LLC WRL 857
+Wyandotte Southern RR. WYS 830
+Wye Transportation Co. WYEC 889
+Wyoming Connect Railroad LLC. WCRR 007
+Yadkin Valley RR. Co. YVRR 991
+YCR Corporation YCR 667
+Yellowstone Valley Railroad, LLC YSVR 918
+York Railway Company YRC 908
+Youngstown & Austintown RR. YARR 372
+Youngstown & Southeastern Railroad Company Inc. YSRR 791
+The Youngstown Belt Railroad Company YB 876
+Yreka Western RR. YW 873
