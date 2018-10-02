@@ -11,8 +11,8 @@ arcpy.env.workspace = r"C:/GIS"
 arcpy.env.overwriteOutput = True
 
 # shape files
-#network_shp = r'..\GIS\alllinks.shp'
-network_shp = r'..\GIS\test_alllinks.shp'
+network_shp = r'..\GIS\alllinks.shp'
+#network_shp = r'..\GIS\test_alllinks.shp'
 node_shp = r'..\GIS\allnodes.shp'
 
 # excel files

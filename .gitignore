@@ -1,5 +1,3 @@
-Module1gitbackup/
-
 GIS/
 
 Module1(commodity)/input/
@@ -33,7 +31,18 @@ Tools/
 
 Plots/
 
-Netdata/
+Netdata/Backups/
+Netdata/railnet2.1b/
+Netdata/railnet2.0b/
+Netdata/parameters/
+Netdata/*.xnq
+Netdata/*.dat
+Netdata/*.LMF
+Netdata/*.xfr
+Netdata/*.PRM
+Netdata/*.lvl
+Netdata/*.exc
+Netdata/*.exe
 
 
 
