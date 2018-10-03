@@ -1,6 +1,8 @@
 import pandas
 import sys
 import arcpy
+import os
+import sys
 
 arcpy.env.overwriteOutput = True
 
@@ -89,4 +91,5 @@ CA = CA[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']].apply(
     lambda x: '  {}{}{}{}{}{}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9]), axis=1)
 
 CA.to_csv(r"output\cost.dat", index=False)
+
 print("OPERATION SUCCESSFULL. cost.dat written")

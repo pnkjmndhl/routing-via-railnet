@@ -3,8 +3,8 @@ import pandas
 import os
 
 scenario_list = os.listdir('intermediate/')
-scenario_list = [x.split('.csv')[0] for x in scenario_list if "OD2" in x]
-scenario_list = [x.replace('OD2', '') for x in scenario_list]
+scenario_list = [x.split('.csv')[0] for x in scenario_list if "_1" in x]
+scenario_list = [x.replace('_1', '') for x in scenario_list]
 
 # csv
 link_shp = r"../GIS/alllinks.shp"
@@ -26,7 +26,7 @@ RRs = [x for x in all_rrs if x not in start_rr_except]
 
 for scenario in scenario_list:
     print("Working on " + scenario)
-    commodity_file = r"intermediate/OD2" + scenario + ".csv"
+    commodity_file = r"intermediate/"+ scenario + "_1.csv"
     commodity_df = pandas.read_csv(commodity_file).dropna()
     # removal process
     current_column_names = commodity_df.columns
@@ -40,4 +40,4 @@ for scenario in scenario_list:
     commodity_df.drop(commodity_df1_satisfying.index, axis=0, inplace=True)
     print "{0} records remain.".format(len(commodity_df))
     commodity_df = commodity_df[current_column_names]
-    commodity_df.to_csv(r"intermediate/OD3" + scenario + ".csv")
+    commodity_df.to_csv(r"intermediate/"+ scenario + "_2.csv")

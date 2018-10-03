@@ -2,22 +2,25 @@ import pandas
 import arcpy
 import sys
 
+OD = pandas.read_csv(r"intermediate/"+sys.argv[1]+".csv")
+
 #arguments
 if sys.argv[1] in ['-h', 'help']:
-    print("Usage: python codename.py update/new ")
+    print("Usage: python snap.py filename update/new ")
 
-if sys.argv[1] == "new":
+if sys.argv[2] == "new":
     # read the new copy of csv file
-    OD = pandas.read_csv(r"intermediate\OD1.csv")
     index_of_od = range(len(OD))
     fips_orr_to_node_odist_df = pandas.DataFrame({"OFIPS": [], "startRR": [], "ONODE": [], "ODIST": []})
 
-
-elif sys.argv[1] == "update":
+elif sys.argv[2] == "update":
     # read the new copy of csv file
-    OD = pandas.read_csv(r"intermediate\OD2.csv")
     index_of_od = OD.index[OD.ONode.isnull()]
     fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\OFIPSORR.csv")
+
+else:
+    print("Invalid arguments")
+    exit(0)
 
 
 #get the name of columns
@@ -40,15 +43,15 @@ node_shp = r"../GIS/allnodes.shp"
 link_shp = r"../GIS/alllinks.shp"
 
 #################work on copies####################
-fips_shp1 = "C:/GIS/FIPS.shp"
-node_shp1 = "C:/GIS/allnodes.shp"
-link_shp1 = "C:/GIS/alllink.shp"
-arcpy.CopyFeatures_management(fips_shp, fips_shp1)
-arcpy.CopyFeatures_management(node_shp, node_shp1)
-arcpy.CopyFeatures_management(link_shp, link_shp1)
-fips_shp = fips_shp1
-node_shp = node_shp1
-link_shp = link_shp1
+# fips_shp1 = "C:/GIS/FIPS.shp"
+# node_shp1 = "C:/GIS/allnodes.shp"
+# link_shp1 = "C:/GIS/alllink.shp"
+# arcpy.CopyFeatures_management(fips_shp, fips_shp1)
+# arcpy.CopyFeatures_management(node_shp, node_shp1)
+# arcpy.CopyFeatures_management(link_shp, link_shp1)
+# fips_shp = fips_shp1
+# node_shp = node_shp1
+# link_shp = link_shp1
 
 # search distance
 dist = "100 Miles"
@@ -149,9 +152,5 @@ for i in index_of_od:
     print ("{0}:    OFP:{1:6.0f}    sRR:{3:3.0f}    OND:{4:6.0f}    DIST:{5:6.2f}".format(i, OD.at[i, 'OFIPS'], OD.at[i, 'DFIPS'],
                                                                       OD.at[i, 'startRR'], OD['ONode'][i],
                                                                       OD['ODIST'][i]))
-    if i % 1000 == 0:
-        OD[column_list].to_csv(r"intermediate\OD2.csv")
-        fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
-        print("Progress Saved")
-
-OD[column_list].to_csv(r"intermediate\OD2.csv")
+fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
+OD[column_list].to_csv(r"intermediate/"+sys.argv[1]+"_1.csv")
