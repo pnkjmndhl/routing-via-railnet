@@ -1,7 +1,5 @@
 import pandas
-import sys
 import os
-
 
 os.system("python create_od.py scenario")
 

@@ -1,4 +1,5 @@
 # calculate quantities for empty rails and aggregate if necessary
+from rail import *
 import pandas
 import numpy
 import os
@@ -29,7 +30,7 @@ def get_average_tare_weight(comm):
 
 
 # using cost.dat
-attributes_for_full = pandas.read_fwf(r'..\cost\output\cost.dat',
+attributes_for_full = pandas.read_fwf(cost_dat,
                                       colspecs=split_width([5, 5, 10, 10, 10, 10, 10, 5, 5, 10]),
                                       header=None)
 # attributes_for_full.columns = [['RR-Code','Commod.','TrainCost/hr','Cost/gross-ton-mile',
@@ -39,10 +40,11 @@ attributes_for_full = pandas.read_fwf(r'..\cost\output\cost.dat',
 attributes_for_full.columns = [['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
 attributes_for_full = attributes_for_full[['1', '2', '8', '9']]
 
+FIPStoNodes = pandas.read_csv(r'intermediate/FIPStonodeshp.csv')
+
 for scenario in scenario_list:
     # inputs from files
     base_df = pandas.read_csv(r'intermediate/' + scenario + '_2.csv')
-    FIPStoNodes = pandas.read_csv(r'intermediate/FIPStonodeshp.csv')
     empty_base_df = base_df.copy()
     # creating empty commodity payload & tare weight
     for i in range(1, no_of_commodity + 1):

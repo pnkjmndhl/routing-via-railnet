@@ -1,14 +1,12 @@
-import pandas
-import sys
+from rail import *
 import arcpy
 import os
-import sys
+
 
 arcpy.env.overwriteOutput = True
 
 # excelfile
-CostFileName = r'input\COST_PARMS_8_2018.xlsx'
-CostSheetName = "COSTS_8_2018"
+
 
 # inputs from shapefiles
 linkshp = r"..\GIS\alllinks.shp"
@@ -27,7 +25,7 @@ linkshp = r"..\GIS\alllinks.shp"
 # 12: 'Gross Train Weight'
 
 add = 50  # 10 columns for cost Attribute file [additional value for empty rail]
-CA = pandas.ExcelFile(CostFileName).parse(CostSheetName)
+CA = pandas.ExcelFile(cost_xl).parse(cost_xl_sheet)
 
 
 def getnetworkRRs():

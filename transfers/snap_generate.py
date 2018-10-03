@@ -17,12 +17,10 @@ transfer_table = r"C:/GIS/transfertable.dbf"
 node_shp_f = r"nodeshp"
 link_shp_f = r"linkshp"
 
-
 closest_count = 30  # search for start railroad for the first closest_count nodes, if not found, ignore the transfer
 
 arcpy.MakeFeatureLayer_management(node_shp, node_shp_f)
 arcpy.MakeFeatureLayer_management(link_shp, link_shp_f)
-
 
 
 def get_link_railroad_table():
@@ -144,21 +142,19 @@ def add_manuals():
     return manual_shp_df
 
 
+def get_nodeID(FID):
+    node_fid_id_dictionary = {row.getValue("FID"): row.getValue("ID") for row in arcpy.SearchCursor(node_shp)}
+    return node_fid_id_dictionary[FID]
+
+
 def snap_transfers_to_network(transfer_shp_f, node_shp):
     arcpy.AddXY_management(node_shp)
-    arcpy.TableToTable_conversion (node_shp, "C:/GIS/", "node.dbf","", "", "")
-    arcpy.TableToTable_conversion (transfer_shp, "C:/GIS/", "transfer.dbf", "", "", "")
+    arcpy.TableToTable_conversion(node_shp, "C:/GIS/", "node.dbf", "", "", "")
+    arcpy.TableToTable_conversion(transfer_shp, "C:/GIS/", "transfer.dbf", "", "", "")
     arcpy.JoinField_management("C:/GIS/transfer.dbf", "nearNID", "C:/GIS/node.dbf", "ID", ["POINT_X", "POINT_Y"])
-    #arcpy.Delete_management(transfer_shp_snapped)
+    # arcpy.Delete_management(transfer_shp_snapped)
     arcpy.MakeXYEventLayer_management("C:/GIS/transfer.dbf", "POINT_X", "POINT_Y", "new_transfer")
     arcpy.CopyFeatures_management("new_transfer", transfer_shp_snapped)
-
-    # with arcpy.da.SearchCursor(transfer_shp, ["nearNID"]) as cursor:
-    #     for row in cursor:
-    #         print row[0]
-    #         arcpy.SelectLayerByAttribute_management(node_shp_f,where_clause = "\"ID\" = " + str(row[0]) )
-    #         arcpy.SelectLayerByAttribute_management(transfer_shp_f, where_clause="\"nearNID\" = " + str(row[0]))
-    #         arcpy.Snap_edit(transfer_shp, [[node_shp_f, "VERTEX", "100 Miles"]])
 
 
 # main program
@@ -196,13 +192,21 @@ transfer_xl_df = pandas.DataFrame(
 transfer_xl_df['BIDIR'] = 2
 
 # for creating a merged transfer_shp that plots combined transfers
+
 arcpy.Merge_management([transfer_xl_shp, transfer_manual_shp], transfer_shp)
+
+with arcpy.da.UpdateCursor(transfer_shp, ['nearNID', 'NEAR_FID']) as cursor:
+    for row in cursor:
+        if row[0] == 0:
+            row[0] = get_nodeID(row[1])
+        cursor.updateRow(row)
 
 snap_transfers_to_network(transfer_shp, node_shp)
 
 transfer_dict = {
-row.getValue("FID"): [row.getValue("NEAR_FID"), row.getValue("nearNID"), row.getValue("JRR1NO"), row.getValue("JRR2NO")]
-for row in arcpy.SearchCursor(transfer_shp)}
+    row.getValue("FID"): [row.getValue("NEAR_FID"), row.getValue("nearNID"), row.getValue("JRR1NO"),
+                          row.getValue("JRR2NO")]
+    for row in arcpy.SearchCursor(transfer_shp)}
 transfer_df = pandas.DataFrame(
     {"FID": transfer_dict.keys(), "NEAR_FID": [x[0] for x in transfer_dict.values()],
      "nearNID": [x[1] for x in transfer_dict.values()], "JRR1NO": [x[2] for x in transfer_dict.values()],
@@ -226,5 +230,5 @@ transfer_df['TO'] = transfer_df['TO'].map('{:5d}'.format)
 transfer_df['BIDIR'] = transfer_df['BIDIR'].map('{:5d}'.format)
 
 transfer_df = transfer_df.apply(lambda x: '{}{}{}{}'.format(x[0], x[1], x[2], x[3]),
-                                                               axis=1)
+                                axis=1)
 transfer_df.to_csv(r"output\network.xfr", index=False)

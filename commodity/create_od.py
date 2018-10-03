@@ -1,4 +1,5 @@
 # creates OD1.csv file from base and scenario excel file
+from rail import *
 import pandas as pd
 import os
 import sys
@@ -7,7 +8,6 @@ commodity_list = os.listdir('input/' + sys.argv[1] + '/')
 commodity_list = [x.split('.')[0] for x in commodity_list]
 commodity_sheetname = "Sheet1"
 
-orra_to_orr = r"../Transfers/input/allAARCode.csv"
 ParameterList = ['OFIP', 'TFIP', 'RNCG', 'XTON', 'ORRA']
 
 print("Working on "+sys.argv[1]+ ' folder..')

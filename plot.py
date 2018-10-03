@@ -67,13 +67,13 @@ def get_plot_with_fieldnames(column_names):
 
 
 # main program
-link_shp = 'GIS/alllinks.shp'
+link_shp = 'gis/alllinks.shp'
 field_names = get_field_names(link_shp)  # getting field names
 field_names = [e for e in field_names if e not in ["ID", "FID", "Shape"]]
 
 if len(argument) == 3: #scenario plots
     print("Generating Scenario plot ...")
-    plot = 'GIS/plots/Plotdiff.shp'
+    plot = 'gis/plots/Plotdiff.shp'
     file_1 = "Netdata/"+argument[1]
     file_2 = "Netdata/"+argument[2]
     flow_1 = split_to_dataframe(file_1 + ".LMF", ['ID', 'qty'])
@@ -84,7 +84,7 @@ if len(argument) == 3: #scenario plots
 
 if len(argument) == 2: #base plots
     print("Generating base plot ...")
-    plot = 'GIS/plots/Plot.shp'
+    plot = 'gis/plots/Plot.shp'
     file_name = "Netdata/"+argument[1]
     flow = split_to_dataframe(file_name + ".LMF", ['ID', 'qty'])
     get_plot_with_fieldnames(field_names)

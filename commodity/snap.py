@@ -1,6 +1,5 @@
-import pandas
+from rail import *
 import arcpy
-import sys
 
 OD = pandas.read_csv(r"intermediate/"+sys.argv[1]+".csv")
 
@@ -37,10 +36,6 @@ sys.setdefaultencoding('utf-8')
 arcpy.env.overwriteOutput = True
 # arcpy.env.autoCancelling = False
 
-# inputs from files
-fips_shp = r"../GIS/standards/FIPS.shp"
-node_shp = r"../GIS/allnodes.shp"
-link_shp = r"../GIS/alllinks.shp"
 
 #################work on copies####################
 # fips_shp1 = "C:/GIS/FIPS.shp"
@@ -53,14 +48,6 @@ link_shp = r"../GIS/alllinks.shp"
 # node_shp = node_shp1
 # link_shp = link_shp1
 
-# search distance
-dist = "100 Miles"
-
-link_shpf = "linkshp"
-fips_shpf = "FIPS"
-node_shpf = "nodeshp"
-
-
 arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 arcpy.MakeFeatureLayer_management(fips_shp, fips_shpf)
 arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
@@ -70,14 +57,6 @@ fips_nearnodeid_dictionary = {}
 # origin_fips = 40063
 # origin_rr = 802
 # get_nearest_onode_with_orr(40063, 802)
-
-def get_network_rrs():
-    dumm1 = [[row.getValue("RR1"), row.getValue("RR2"), row.getValue("RR3"), row.getValue("RR4"), row.getValue("RR5")]
-             for row in arcpy.SearchCursor(link_shp)]
-    flat_list = list(set([x for sublist in dumm1 for x in sublist]))
-    flat_list.remove(0)
-    return flat_list
-
 
 def get_if_available(origin_fips, origin_rr):
     onodeofips = fips_orr_to_node_odist_df[
