@@ -61,9 +61,11 @@ for scenario in scenario_list:
     empty_base_df['quantity'] = empty_base_df['quantity'] * 1.0 / empty_base_df['8'] * empty_base_df['9']
     empty_base_df.comm = empty_base_df.comm + add  # commodity for emptys is 90 + original
     empty_base_df['startRR'] = 0  # emptys can come back using any railroads
-    empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
-        FIPStoNodes.set_index('FIPS').nodeshpID)  # ONode and DNode were swapped
-    empty_base_df['DNode'] = empty_base_df['OFIPS'].map(FIPStoNodes.set_index('FIPS').nodeshpID)
+    empty_base_df['ONode'] = base_df['DNode']
+    empty_base_df['DNode'] = base_df['ONode']
+    # empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
+    #     FIPStoNodes.set_index('FIPS').nodeshpID)  # ONode and DNode were swapped
+    # empty_base_df['DNode'] = empty_base_df['OFIPS'].map(FIPStoNodes.set_index('FIPS').nodeshpID)
 
     # appending to the original file
     base_df = base_df[['OFIPS', 'DFIPS', 'comm', 'ONode', 'DNode', 'startRR', 'quantity']]

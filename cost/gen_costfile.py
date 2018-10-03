@@ -1,15 +1,7 @@
 from rail import *
 import arcpy
-import os
-
 
 arcpy.env.overwriteOutput = True
-
-# excelfile
-
-
-# inputs from shapefiles
-linkshp = r"..\GIS\alllinks.shp"
 
 # 1: 'RR-Code'
 # 2: 'Commod.',
@@ -25,69 +17,60 @@ linkshp = r"..\GIS\alllinks.shp"
 # 12: 'Gross Train Weight'
 
 add = 50  # 10 columns for cost Attribute file [additional value for empty rail]
-CA = pandas.ExcelFile(cost_xl).parse(cost_xl_sheet)
+cost_xl_df = pandas.ExcelFile(cost_xl).parse(cost_xl_sheet)
 
+cost_xl_df.columns = [['1', '13', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']]
+cost_xl_df = cost_xl_df[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
 
-def getnetworkRRs():
-    dumm1 = [[row.getValue("RR1"), row.getValue("RR2"), row.getValue("RR3"), row.getValue("RR4"), row.getValue("RR5")]
-             for row in arcpy.SearchCursor(linkshp)]
-    flat_list = list(set([x for sublist in dumm1 for x in sublist]))
-    flat_list.remove(0)
-    return flat_list
+cost_xl_df['1'] = cost_xl_df['1'].astype(int)
+cost_xl_df['2'] = cost_xl_df['2'].astype(int)
 
+# add the railroads not in the cost file (short-line 6 AA, is used as a sample for all unknown values)
+sample_shortline_df = cost_xl_df[cost_xl_df['1'] == 6]  # extracting 6
+all_rrs_in_cost = set(cost_xl_df['1'].astype(int).tolist())
+rrs_to_add = set(get_network_rrs()) - all_rrs_in_cost
 
-CA.columns = [['1', '13', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']]
-CA = CA[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
+rrs_to_add_df = pandas.DataFrame()
+for rrs in rrs_to_add:
+    sample_shortline_df['1'] = rrs
+    rrs_to_add_df = rrs_to_add_df.append(sample_shortline_df, ignore_index=True)
 
-CA['1'] = CA['1'].astype(int)
-CA['2'] = CA['2'].astype(int)
+cost_xl_df = cost_xl_df.append(rrs_to_add_df, ignore_index=True)
 
-# add the railroads not in the cost file (shortline 6 AA, is used as a sample for all unknown values)
-allshortlinesDF = CA[CA['1'] == 6]
-allRRsinCA = set(CA['1'].astype(int).tolist())
-RRstoadd = set(getnetworkRRs()) - allRRsinCA
+# empty cost_xl_df default values
+empty_rail_cost_df = cost_xl_df.copy(deep=True)
+empty_rail_cost_df['2'] = empty_rail_cost_df['2'] + add  # 2: 'Commod.',
+empty_rail_cost_df['3'] = 297.71  # 3: 'TrainCost/hr'
+empty_rail_cost_df['4'] = 0.055  # 4: 'Cost/gross-ton-mile',
+empty_rail_cost_df['5'] = 60.99  # 5: 'terminal-processing-cost/car,fixed',
+empty_rail_cost_df['6'] = 1.99  # 6: 'terminal-cost/car-hr',
+empty_rail_cost_df['7'] = 18.12 * 1.25  # 7: 'transfer-cost/car',
+empty_rail_cost_df['8'] = cost_xl_df['9']  # 8: 'car-payload' (since payload = tare wt)
+empty_rail_cost_df['9'] = 0  # 9: 'car-tare-wt' = 0
 
-RRstoaddDF = pandas.DataFrame()
-for RRs in RRstoadd:
-    allshortlinesDF['1'] = RRs
-    RRstoaddDF = RRstoaddDF.append(allshortlinesDF, ignore_index=True)
+empty_rail_cost_df['12'] = cost_xl_df['9'] * cost_xl_df['12'] / (cost_xl_df['8'] + cost_xl_df['9'])
 
-CA = CA.append(RRstoaddDF, ignore_index=True)
-
-# empty CA default values
-emptyCA = CA.copy(deep=True)
-emptyCA['2'] = emptyCA['2'] + add  # 2: 'Commod.',
-emptyCA['3'] = 297.71  # 3: 'TrainCost/hr'
-emptyCA['4'] = 0.055  # 4: 'Cost/gross-ton-mile',
-emptyCA['5'] = 60.99  # 5: 'terminal-processing-cost/car,fixed',
-emptyCA['6'] = 1.99  # 6: 'terminal-cost/car-hr',
-emptyCA['7'] = 18.12 * 1.25  # 7: 'transfer-cost/car',
-emptyCA['8'] = CA['9']  # 8: 'car-payload' (since payload = tare wt)
-emptyCA['9'] = 0  # 9: 'car-tare-wt' = 0
-
-emptyCA['12'] = CA['9'] * CA['12'] / (CA['8'] + CA['9'])
-
-CA = CA.append(emptyCA).reset_index()[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
+cost_xl_df = cost_xl_df.append(empty_rail_cost_df).reset_index()[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
 
 # changing the formatting
-CA['1'] = CA['1'].astype(int)
-CA['2'] = CA['2'].astype(int)
+cost_xl_df['1'] = cost_xl_df['1'].astype(int)
+cost_xl_df['2'] = cost_xl_df['2'].astype(int)
 
-CA['1'] = CA['1'].map('{:3d}'.format)
-CA['2'] = CA['2'].map('{:5d}'.format)
-CA['3'] = CA['3'].map('{:10.2f}'.format)
-CA['4'] = CA['4'].map('{:10.2f}'.format)
-CA['5'] = CA['5'].map('{:10.2f}'.format)
-CA['6'] = CA['6'].map('{:10.2f}'.format)
-CA['7'] = CA['7'].map('{:10.2f}'.format)
-CA['8'] = CA['8'].map('{:5.1f}'.format)
-CA['9'] = CA['9'].map('{:5.1f}'.format)
-CA['12'] = CA['12'].map('{:10.1f}'.format)
+cost_xl_df['1'] = cost_xl_df['1'].map('{:3d}'.format)
+cost_xl_df['2'] = cost_xl_df['2'].map('{:5d}'.format)
+cost_xl_df['3'] = cost_xl_df['3'].map('{:10.2f}'.format)
+cost_xl_df['4'] = cost_xl_df['4'].map('{:10.2f}'.format)
+cost_xl_df['5'] = cost_xl_df['5'].map('{:10.2f}'.format)
+cost_xl_df['6'] = cost_xl_df['6'].map('{:10.2f}'.format)
+cost_xl_df['7'] = cost_xl_df['7'].map('{:10.2f}'.format)
+cost_xl_df['8'] = cost_xl_df['8'].map('{:5.1f}'.format)
+cost_xl_df['9'] = cost_xl_df['9'].map('{:5.1f}'.format)
+cost_xl_df['12'] = cost_xl_df['12'].map('{:10.1f}'.format)
 
 # combine all the columns to one
-CA = CA[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']].apply(
+cost_xl_df = cost_xl_df[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']].apply(
     lambda x: '  {}{}{}{}{}{}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9]), axis=1)
 
-CA.to_csv(r"output\cost.dat", index=False)
+cost_xl_df.to_csv(r"output\cost.dat", index=False)
 
 print("OPERATION SUCCESSFULL. cost.dat written")

@@ -1,6 +1,8 @@
 from rail import *
+import arcpy
 
-arcpy.MakeFeatureLayer_management(link_shp, link_shp_feature)
+
+arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 
 
 # functions
@@ -18,7 +20,7 @@ def change_value(column_name, ID, value, action):
 
 
 def select_touching():
-    arcpy.SelectLayerByLocation_management(link_shp_feature, 'BOUNDARY_TOUCHES', link_shp_feature, "", "NEW_SELECTION",
+    arcpy.SelectLayerByLocation_management(link_shpf, 'BOUNDARY_TOUCHES', link_shpf, "", "NEW_SELECTION",
                                            "NOT_INVERT")
 
 
@@ -27,7 +29,7 @@ def get_all_attributes(column_name):
     attribute_list = []
     if column_name == ['RR1']:
         column_name = ['RR1', 'RR2', 'RR3', 'RR4', 'RR5', 'RR6', "RR7"]
-    with arcpy.da.SearchCursor(link_shp_feature, column_name) as cursor:
+    with arcpy.da.SearchCursor(link_shpf, column_name) as cursor:
         for row in cursor:
             for i in range(len(column_name)):
                 attribute_list.append(row[i])
@@ -138,7 +140,7 @@ with arcpy.da.SearchCursor(link_shp, column_list) as cursor:
         if len(missing_index) != 0:
             # print( "ID: " + str(row[0]))
             where = """ "ID" = %d""" % row[0]
-            arcpy.SelectLayerByAttribute_management(link_shp_feature, "NEW_SELECTION", where)
+            arcpy.SelectLayerByAttribute_management(link_shpf, "NEW_SELECTION", where)
             select_touching()
             for i in range(len(missing_column_name)):
                 update_attributes(missing_column_name[i], row[0])

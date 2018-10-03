@@ -25,8 +25,8 @@ os.system("NETBLD network network network  >> "+readme_name)
 os.system("COMMODTY "+commodity_name+" network 365  >> "+readme_name)
 os.system("RAILNET network "+commodity_name+" cost transfer.exc link.exc volume.lvl  >> "+readme_name)
 
-export_extensions = ['PRM','exc','xfr','XNQ']
-delete_extensions = ['txt', 'NMF', 'OUT', 'RPT', 'XCQ']
+export_extensions = ['PRM','exc','xfr','XNQ', 'RPT', 'OUT']
+delete_extensions = ['txt', 'NMF', 'XCQ']
 
 export_list = os.listdir('.')
 export_list = [x for x in export_list if ((commodity_name in x) or ((commodity_name_upper in x))) ]

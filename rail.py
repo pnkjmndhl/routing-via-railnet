@@ -6,8 +6,7 @@ link_shp = '../GIS/alllinks.shp'
 node_shp = '../GIS/allnodes.shp'
 fips_shp = r"../GIS/standards/FIPS.shp"
 
-link_shp_feature = "linkshp"
-node_shp_feature = "nodeshp"
+
 
 state_shp = "../GIS/standards/tl_2017_us_states.shp"
 
@@ -37,6 +36,8 @@ def get_network_rrs():
 link_shpf = "linkshp"
 fips_shpf = "FIPS"
 node_shpf = "nodeshp"
+link_shp_feature = "linkshp"
+node_shp_feature = "nodeshp"
 
 
 

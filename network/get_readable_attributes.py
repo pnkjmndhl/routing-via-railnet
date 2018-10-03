@@ -1,4 +1,5 @@
 from rail import *
+import arcpy
 
 
 def get_direction(linktype):

@@ -1,4 +1,6 @@
 from rail import *
+import arcpy
+
 
 arcpy.MakeFeatureLayer_management(link_shp, link_shp_feature)
 arcpy.MakeFeatureLayer_management(node_shp, node_shp_feature)
