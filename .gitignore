@@ -1,27 +1,27 @@
 GIS/
 
-Module1(commodity)/input/
-Module1(commodity)/intermediate/
-Module1(commodity)/output/
+commodity/input/
+commodity/intermediate/
+commodity/output/
 
 
-Module1(scenario)/input
-Module1(scenario)/intermediate
-Module1(scenario)/output
+scenario/input
+scenario/intermediate
+scenario/output
 
-Module2(cost)/input
-Module2(cost)/output
+cost/input
+cost/output
 
-Module3(network)/input
-Module3(network)/intermediate
-Module3(network)/output
+network/input
+network/intermediate
+network/output
 
 
-Module4(transfers)/input
-Module4(transfers)/intermediate
-Module4(transfers)/output
+transfers/input
+transfers/intermediate
+transfers/output
 
-Module5(exceptions)/Exceptions.xlsx
+exceptions/Exceptions.xlsx
 
 pythonscripts/
 

@@ -7,7 +7,7 @@ commodity_list = os.listdir('input/' + sys.argv[1] + '/')
 commodity_list = [x.split('.')[0] for x in commodity_list]
 commodity_sheetname = "Sheet1"
 
-orra_to_orr = r"../Module4(Transfers)/input/allAARCode.csv"
+orra_to_orr = r"../Transfers/input/allAARCode.csv"
 ParameterList = ['OFIP', 'TFIP', 'RNCG', 'XTON', 'ORRA']
 
 print("Working on "+sys.argv[1]+ ' folder..')

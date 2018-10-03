@@ -14,9 +14,7 @@ state_shp = "../GIS/standards/tl_2017_us_states.shp"
 memory_shp = "in_memory/dumm"
 disk_shp = "C:/GIS/dumm.shp"
 
-commodity_filename = "../Module1(commodity)/input/base/NEWFLOW3.xlsx"
-commodity_sheetname = "Sheet1"
-orra_to_orr = "../Module4(Transfers)/input/allAARCode.csv"
+orra_to_orr = "../transfers/input/allAARCode.csv"
 
 arcpy.env.overwriteOutput = True  # overwrite files if already present
 
