@@ -3,6 +3,21 @@ import arcpy
 
 OD = pandas.read_csv(r"intermediate/"+sys.argv[1]+".csv")
 
+fips_nearnodeid_dictionary = {}
+
+def update_nearest_node_dictionary():
+    arcpy.Near_analysis(fips_shp, node_shp, "", "NO_LOCATION", "NO_ANGLE", "GEODESIC")
+    fips_to_near_fid = {row.getValue("FIPS"): row.getValue("NEAR_FID") for row in
+                        arcpy.SearchCursor(fips_shp)}
+    near_fid_to_node_id = {row.getValue("FID"): row.getValue("ID") for row in
+                           arcpy.SearchCursor(node_shp)}
+    fips_nearnodeid_dictionary = {x: near_fid_to_node_id[y] for x, y in fips_to_near_fid.iteritems()}
+    return fips_nearnodeid_dictionary
+
+
+fips_nearnodeid_dictionary = update_nearest_node_dictionary()
+
+
 #arguments
 if sys.argv[1] in ['-h', 'help']:
     print("Usage: python snap.py filename update/new ")
@@ -14,8 +29,13 @@ if sys.argv[2] == "new":
 
 elif sys.argv[2] == "update":
     # read the new copy of csv file
-    index_of_od = OD.index[OD.ONode.isnull()]
+    # vector calculation
     fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\OFIPSORR.csv")
+    #empty_base_df = pandas.merge(OD, fips_orr_to_node_odist_df, left_on=['OFIPS', 'startRR'], right_on=['OFIPS', 'startRR'], how='left')
+    OD['ONode'] = pandas.merge(OD, fips_orr_to_node_odist_df, how='left', on=['OFIPS', 'startRR'])['ONODE']
+    OD['ODIST'] = pandas.merge(OD, fips_orr_to_node_odist_df, how='left', on=['OFIPS', 'startRR'])['ODIST_y']
+    OD['DNode'] = OD.DFIPS.map(fips_nearnodeid_dictionary)
+    index_of_od = OD.index[OD.ONode.isnull()]
 
 else:
     print("Invalid arguments")
@@ -51,8 +71,6 @@ arcpy.env.overwriteOutput = True
 arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 arcpy.MakeFeatureLayer_management(fips_shp, fips_shpf)
 arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
-
-fips_nearnodeid_dictionary = {}
 
 # origin_fips = 40063
 # origin_rr = 802
@@ -105,19 +123,6 @@ def get_nearest_onode_with_orr(origin_fips, origin_rr):
 def get_nearest_node(fips):
     return fips_nearnodeid_dictionary[fips]
 
-
-def update_nearest_node_dictionary():
-    global fips_nearnodeid_dictionary
-    arcpy.Near_analysis(fips_shp, node_shp, "", "NO_LOCATION", "NO_ANGLE", "GEODESIC")
-    fips_to_near_fid = {row.getValue("FIPS"): row.getValue("NEAR_FID") for row in
-                        arcpy.SearchCursor(fips_shp)}
-    near_fid_to_node_id = {row.getValue("FID"): row.getValue("ID") for row in
-                           arcpy.SearchCursor(node_shp)}
-    fips_nearnodeid_dictionary = {x: near_fid_to_node_id[y] for x, y in fips_to_near_fid.iteritems()}
-
-
-# OD = OD.head(10000)
-update_nearest_node_dictionary()
 
 OD['ODIST'] = 0.0
 

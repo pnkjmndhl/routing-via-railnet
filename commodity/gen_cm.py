@@ -57,25 +57,26 @@ for scenario in scenario_list:
 
     empty_base_df = pandas.merge(base_df, attributes_for_full, left_on=['startRR', 'comm'], right_on=['1', '2'],
                                  how='left')
-
     empty_base_df['quantity'] = empty_base_df['quantity'] * 1.0 / empty_base_df['8'] * empty_base_df['9']
     empty_base_df.comm = empty_base_df.comm + add  # commodity for emptys is 90 + original
     empty_base_df['startRR'] = 0  # emptys can come back using any railroads
-    empty_base_df['ONode'] = base_df['DNode']
-    empty_base_df['DNode'] = base_df['ONode']
+    empty_base_df = empty_base_df.rename(index= str, columns = {'DNode':'ONode', 'ONode':'DNode'})
     # empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
     #     FIPStoNodes.set_index('FIPS').nodeshpID)  # ONode and DNode were swapped
     # empty_base_df['DNode'] = empty_base_df['OFIPS'].map(FIPStoNodes.set_index('FIPS').nodeshpID)
 
     # appending to the original file
-    base_df = base_df[['OFIPS', 'DFIPS', 'comm', 'ONode', 'DNode', 'startRR', 'quantity']]
-    empty_base_df = empty_base_df[['OFIPS', 'DFIPS', 'comm', 'ONode', 'DNode', 'startRR', 'quantity']]
+    base_df = base_df[['comm', 'ONode', 'DNode', 'startRR', 'quantity']]
+    empty_base_df = empty_base_df[['comm', 'ONode', 'DNode', 'startRR', 'quantity']]
+
     base_df = base_df.append(empty_base_df)
+
 
     # aggregate after append
     base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'],
                                  aggfunc=numpy.sum)
     base_df = base_df.reset_index()
+
     print("Aggregating Successful")
 
     base_df = base_df[base_df.quantity != 0]  # remove the ones with 0 quantity
@@ -83,7 +84,7 @@ for scenario in scenario_list:
     base_df.to_csv("intermediate\cm2011.csv")
 
     base_df = base_df[['ONode', 'DNode', 'comm', 'startRR', 'quantity']]
-    base_df = base_df.sort_values(['ONode', 'DNode', 'comm', 'startRR'], ascending=[True, True, True, True])
+    #base_df = base_df.sort_values(['ONode', 'DNode', 'comm', 'startRR'], ascending=[True, True, True, True])
 
     # convert all the required data to integer since mapping for integers only works for integers
     base_df.ONode = base_df.ONode.astype(int)
