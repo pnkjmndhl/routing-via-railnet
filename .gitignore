@@ -31,6 +31,8 @@ Tools/
 
 Plots/
 
+web/*.csv
+
 Netdata/Backups/
 Netdata/railnet2.1b/
 Netdata/railnet2.0b/
@@ -48,9 +50,6 @@ Netdata/*.RPT
 Netdata/*.XCQ
 
 
-
-
-
 *.mxd
 *.ini
 *.exp
@@ -59,4 +58,4 @@ Netdata/*.XCQ
 *.lxp
 *.kml
 *.shp
-*.xlsx
+*.out

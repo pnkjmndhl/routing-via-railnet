@@ -21,6 +21,8 @@ for commodity_filename in commodity_list:
     # ORR converted to actual ORR
     OD['ORR'] = OD['ORRA'].map(orra_to_orr_dict)
     OD = OD.drop(['ORRA'], axis=1)
+    OD = OD.fillna(0)
+    OD.columns = ['OFIPS', 'DFIPS', 'comm', 'quantity', 'startRR']
     OD.columns = ['OFIPS', 'DFIPS', 'comm', 'quantity', 'startRR']
     OD['ONode'] = ""
     OD['DNode'] = ""

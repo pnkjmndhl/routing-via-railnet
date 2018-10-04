@@ -1,9 +1,13 @@
 from rail import *
 import arcpy
 
-OD = pandas.read_csv(r"intermediate/"+sys.argv[1]+".csv")
+OD = pandas.read_csv(r"intermediate/" + sys.argv[1] + ".csv")
+# if the startRR is not in our network, add 0 (can snap to any railroad)
+network_railroad_list = get_network_rrs()
+OD['startRR'][~OD.startRR.isin(network_railroad_list)] = 0
 
 fips_nearnodeid_dictionary = {}
+
 
 def update_nearest_node_dictionary():
     arcpy.Near_analysis(fips_shp, node_shp, "", "NO_LOCATION", "NO_ANGLE", "GEODESIC")
@@ -17,8 +21,7 @@ def update_nearest_node_dictionary():
 
 fips_nearnodeid_dictionary = update_nearest_node_dictionary()
 
-
-#arguments
+# arguments
 if sys.argv[1] in ['-h', 'help']:
     print("Usage: python snap.py filename update/new ")
 
@@ -31,7 +34,7 @@ elif sys.argv[2] == "update":
     # read the new copy of csv file
     # vector calculation
     fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\OFIPSORR.csv")
-    #empty_base_df = pandas.merge(OD, fips_orr_to_node_odist_df, left_on=['OFIPS', 'startRR'], right_on=['OFIPS', 'startRR'], how='left')
+    # empty_base_df = pandas.merge(OD, fips_orr_to_node_odist_df, left_on=['OFIPS', 'startRR'], right_on=['OFIPS', 'startRR'], how='left')
     OD['ONode'] = pandas.merge(OD, fips_orr_to_node_odist_df, how='left', on=['OFIPS', 'startRR'])['ONODE']
     OD['ODIST'] = pandas.merge(OD, fips_orr_to_node_odist_df, how='left', on=['OFIPS', 'startRR'])['ODIST_y']
     OD['DNode'] = OD.DFIPS.map(fips_nearnodeid_dictionary)
@@ -41,12 +44,10 @@ else:
     print("Invalid arguments")
     exit(0)
 
-
-#get the name of columns
+# get the name of columns
 column_list = list(OD.columns.values)
-column_list =[x for x in column_list if 'Unnamed' not in x]
+column_list = [x for x in column_list if 'Unnamed' not in x]
 OD = OD[column_list]
-
 
 # change the encoding to utf-8
 reload(sys)
@@ -71,6 +72,7 @@ arcpy.env.overwriteOutput = True
 arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 arcpy.MakeFeatureLayer_management(fips_shp, fips_shpf)
 arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
+
 
 # origin_fips = 40063
 # origin_rr = 802
@@ -126,15 +128,16 @@ def get_nearest_node(fips):
 
 OD['ODIST'] = 0.0
 
-# if the startRR is not in our network, add np.nan
-network_railroad_list = get_network_rrs()
-OD['startRR'][~OD.startRR.isin(network_railroad_list)] = 0
+
 
 for i in index_of_od:
     OD['ONode'][i], OD['ODIST'][i] = get_nearest_onode_with_orr(OD.at[i, 'OFIPS'], OD.at[i, 'startRR'])
     OD['DNode'][i] = get_nearest_node(OD.at[i, 'DFIPS'])
-    print ("{0}:    OFP:{1:6.0f}    sRR:{3:3.0f}    OND:{4:6.0f}    DIST:{5:6.2f}".format(i, OD.at[i, 'OFIPS'], OD.at[i, 'DFIPS'],
-                                                                      OD.at[i, 'startRR'], OD['ONode'][i],
-                                                                      OD['ODIST'][i]))
+    print ("{0}:    OFP:{1:6.0f}    sRR:{3:3.0f}    OND:{4:6.0f}    DIST:{5:6.2f}".format(i, OD.at[i, 'OFIPS'],
+                                                                                          OD.at[i, 'DFIPS'],
+                                                                                          OD.at[i, 'startRR'],
+                                                                                          OD['ONode'][i],
+                                                                                          OD['ODIST'][i]))
+fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.drop_duplicates()
 fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
-OD[column_list].to_csv(r"intermediate/"+sys.argv[1]+"_1.csv")
+OD[column_list].to_csv(r"intermediate/" + sys.argv[1] + "_1.csv")
