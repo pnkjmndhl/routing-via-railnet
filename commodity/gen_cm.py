@@ -40,8 +40,6 @@ attributes_for_full = pandas.read_fwf(cost_dat,
 attributes_for_full.columns = [['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
 attributes_for_full = attributes_for_full[['1', '2', '8', '9']]
 
-FIPStoNodes = pandas.read_csv(r'intermediate/FIPStonodeshp.csv')
-
 for scenario in scenario_list:
     # inputs from files
     base_df = pandas.read_csv(r'intermediate/' + scenario + '_2.csv')
@@ -73,11 +71,12 @@ for scenario in scenario_list:
 
 
     # aggregate after append
+    print("Aggregating commodity " + scenario )
     base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'],
                                  aggfunc=numpy.sum)
     base_df = base_df.reset_index()
 
-    print("Aggregating Successful")
+
 
     base_df = base_df[base_df.quantity != 0]  # remove the ones with 0 quantity
     base_df = base_df[base_df.ONode != base_df.DNode].reset_index()  # # remove same origin and destination

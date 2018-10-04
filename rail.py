@@ -36,12 +36,12 @@ def get_network_rrs():
 link_shpf = "linkshp"
 fips_shpf = "FIPS"
 node_shpf = "nodeshp"
-link_shp_feature = "linkshp"
-node_shp_feature = "nodeshp"
+# link_shp_feature = "linkshp"
+# node_shp_feature = "nodeshp"
 
 
 
-print ("..")
+print ("...")
 
 
 # functions

@@ -2,14 +2,14 @@ from rail import *
 import arcpy
 
 
-arcpy.MakeFeatureLayer_management(link_shp, link_shp_feature)
+arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 arcpy.MakeFeatureLayer_management(node_shp, node_shp_feature)
 
 
 def get_vertices_id(end):
     vertices = []
-    # arcpy.SelectLayerByLocation_management(node_shp_feature, "INTERSECT", link_shp_feature, "", "NEW_SELECTION")
-    arcpy.FeatureVerticesToPoints_management(link_shp_feature, memory_shp, end)
+    # arcpy.SelectLayerByLocation_management(node_shp_feature, "INTERSECT", link_shpf, "", "NEW_SELECTION")
+    arcpy.FeatureVerticesToPoints_management(link_shpf, memory_shp, end)
     arcpy.SelectLayerByLocation_management(node_shp_feature, "ARE_IDENTICAL_TO", memory_shp, "", "NEW_SELECTION")
     with arcpy.da.SearchCursor(node_shp_feature, ["ID"]) as cursor:
         for row in cursor:
@@ -30,7 +30,7 @@ arcpy.AddField_management(link_shp, "B_NODE", "LONG", "")
 with arcpy.da.UpdateCursor(link_shp, ["FID", "A_NODE", "B_NODE", "ID"]) as cursor:
     for row in cursor:
         where = """ "FID" = %d""" % row[0]
-        arcpy.SelectLayerByAttribute_management(link_shp_feature, "NEW_SELECTION", where)
+        arcpy.SelectLayerByAttribute_management(link_shpf, "NEW_SELECTION", where)
         row[1] = get_vertices_id("START")
         row[2] = get_vertices_id("END")
         check_if_list = isinstance(row[1], list) or isinstance(row[2], list)

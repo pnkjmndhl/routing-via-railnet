@@ -21,7 +21,7 @@ if sys.argv[1] == "new":
     arcpy.AddField_management(disk_shp, "ID", "LONG", "")
 
 elif sys.argv[1] == "update":
-    count_in_county_df = pandas.read_csv("data/countofIDs.csv")
+    count_in_county_df = pandas.read_csv("intermediate/countofIDs.csv")
     count_in_county_dictionary = dict(
         zip([int(i) for i in list(count_in_county_df)], list(count_in_county_df.iloc[0])))
     print("Updating NodeIDs")
@@ -57,4 +57,4 @@ print (str(count) + " new nodes added")
 arcpy.CopyFeatures_management(disk_shp, node_shp)
 
 # the count of IDs csv file would be used to obtain the maximum number of nodes in a state in previous run
-pandas.DataFrame(count_in_county_dictionary, index=[0]).to_csv("data/countofIDs.csv", index=False)
+pandas.DataFrame(count_in_county_dictionary, index=[0]).to_csv("intermediate/countofIDs.csv", index=False)

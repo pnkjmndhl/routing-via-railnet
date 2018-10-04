@@ -7,7 +7,7 @@ scenario_list = os.listdir('input/scenario/')
 scenario_list = [x.split('.')[0] for x in scenario_list]
 
 for scenario in scenario_list:
-    os.system("python snap.py "+scenario+ " update")
+    os.system("python -W ignore snap.py "+scenario+ " update")
 
 for scenario in scenario_list:
     scenario_df = pandas.read_csv("intermediate/"+scenario+"_1.csv")

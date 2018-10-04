@@ -18,7 +18,6 @@ for scenario in scenario_list:
     print("Working on " + scenario)
     commodity_file = r"intermediate/" + scenario + "_1.csv"
     commodity_df = pandas.read_csv(commodity_file).dropna()
-    print (len(commodity_df))
     # removal process
     current_column_names = commodity_df.columns
     commodity_df['O'] = (commodity_df['ONode'] / 1000).astype(int)
@@ -26,10 +25,8 @@ for scenario in scenario_list:
     commodity_df1_satisfying = commodity_df[((commodity_df.O.isin(start_state_list) & commodity_df.D.isin(
         end_state_list)) | (commodity_df.D.isin(start_state_list) & commodity_df.O.isin(
         end_state_list))) & commodity_df.startRR.isin(RRs)]
-    print commodity_df1_satisfying
     print "{0} satisfying records removed.".format(len(commodity_df1_satisfying))
     commodity_df.drop(commodity_df1_satisfying.index, axis=0, inplace=True)
     print "{0} records remain.".format(len(commodity_df))
     commodity_df = commodity_df[current_column_names]
-    print (len(commodity_df))
     commodity_df.to_csv(r"intermediate/" + scenario + "_2.csv")

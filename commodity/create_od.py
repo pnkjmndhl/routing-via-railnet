@@ -10,7 +10,7 @@ commodity_sheetname = "Sheet1"
 
 ParameterList = ['OFIP', 'TFIP', 'RNCG', 'XTON', 'ORRA']
 
-print("Working on "+sys.argv[1]+ ' folder..')
+print("working on "+sys.argv[1]+ ' folder..')
 
 for commodity_filename in commodity_list:
     OD = pd.ExcelFile('input/' + sys.argv[1] + '/' + commodity_filename + '.xlsx').parse(commodity_sheetname)[
