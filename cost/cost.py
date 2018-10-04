@@ -40,11 +40,11 @@ cost_xl_df = cost_xl_df.append(rrs_to_add_df, ignore_index=True)
 # empty cost_xl_df default values
 empty_rail_cost_df = cost_xl_df.copy(deep=True)
 empty_rail_cost_df['2'] = empty_rail_cost_df['2'] + add  # 2: 'Commod.',
-empty_rail_cost_df['3'] = 297.71  # 3: 'TrainCost/hr'
+empty_rail_cost_df['3'] = 520.93  # 3: 'TrainCost/hr'
 empty_rail_cost_df['4'] = 0.055  # 4: 'Cost/gross-ton-mile',
-empty_rail_cost_df['5'] = 60.99  # 5: 'terminal-processing-cost/car,fixed',
-empty_rail_cost_df['6'] = 1.99  # 6: 'terminal-cost/car-hr',
-empty_rail_cost_df['7'] = 18.12 * 1.25  # 7: 'transfer-cost/car',
+empty_rail_cost_df['5'] = 95.67  # 5: 'terminal-processing-cost/car,fixed',
+empty_rail_cost_df['6'] = 1.14  # 6: 'terminal-cost/car-hr',
+empty_rail_cost_df['7'] = 157.92  # 7: 'transfer-cost/car',
 empty_rail_cost_df['8'] = cost_xl_df['9']  # 8: 'car-payload' (since payload = tare wt)
 empty_rail_cost_df['9'] = 0  # 9: 'car-tare-wt' = 0
 
