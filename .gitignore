@@ -2,22 +2,14 @@ GIS/
 
 commodity/input/
 
-
-scenario/input
-scenario/intermediate
-scenario/output
-
 cost/input
-cost/output
 
 network/input
 network/intermediate
-network/output
-
 
 transfers/input
 transfers/intermediate
-transfers/output
+
 
 exceptions/Exceptions.xlsx
 
