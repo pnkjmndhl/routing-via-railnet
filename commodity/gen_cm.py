@@ -40,21 +40,26 @@ attributes_for_full = pandas.read_fwf(cost_dat,
 attributes_for_full.columns = [['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']]
 attributes_for_full = attributes_for_full[['1', '2', '8', '9']]
 
+for i in range(1, no_of_commodity + 1):
+    attributes_for_empty = pandas.DataFrame(
+        {'1': [0], '2': [i], '8': [get_average_payload(i)], '9': [get_average_tare_weight(i)]})
+    attributes_for_full = attributes_for_full.append(attributes_for_empty)
+
+
 for scenario in scenario_list:
-    # inputs from files
+        # inputs from files
     base_df = pandas.read_csv(r'intermediate/' + scenario + '_2.csv')
+
+    #base_df.to_csv(str(scenario) + ".csv")
+
     empty_base_df = base_df.copy()
     # creating empty commodity payload & tare weight
-    for i in range(1, no_of_commodity + 1):
-        attributes_for_empty = pandas.DataFrame(
-            {'1': [0], '2': [i], '8': [get_average_payload(i)], '9': [get_average_tare_weight(i)]})
-        attributes_for_full = attributes_for_full.append(attributes_for_empty)
 
     empty_base_df['comm'] = empty_base_df['comm'].astype(int)
     empty_base_df['startRR'] = empty_base_df['startRR'].astype(int)
 
     empty_base_df = pandas.merge(base_df, attributes_for_full, left_on=['startRR', 'comm'], right_on=['1', '2'],
-                                 how='left')
+                                 how = 'left')
     empty_base_df['quantity'] = empty_base_df['quantity'] * 1.0 / empty_base_df['8'] * empty_base_df['9']
     empty_base_df.comm = empty_base_df.comm + add  # commodity for emptys is 90 + original
     empty_base_df['startRR'] = 0  # emptys can come back using any railroads
@@ -62,6 +67,9 @@ for scenario in scenario_list:
     # empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
     #     FIPStoNodes.set_index('FIPS').nodeshpID)  # ONode and DNode were swapped
     # empty_base_df['DNode'] = empty_base_df['OFIPS'].map(FIPStoNodes.set_index('FIPS').nodeshpID)
+
+    #empty_base_df.to_csv(str(scenario)+"_empty.csv")
+
 
     # appending to the original file
     base_df = base_df[['comm', 'ONode', 'DNode', 'startRR', 'quantity']]
@@ -72,9 +80,13 @@ for scenario in scenario_list:
 
     # aggregate after append
     print("Aggregating commodity " + scenario )
-    base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'],
-                                 aggfunc=numpy.sum)
+
+    #base_df = base_df.sort_values(by=['comm', 'ONode', 'DNode', 'startRR'])
+    #base_df.to_csv("before_pivottable.csv")
+    base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'], aggfunc=numpy.sum)
     base_df = base_df.reset_index()
+    base_df =  base_df.sort_values(by=['comm', 'ONode', 'DNode', 'startRR'])
+    #base_df.to_csv("after_pivottable.csv")
 
 
 
