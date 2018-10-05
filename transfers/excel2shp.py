@@ -1,6 +1,5 @@
-import pandas
+from rail import *
 import arcpy
-import numpy as np
 
 arcpy.env.overwriteOutput = True
 arcpy.env.workspace = r'C:/GIS/'
@@ -11,8 +10,7 @@ near_distance = "5 Miles"  # the maximum distance the transfer would be snapped 
 transfer_file = r'input/INTERCHANG_G3O.xlsx'
 sheet_name = "BASE"
 all_aar = r'input/allAARCode.csv'
-transfer_shp = r"../GIS/transfers.shp"
-link_shp = r"../GIS/alllinks.shp"
+
 intermediate_csv = "intermediate/transfers.csv"
 
 # new data frames from files
