@@ -58,14 +58,14 @@ cost_xl_df['2'] = cost_xl_df['2'].astype(int)
 
 cost_xl_df['1'] = cost_xl_df['1'].map('{:3d}'.format)
 cost_xl_df['2'] = cost_xl_df['2'].map('{:5d}'.format)
-cost_xl_df['3'] = cost_xl_df['3'].map('{:10.2f}'.format)
-cost_xl_df['4'] = cost_xl_df['4'].map('{:10.2f}'.format)
-cost_xl_df['5'] = cost_xl_df['5'].map('{:10.2f}'.format)
-cost_xl_df['6'] = cost_xl_df['6'].map('{:10.2f}'.format)
-cost_xl_df['7'] = cost_xl_df['7'].map('{:10.2f}'.format)
+cost_xl_df['3'] = cost_xl_df['3'].map('{:10.6f}'.format)
+cost_xl_df['4'] = cost_xl_df['4'].map('{:10.6f}'.format)
+cost_xl_df['5'] = cost_xl_df['5'].map('{:10.6f}'.format)
+cost_xl_df['6'] = cost_xl_df['6'].map('{:10.4f}'.format)
+cost_xl_df['7'] = cost_xl_df['7'].map('{:10.4f}'.format)
 cost_xl_df['8'] = cost_xl_df['8'].map('{:5.1f}'.format)
 cost_xl_df['9'] = cost_xl_df['9'].map('{:5.1f}'.format)
-cost_xl_df['12'] = cost_xl_df['12'].map('{:10.1f}'.format)
+cost_xl_df['12'] = cost_xl_df['12'].map('{:10.4f}'.format)
 
 # combine all the columns to one
 cost_xl_df = cost_xl_df[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']].apply(
