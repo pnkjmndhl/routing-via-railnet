@@ -5,22 +5,12 @@ from simpledbf import Dbf5  # Dbf5 converts dbf files to dataframe
 arcpy.env.overwriteOutput = True
 
 # inputs from files
-transfer_xl_shp = r"../GIS/transfers_xl.shp"
-transfer_manual_shp = r"../GIS/manualtransfers.shp"
-transfer_shp = r"../GIS/transfers.shp"
-transfer_shp_snapped = r"../GIS/transfers_snapped.shp"
-
-node_shp = r"../GIS/allnodes.shp"
-link_shp = r"../GIS/alllinks.shp"
 transfer_table = r"C:/GIS/transfertable.dbf"
-
-node_shp_f = r"nodeshp"
-link_shp_f = r"linkshp"
 
 closest_count = 30  # search for start railroad for the first closest_count nodes, if not found, ignore the transfer
 
-arcpy.MakeFeatureLayer_management(node_shp, node_shp_f)
-arcpy.MakeFeatureLayer_management(link_shp, link_shp_f)
+arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
+arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 
 
 def get_link_railroad_table():
@@ -212,9 +202,8 @@ transfer_df = pandas.DataFrame(
      "nearNID": [x[1] for x in transfer_dict.values()], "JRR1NO": [x[2] for x in transfer_dict.values()],
      "JRR2NO": [x[3] for x in transfer_dict.values()]})
 transfer_df['BIDIR'] = 2
-transfer_df['ID'] = transfer_df['nearNID'] + transfer_df['NEAR_FID']
 
-transfer_df = transfer_df[['ID', 'JRR1NO', 'JRR2NO', 'BIDIR']]
+transfer_df = transfer_df[['nearNID', 'JRR1NO', 'JRR2NO', 'BIDIR']]
 transfer_df.columns = ['ID', 'FROM', 'TO', 'BIDIR']
 # working on dataframes for creating xfr file
 
