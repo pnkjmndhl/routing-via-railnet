@@ -7,6 +7,12 @@ node_shp = '../GIS/allnodes.shp'
 fips_shp = r"../GIS/standards/FIPS.shp"
 
 
+transfer_manual_shp = r"../GIS/manualtransfers.shp"
+transfer_shp = r"../GIS/transfers.shp"
+transfer_shp_snapped = r"../GIS/transfers_snapped.shp"
+transfer_xl_shp = r"../GIS/transfers_xl.shp"
+
+
 
 state_shp = "../GIS/standards/tl_2017_us_states.shp"
 
@@ -17,7 +23,7 @@ orra_to_orr = "../transfers/input/allAARCode.csv"
 signal_capacity_to_constants = r"../network/input/COEFFS.XLS"
 
 cost_dat = r'..\cost\output\cost.dat'
-cost_xl = r'input\COST_PARMS_8_2018.xlsx'
+cost_xl = r'input\COST_PARMS_10_2018(B).xlsx'
 cost_xl_sheet = "COSTS_8_2018"
 
 def get_network_rrs():
@@ -36,10 +42,6 @@ def get_network_rrs():
 link_shpf = "linkshp"
 fips_shpf = "FIPS"
 node_shpf = "nodeshp"
-# link_shp_feature = "linkshp"
-# node_shp_feature = "nodeshp"
-
-
 
 print ("...")
 
