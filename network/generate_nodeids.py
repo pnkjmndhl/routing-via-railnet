@@ -1,7 +1,9 @@
 from rail import *
 import arcpy
 
-arcpy.env.autoCancelling = False
+
+arcpy.env.overwriteOutput = True
+
 
 fields_final = ["FID", "Shape", "ID", "STATE_FP", "Abbr", "Name"]
 fields_new = ["FID", "Shape", "ID"]
@@ -10,7 +12,10 @@ fields_new = ["FID", "Shape", "ID"]
 def keep_fields(shape_file, keep):
     fields = [x.name for x in arcpy.ListFields(shape_file)]
     # delete if any of these fields are present
-    arcpy.DeleteField_management(shape_file, [x for x in fields if x not in keep])
+    try:
+        arcpy.DeleteField_management(shape_file, [x for x in fields if x not in keep])
+    except:
+        pass
 
 
 # create new node names or update previous?
@@ -22,8 +27,7 @@ if sys.argv[1] == "new":
 
 elif sys.argv[1] == "update":
     count_in_county_df = pandas.read_csv("intermediate/countofIDs.csv")
-    count_in_county_dictionary = dict(
-        zip([int(i) for i in list(count_in_county_df)], list(count_in_county_df.iloc[0])))
+    count_in_county_dictionary = dict(zip([int(i) for i in list(count_in_county_df)], list(count_in_county_df.iloc[0])))
     print("Updating NodeIDs")
 
 else:

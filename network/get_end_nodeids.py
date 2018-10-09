@@ -1,17 +1,18 @@
 from rail import *
 import arcpy
 
+arcpy.env.overwriteOutput = True
 
 arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
-arcpy.MakeFeatureLayer_management(node_shp, node_shp_feature)
+arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
 
 
 def get_vertices_id(end):
     vertices = []
-    # arcpy.SelectLayerByLocation_management(node_shp_feature, "INTERSECT", link_shpf, "", "NEW_SELECTION")
+    # arcpy.SelectLayerByLocation_management(node_shpf, "INTERSECT", link_shpf, "", "NEW_SELECTION")
     arcpy.FeatureVerticesToPoints_management(link_shpf, memory_shp, end)
-    arcpy.SelectLayerByLocation_management(node_shp_feature, "ARE_IDENTICAL_TO", memory_shp, "", "NEW_SELECTION")
-    with arcpy.da.SearchCursor(node_shp_feature, ["ID"]) as cursor:
+    arcpy.SelectLayerByLocation_management(node_shpf, "ARE_IDENTICAL_TO", memory_shp, "", "NEW_SELECTION")
+    with arcpy.da.SearchCursor(node_shpf, ["ID"]) as cursor:
         for row in cursor:
             vertices.append(row[0])
     if len(vertices) != 1:  # it has to return exactly one vertices per end

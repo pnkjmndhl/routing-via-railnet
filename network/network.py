@@ -11,7 +11,7 @@ if sys.argv[1] in ['-h', '-help']:
     print ("Usage: python network.py [-n|-u|-m|-s]")
     print ("-n: Generate new Node IDs")
     print ("-u: Update Node IDs")
-    print ("-n: Auto-generate missing attributes")
+    print ("-m: Auto-generate missing attributes")
     print ("-s: Generate Network file")
     exit(0)
 

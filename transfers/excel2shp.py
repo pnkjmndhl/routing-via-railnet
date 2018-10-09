@@ -35,27 +35,32 @@ my_aar_dict = get_network_railroad_aar_dict()
 # add new columns with the RR#
 transfer['JRR1NO'] = transfer.JRR1.map(my_aar_dict)
 transfer['JRR2NO'] = transfer.JRR2.map(my_aar_dict)
-transfer = transfer.dropna()  # remove the transfers not found in my_dict
-transfer['JRR1NO'].astype(int)
-transfer['JRR2NO'].astype(int)
+transfer = transfer.dropna()  # remove the transfers not found in allaarCode (these are transfers that we dont need)
+#transfer['JRR1NO'].astype(int)
+#transfer['JRR2NO'].astype(int)
 
 dummy = []
-for row in arcpy.SearchCursor(transfer_shp):
+# for reading existing flags
+for row in arcpy.SearchCursor(transfer_shp_snapped):
     dummy.append([row.getValue("SPLC6"), row.getValue("JRR1"), row.getValue("JRR2"), row.getValue("flag")])
+
 dummy_df = pandas.DataFrame(dummy)
 dummy_df.columns = ['SPL_', 'JRR1_', 'JRR2_', 'flag']
-dummy_df = dummy_df[dummy_df['flag'] != 0]
+dummy_df = dummy_df[dummy_df['flag'] != 0]  # keep only the records that have flags
 
 transfer = pandas.concat([transfer, dummy_df], axis=1)
 transfer = transfer.drop(['SPL_', 'JRR1_', 'JRR2_'], axis=1)
-transfer = transfer.fillna(0)
+
+
+transfer = transfer.fillna(0) #if not found in the old network file, its marked 0:(good nodes)
+
 transfer['nearNID'] = ""
 transfer['nearNDist'] = ""
 
 transfer.to_csv(intermediate_csv)  # also write the contents to a csv file
-arcpy.DeleteFeatures_management(transfer_shp)
+arcpy.DeleteFeatures_management(transfer_xl_shp)
 
 arcpy.TableToTable_conversion(intermediate_csv, "intermediate", "transfers.dbf")
 arcpy.MakeXYEventLayer_management("intermediate/transfers.dbf", "LONNBR", "LATNBR", 'dummy',
                                   arcpy.SpatialReference(4326))
-arcpy.CopyFeatures_management("dummy", transfer_shp)
+arcpy.CopyFeatures_management("dummy", transfer_xl_shp)

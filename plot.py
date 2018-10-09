@@ -119,7 +119,7 @@ for lyr in arcpy.mapping.ListLayers(mxd, "", df):
     elif lyr.name in exclude_plot:
         lyr.visible = False
 
-arcpy.mapping.ExportToJPEG(mxd, plot_folder + plot_name +"_"+ now.strftime("%Y%m%d_%H%M") + ".jpg", "PAGE_LAYOUT", resolution=500)
+arcpy.mapping.ExportToJPEG(mxd, plot_folder + plot_name +"_"+ now.strftime("%Y%m%d_%H%M") + ".jpg", "PAGE_LAYOUT", resolution=1000)
 del mxd
 
 print("Completed.")

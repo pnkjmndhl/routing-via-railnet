@@ -50,8 +50,6 @@ for scenario in scenario_list:
         # inputs from files
     base_df = pandas.read_csv(r'intermediate/' + scenario + '_2.csv')
 
-    #base_df.to_csv(str(scenario) + ".csv")
-
     empty_base_df = base_df.copy()
     # creating empty commodity payload & tare weight
 
@@ -67,8 +65,6 @@ for scenario in scenario_list:
     # empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
     #     FIPStoNodes.set_index('FIPS').nodeshpID)  # ONode and DNode were swapped
     # empty_base_df['DNode'] = empty_base_df['OFIPS'].map(FIPStoNodes.set_index('FIPS').nodeshpID)
-
-    #empty_base_df.to_csv(str(scenario)+"_empty.csv")
 
 
     # appending to the original file

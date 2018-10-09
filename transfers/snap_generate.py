@@ -1,3 +1,4 @@
+from rail import *
 import pandas
 import arcpy
 from simpledbf import Dbf5  # Dbf5 converts dbf files to dataframe
@@ -17,9 +18,9 @@ def get_link_railroad_table():
     dummy = {row.getValue("ID"): [row.getValue("RR1"), row.getValue("RR2"), row.getValue("RR3"), row.getValue("RR4"),
                                   row.getValue("RR5")] for row in arcpy.SearchCursor(link_shp)}
     link_railroads_df = pandas.DataFrame(
-        {"LinkID": dummy.keys(), "RRs": dummy.values(), "RR1": [x[0] for x in dummy.values()],
-         "RR2": [x[1] for x in dummy.values()], "RR3": [x[2] for x in dummy.values()],
-         "RR4": [x[3] for x in dummy.values()], "RR5": [x[4] for x in dummy.values()]})
+        dict(LinkID=dummy.keys(), RRs=dummy.values(), RR1=[x[0] for x in dummy.values()],
+             RR2=[x[1] for x in dummy.values()], RR3=[x[2] for x in dummy.values()], RR4=[x[3] for x in dummy.values()],
+             RR5=[x[4] for x in dummy.values()]))
     return link_railroads_df
 
 
@@ -157,6 +158,7 @@ for i in range(len(node_link_df)):
     # print (node_link_df['LinkID'][i])
     node_link_df['transferslist'][i] = get_transfer_lists(node_link_df['LinkID'][i])
 
+# delete existing values for nearNID and add new
 arcpy.DeleteField_management(transfer_xl_shp, "nearNID")
 arcpy.DeleteField_management(transfer_xl_shp, "nearNDist")
 arcpy.AddField_management(transfer_xl_shp, "nearNID", "LONG", "")
@@ -164,6 +166,7 @@ arcpy.AddField_management(transfer_xl_shp, "nearNDist", "DOUBLE", "")
 
 with arcpy.da.UpdateCursor(transfer_xl_shp, ["FID", "nearNID", "nearNDist", "JRR1NO", "JRR2NO"]) as cursor:
     for row in cursor:
+        # get nearest node on a node with specified railroads
         row[1], row[2] = get_nearest_node(row[0], row[3], row[4])
         # print "FID:" + str(row[0]) + "    NearNID:" + str(row[1]) + "       NearDIST " + str(row[2])
         cursor.updateRow(row)
@@ -205,6 +208,8 @@ transfer_df['BIDIR'] = 2
 
 transfer_df = transfer_df[['nearNID', 'JRR1NO', 'JRR2NO', 'BIDIR']]
 transfer_df.columns = ['ID', 'FROM', 'TO', 'BIDIR']
+
+transfer_df.to_csv('intermediate/transfercsv.csv')
 # working on dataframes for creating xfr file
 
 transfer_df.ID = transfer_df.ID.astype(int)
