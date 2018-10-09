@@ -2,19 +2,20 @@ from importlib import import_module
 import pandas
 import sys
 
+#shapefiles
 link_shp = '../GIS/alllinks.shp'
 node_shp = '../GIS/allnodes.shp'
 fips_shp = r"../GIS/standards/FIPS.shp"
-
-
 transfer_manual_shp = r"../GIS/manualtransfers.shp"
 transfer_shp = r"../GIS/transfers.shp"
 transfer_shp_snapped = r"../GIS/transfers_snapped.shp"
 transfer_xl_shp = r"../GIS/transfers_xl.shp"
-
-
-
 state_shp = "../GIS/standards/tl_2017_us_states.shp"
+transfer_exception_shp = '../GIS/transfer_exceptions.shp'
+link_exception_shp = '../GIS/transfer_exceptions.shp'
+
+
+
 
 memory_shp = "in_memory/dumm"
 disk_shp = "C:/GIS/dumm.shp"
