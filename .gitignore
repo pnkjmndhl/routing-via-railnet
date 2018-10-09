@@ -1,6 +1,8 @@
 GIS/
 
 commodity/input/
+commodity/intermediate/
+!commodity/OFIPSORR.csv
 
 cost/input
 
@@ -41,6 +43,9 @@ Netdata/*.XCQ
 
 web/google_api
 web/openlayers_api
+
+output/output
+output/input
 
 
 *.mxd

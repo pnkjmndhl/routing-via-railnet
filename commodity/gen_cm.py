@@ -82,9 +82,9 @@ for scenario in scenario_list:
 
 
 
-    #base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'], aggfunc=numpy.sum)
-    #base_df = base_df.reset_index()
-    #base_df =  base_df.sort_values(by=['comm', 'ONode', 'DNode', 'startRR'])
+    base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'], aggfunc=numpy.sum)
+    base_df = base_df.reset_index()
+    base_df =  base_df.sort_values(by=['comm', 'ONode', 'DNode', 'startRR'])
     #base_df.to_csv("after_pivottable.csv")
 
 
