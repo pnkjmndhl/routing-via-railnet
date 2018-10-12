@@ -145,7 +145,7 @@ def snap_transfers_to_network(transfer_shp_f, node_shp):
     arcpy.JoinField_management("C:/GIS/transfer.dbf", "nearNID", "C:/GIS/node.dbf", "ID", ["POINT_X", "POINT_Y"])
     # arcpy.Delete_management(transfer_shp_snapped)
     arcpy.MakeXYEventLayer_management("C:/GIS/transfer.dbf", "POINT_X", "POINT_Y", "new_transfer")
-    arcpy.CopyFeatures_management("new_transfer", transfer_shp_snapped)
+    arcpy.CopyFeatures_management("new_transfer", transfer_shp)
 
 
 # main program
@@ -195,6 +195,20 @@ with arcpy.da.UpdateCursor(transfer_shp, ['nearNID', 'NEAR_FID']) as cursor:
         cursor.updateRow(row)
 
 snap_transfers_to_network(transfer_shp, node_shp)
+
+
+fieldnames = [x.name for x in arcpy.ListFields (transfer_shp)]
+fieldnames.remove("JRR1NO")
+fieldnames.remove("JRR2NO")
+fieldnames.remove("BIDIR")
+fieldnames.remove("FID")
+fieldnames.remove("Shape")
+
+
+for field in fieldnames:
+    arcpy.DeleteField_management (transfer_shp, field)
+
+
 
 transfer_dict = {
     row.getValue("FID"): [row.getValue("NEAR_FID"), row.getValue("nearNID"), row.getValue("JRR1NO"),

@@ -1,5 +1,3 @@
-# this script gets the subset of the original excel file thats present in the network and plots it on transfers.shp
-
 from rail import *
 import arcpy
 

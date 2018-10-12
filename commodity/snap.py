@@ -74,6 +74,28 @@ arcpy.MakeFeatureLayer_management(fips_shp, fips_shpf)
 arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
 
 
+# def get_where_clause(rr):
+#     where_clause = ""
+#     whereclauselist = ["\""+rrs+"\"= " + str(rr) ]
+#     for rrs in railroads_list:
+#         where_clause = where_clause + "\""+rrs+"\"= " + str(rr)
+#     where_clause = "\"RR1\" = " + str(origin_rr) + " OR \"RR2\" = " + str(origin_rr) + " OR \"RR3\" = " + str(
+#         origin_rr) + " OR \"RR4\" = " + str(origin_rr) + " OR \"RR5\" = " + str(origin_rr) + " OR \"RR6\" = " + str(
+#         origin_rr) + " OR \"RR7\" = " + str(origin_rr)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # origin_fips = 40063
 # origin_rr = 802
 # get_nearest_onode_with_orr(40063, 802)
