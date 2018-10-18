@@ -44,7 +44,7 @@ OD = OD[column_list]
 # link_shp = link_shp1
 
 
-fips_orr_comm_to_node_odist_df = pandas.read_csv(r"intermediate\OFIPSORRcomm.csv")
+fips_orr_comm_to_node_odist_df = pandas.read_csv(ofips_orr_comm)
 
 arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 arcpy.MakeFeatureLayer_management(fips_shp, fips_shpf)

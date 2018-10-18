@@ -2,6 +2,7 @@ from importlib import import_module
 import pandas
 import sys
 
+
 #shapefiles
 link_shp = '../GIS/alllinks.shp'
 node_shp = '../GIS/allnodes.shp'
@@ -13,19 +14,24 @@ transfer_xl_shp = r"../GIS/transfers_xl.shp"
 state_shp = "../GIS/standards/tl_2017_us_states.shp"
 transfer_exception_shp = '../GIS/transfer_exceptions.shp'
 link_exception_shp = '../GIS/transfer_exceptions.shp'
-
+ofips_orr_comm = r"../commodity/intermediate/OFIPSORRcomm.csv"
 
 
 
 memory_shp = "in_memory/dumm"
 disk_shp = "C:/GIS/dumm.shp"
 
+
+#xls and csv files
 orra_to_orr = "../transfers/input/allAARCode.csv"
 signal_capacity_to_constants = r"../network/input/COEFFS.XLS"
-
-cost_dat = r'..\cost\output\cost.dat'
-cost_xl = r'input\COST_PARMS_10_2018(B).xlsx'
+cost_xl = r'../cost/input/COST_PARMS_10_2018(B).xlsx'
 cost_xl_sheet = "COSTS_8_2018"
+
+
+#dat files
+cost_dat = r'..\cost\output\cost.dat'
+
 
 def get_network_rrs():
     arcpy = import_module('arcpy')
@@ -34,7 +40,6 @@ def get_network_rrs():
     flat_list = list(set([x for sublist in dumm1 for x in sublist]))
     flat_list.remove(0)
     return flat_list
-
 
 # search distance for
 #dist = "100 Miles"
@@ -46,10 +51,6 @@ node_shpf = "nodeshp"
 
 print ("...")
 
-
 # functions
-
-
-
 if __name__ == "__main__":
     print ("This program is supposed to be used as a module")
