@@ -18,6 +18,7 @@ for scenario in scenario_list:
     print("Working on " + scenario)
     commodity_file = r"intermediate/" + scenario + "_1.csv"
     commodity_df = pandas.read_csv(commodity_file).dropna()
+    #commodity_df = pandas.read_csv(commodity_file)
     # removal process
     current_column_names = commodity_df.columns
     commodity_df['O'] = (commodity_df['ONode'] / 1000).astype(int)
