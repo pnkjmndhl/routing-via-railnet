@@ -170,11 +170,3 @@ for NodeA in dictionary_of_old_nodes:
 print("Node Conversion complete")
 
 
-
-where
-
-
-
-
-
-

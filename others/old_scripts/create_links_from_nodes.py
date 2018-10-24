@@ -1,4 +1,4 @@
-# c reates links between given nodes (snapped from old network)
+# creates links between given nodes (snapped from old network)
 import arcpy
 from simpledbf import Dbf5
 
