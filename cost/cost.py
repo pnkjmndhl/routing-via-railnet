@@ -1,5 +1,17 @@
 from rail import *
 import arcpy
+import sys
+
+
+
+try:
+    transfer_multiplier = 1
+    dumm = sys.argv
+except:
+    if sys.argv[1] == '-t':
+        transfer_multiplier = sys.argv[2]
+    else:
+        print("Usage: python cost.py [-t] [transfer cost multiplier]")
 
 arcpy.env.overwriteOutput = True
 
@@ -44,7 +56,7 @@ empty_rail_cost_df['3'] = 520.93  # 3: 'TrainCost/hr'
 empty_rail_cost_df['4'] = 0.055  # 4: 'Cost/gross-ton-mile',
 empty_rail_cost_df['5'] = 95.67  # 5: 'terminal-processing-cost/car,fixed',
 empty_rail_cost_df['6'] = 1.14  # 6: 'terminal-cost/car-hr',
-empty_rail_cost_df['7'] = 157.92  # 7: 'transfer-cost/car',
+empty_rail_cost_df['7'] = 157.92 # 7: 'transfer-cost/car',
 empty_rail_cost_df['8'] = cost_xl_df['9']  # 8: 'car-payload' (since payload = tare wt)
 empty_rail_cost_df['9'] = 0  # 9: 'car-tare-wt' = 0
 
@@ -62,7 +74,7 @@ cost_xl_df['3'] = cost_xl_df['3'].map('{:10.6f}'.format)
 cost_xl_df['4'] = cost_xl_df['4'].map('{:10.6f}'.format)
 cost_xl_df['5'] = cost_xl_df['5'].map('{:10.6f}'.format)
 cost_xl_df['6'] = cost_xl_df['6'].map('{:10.4f}'.format)
-cost_xl_df['7'] = cost_xl_df['7'].map('{:10.4f}'.format)
+cost_xl_df['7'] = cost_xl_df['7'].map('{:10.4f}'.format)*transfer_multiplier
 cost_xl_df['8'] = cost_xl_df['8'].map('{:5.1f}'.format)
 cost_xl_df['9'] = cost_xl_df['9'].map('{:5.1f}'.format)
 cost_xl_df['12'] = cost_xl_df['12'].map('{:10.4f}'.format)
