@@ -32,6 +32,8 @@ def get_node(X, Y):
 # get all coordinates
 for index in address_df.index.values:
     if math.isnan(address_df['lon_x'][index]):
+        print (address_df['Address'][index])
+        print("Locating: " + address_df['Address'][index])
         address_df['lon_x'][index], address_df['lat_y'][index] = get_XY(address_df['Address'][index])
 
 # get all nodes
