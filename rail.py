@@ -16,8 +16,7 @@ transfer_exception_shp = '../GIS/transfer_exceptions.shp'
 link_exception_shp = '../GIS/transfer_exceptions.shp'
 ofips_orr_comm = r"../commodity/intermediate/OFIPSORRcomm.csv"
 
-
-
+#other temporary shapefiles
 memory_shp = "in_memory/dumm"
 disk_shp = "C:/GIS/dumm.shp"
 
@@ -48,8 +47,6 @@ def get_network_rrs():
 link_shpf = "linkshp"
 fips_shpf = "FIPS"
 node_shpf = "nodeshp"
-
-print ("...")
 
 # functions
 if __name__ == "__main__":
