@@ -44,7 +44,7 @@ arguments_full = ['Python File Name', 'Network Parameter File', 'Link Data File'
 
 os.system("mkdir Backups\\" + folder_name)
 for args in sys.argv[1:]:
-    os.system("copy " + args + ' Backups\\' + folder_name)
+    os.system("copy " + args + ' Backups\\' + folder_name + "> NUL")
 
 os.chdir('Backups/' + folder_name)
 
