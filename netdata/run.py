@@ -1,55 +1,63 @@
 # run and backup the run
-
 import os
 import sys
 import datetime
 
-commodity_name = sys.argv[1]
+# Network Parameter File: network.prm
+# Link Data File: network.dat
+# Transfer Data File: network.exc
+#
+# Commodity File: base.dat
+# Network Paremeter File: network.prm
+# Positive Number: 365
+#
+# Network Parameter File: network.prm
+# Commodity File: base.xcq
+# Default Cost file: cost.dat
+# Transfer Exception File: transfer.exc
+# Link Exception File: link.exc
+# Link Volume File: volume.lvl
+
+
+network_prm = sys.argv[1]
+link_dat = sys.argv[2]
+transfer_xfr = sys.argv[3]
+commodity_dat = sys.argv[4]
+positive_number = sys.argv[5]
+cost_dat = sys.argv[6]
+transfer_exc = sys.argv[7]
+link_exc = sys.argv[8]
+link_volume_lvl = sys.argv[9]
+netbld = sys.argv[10]
+commodty = sys.argv[11]
+railnet = sys.argv[12]
 
 now = datetime.datetime.now()
-folder_name = now.strftime("%Y-%m-%d_%H%M") + commodity_name
+folder_name = now.strftime("%Y-%m-%d_%H%M%S") + "_" + commodity_dat.split('.')[0]
 
+readme_name = "Readme.txt"
+readme_path = "Backups\\" + folder_name + "\\" + readme_name
 
-if len(sys.argv) == 3:
-    description = sys.argv[2]
-else:
-    description = ""
+arguments_full = ['Python File Name', 'Network Parameter File', 'Link Data File', 'Transfer Exception Data File',
+                  'Commodity File', 'Positive Number', 'Default Cost file', 'Transfer Exception File',
+                  'Link Exception File', 'Link Volume File', "NETBLD", "COMMODTY", "RAILNET"]
 
-readme_name = "Readme_"+commodity_name+".txt"
+os.system("mkdir Backups\\" + folder_name)
+for args in sys.argv[1:]:
+    os.system("copy " + args + ' Backups\\' + folder_name)
 
+os.chdir('Backups/' + folder_name)
 
-os.system("ECHO "+description+ " > "+readme_name)
+os.system("ECHO ******************************************************** > " + readme_name)
+os.system("ECHO. >> " + readme_name)
+os.system("ECHO Parameters Used: >> " + readme_name)
+for index in range(len(sys.argv[0:])):
+    os.system("ECHO " + arguments_full[index] + ":" + sys.argv[index] + " >> " + readme_name)
+os.system("ECHO ******************************************************** >> " + readme_name)
+os.system("ECHO. >> " + readme_name)
+os.system("ECHO. >> " + readme_name)
 
-os.system("NETBLD network network network  >> "+readme_name)
-os.system("COMMODTY "+commodity_name+" network 365  >> "+readme_name)
-os.system("RAILNET network "+commodity_name+" cost transfer.exc link.exc volume.lvl  >> "+readme_name)
-#os.system("RAILNET network "+commodity_name+" cost transfer.exc link.exc >> "+readme_name)
-
-
-export_name_list = os.listdir('.')
-export_name_list = [x for x in export_name_list if ((commodity_name in x) or ((commodity_name.upper() in x))) ]
-#export_name_list = list(set(i.lower() for i in export_name_list))
-
-#keep both copies extensions
-keep_both_copies_extension_list = ['LMF', 'dat']
-os.system("mkdir Backups\\"+folder_name + " >> "+readme_name)
-
-
-for extension in keep_both_copies_extension_list:
-    export_name_list.remove(commodity_name + "." + extension)
-    os.system("copy " + commodity_name + '.' + extension + ' Backups\\' + folder_name + " >> "+readme_name)
-
-
-# also copy remaining files :)
-for file_names in export_name_list:
-    os.system("move "+file_names+ " Backups\\"+folder_name + " >> "+readme_name)
-
-
-# copying parameter files
-parameter_files = ['network.dat', 'cost.dat', 'link.exc', 'network.PRM', 'network.xfr', 'transfer.exc', 'volume.lvl']
-for file_names in parameter_files:
-    os.system("copy "+file_names+ " Backups\\"+folder_name + " >> "+readme_name)
-
-
-#finally copy the read_me file
-os.system("move Readme_"+commodity_name+ ".txt Backups\\"+folder_name)
+os.system(netbld + " " + network_prm + " " + link_dat + " " + transfer_xfr + " >> " + readme_name)
+os.system(commodty + " " + commodity_dat + " " + network_prm + " " + positive_number + " >> " + readme_name)
+os.system(railnet + " " + network_prm + " " + commodity_dat.split('.')[
+    0] + '.xcq' + " " + cost_dat + " " + transfer_exc + " " + link_exc + " " + link_volume_lvl + "  >> " + readme_name)
