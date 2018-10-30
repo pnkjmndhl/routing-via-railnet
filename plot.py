@@ -5,11 +5,9 @@ import arcpy
 import sys
 import os
 
-
-#default values
+# default values
 plot_folder = 'Plots/'
-folder_in_LMF = "" # finds the LMFs in Netdata
-
+folder_in_LMF = ""  # finds the LMFs in Netdata
 
 # This program plots the output commodity.lmf file to plot.shp
 switch = sys.argv[1]
@@ -26,7 +24,7 @@ elif switch == '-p':
 elif switch in ['-df', '-fd']:
     folder_in_LMF = sys.argv[2]
     base = sys.argv[3]
-    #all files in the folder except base are scenarios
+    # all files in the folder except base are scenarios
     lmfs = os.listdir("./netdata/LMF/" + folder_in_LMF)
     lmfs = [x.split('.')[0] for x in lmfs if base not in x]
     scenarios = lmfs
@@ -36,8 +34,8 @@ elif switch in ['-pf', '-fp']:
     folder_in_LMF = sys.argv[2]
     lmfs = os.listdir("./netdata/LMF/" + folder_in_LMF)
     lmfs = [x.split('.')[0] for x in lmfs]
-    #print lmfs
-    #all the lmf files in the folder are bases
+    # print lmfs
+    # all the lmf files in the folder are bases
     bases = lmfs
     plot_folder = 'Plots/' + folder_in_LMF
 
@@ -107,10 +105,10 @@ def export_to_jpeg(plot_type, exclude_plot, plot_path):
             lyr.transparency = 0
         elif lyr.name in exclude_plot:
             lyr.visible = False
-    arcpy.mapping.ExportToJPEG(mxd, plot_path +"_"+ now.strftime("%Y%m%d_%H%M") + ".jpg", "PAGE_LAYOUT", resolution=800)
+    arcpy.mapping.ExportToJPEG(mxd, plot_path + "_" + now.strftime("%Y%m%d_%H%M") + ".jpg", "PAGE_LAYOUT",
+                               resolution=800)
     del mxd
     print ("Completed")
-
 
 
 # main program
@@ -118,14 +116,14 @@ link_shp = 'gis/alllinks.shp'
 field_names = get_field_names(link_shp)  # getting field names
 field_names = [e for e in field_names if e not in ["ID", "FID", "Shape"]]
 
-if switch in ['-d', '-df', '-fd']: #scenario plots
+if switch in ['-d', '-df', '-fd']:  # scenario plots
     print("Generating Difference plot ...")
     plot = 'gis/plots/Plotdiff.shp'
     file_1 = "Netdata/LMF/" + folder_in_LMF + "/" + base
     file_1 = file_1.replace("//", "/")  # if folder_in_LMF is empty, the // will be replaced by /
     for scenario in scenarios:
         print ("working on: " + base + "," + scenario)
-        file_2 = "Netdata/LMF/"+ folder_in_LMF + "/" + scenario
+        file_2 = "Netdata/LMF/" + folder_in_LMF + "/" + scenario
         file_2 = file_2.replace("//", "/")
         flow_1 = split_to_dataframe(file_1 + ".LMF", ['ID', 'qty'])
         flow_2 = split_to_dataframe(file_2 + ".LMF", ['ID', 'qty'])
@@ -133,29 +131,29 @@ if switch in ['-d', '-df', '-fd']: #scenario plots
         get_plot_with_fieldnames(field_names)
         flow['qty'] = flow_2['qty'] - flow_1['qty']
         add_column_to_shp("qty")
-        plot_type = ["Plotdiff",'allnodes']
+        plot_type = ["Plotdiff", 'allnodes']
         exclude_plot = ['Plot']
         plot_name = base + "_" + scenario
         plot_path = 'plots/' + folder_in_LMF + "/" + plot_name
         if folder_in_LMF != "":
-            os.system("Mkdir plots\\"+folder_in_LMF)
+            os.system("Mkdir plots\\" + folder_in_LMF)
         print plot_path
         export_to_jpeg(plot_type, exclude_plot, plot_path)
 
-if switch in ['-f', '-pf', '-fp']: #base plots
+if switch in ['-f', '-pf', '-fp']:  # base plots
     print("Generating normal plot ...")
     plot = 'gis/plots/Plot.shp'
     for base in bases:
         print ("working on: " + base)
-        file_name = "Netdata/LMF/"+ folder_in_LMF + "/" + base
+        file_name = "Netdata/LMF/" + folder_in_LMF + "/" + base
         flow = split_to_dataframe(file_name + ".LMF", ['ID', 'qty'])
         get_plot_with_fieldnames(field_names)
         add_column_to_shp("qty")
-        plot_type = ['Plot','allnodes']
+        plot_type = ['Plot', 'allnodes']
         exclude_plot = ['Plotdiff']
         plot_name = base
         plot_path = 'plots/' + folder_in_LMF + "/" + plot_name
         if folder_in_LMF != "":
-            os.system("Mkdir plots\\"+folder_in_LMF)
+            os.system("Mkdir plots\\" + folder_in_LMF)
         print plot_path
         export_to_jpeg(plot_type, exclude_plot, plot_path)
