@@ -22,6 +22,7 @@ OngoingWork/
 Tools/
 
 Plots/
+!Plots/plots_to_gif.py
 
 web/*.csv
 
