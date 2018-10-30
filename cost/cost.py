@@ -5,13 +5,14 @@ import sys
 
 
 try:
-    transfer_multiplier = 1
-    dumm = sys.argv
-except:
     if sys.argv[1] == '-t':
-        transfer_multiplier = sys.argv[2]
+        transfer_multiplier = float(sys.argv[2])
     else:
         print("Usage: python cost.py [-t] [transfer cost multiplier]")
+
+except:
+    transfer_multiplier = 1
+    print("No arguments provided, transfer_multiplier = 1")
 
 arcpy.env.overwriteOutput = True
 
@@ -74,7 +75,8 @@ cost_xl_df['3'] = cost_xl_df['3'].map('{:10.6f}'.format)
 cost_xl_df['4'] = cost_xl_df['4'].map('{:10.6f}'.format)
 cost_xl_df['5'] = cost_xl_df['5'].map('{:10.6f}'.format)
 cost_xl_df['6'] = cost_xl_df['6'].map('{:10.4f}'.format)
-cost_xl_df['7'] = cost_xl_df['7'].map('{:10.4f}'.format)*transfer_multiplier
+cost_xl_df['7'] = cost_xl_df['7']*transfer_multiplier
+cost_xl_df['7'] = cost_xl_df['7'].map('{:10.4f}'.format)
 cost_xl_df['8'] = cost_xl_df['8'].map('{:5.1f}'.format)
 cost_xl_df['9'] = cost_xl_df['9'].map('{:5.1f}'.format)
 cost_xl_df['12'] = cost_xl_df['12'].map('{:10.4f}'.format)
@@ -83,6 +85,6 @@ cost_xl_df['12'] = cost_xl_df['12'].map('{:10.4f}'.format)
 cost_xl_df = cost_xl_df[['1', '2', '3', '4', '5', '6', '7', '8', '9', '12']].apply(
     lambda x: '  {}{}{}{}{}{}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9]), axis=1)
 
-cost_xl_df.to_csv(r"output\cost.dat", index=False)
+cost_xl_df.to_csv(r"output\cost" + str(int(transfer_multiplier)) + ".dat", index=False)
 
 print("OPERATION SUCCESSFULL. cost.dat written")
