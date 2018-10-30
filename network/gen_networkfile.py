@@ -6,7 +6,7 @@ from simpledbf import Dbf5
 # all those changes are reflected in the other columns TTIME, P1, P2, GAMMA, CAPACITY and NO_RRS
 
 # Set the workspace environment to local file geodatabase
-arcpy.env.workspace = r"C:/GIS"
+#arcpy.env.workspace = r"C:/GIS"
 
 # overwrite link_shp
 # link_shp = r'..\GIS\test_alllinks.shp'
@@ -46,7 +46,7 @@ network_df = pandas.merge(network_df, signal_capacity_to_constants_df, how='left
 network_df = network_df[all_list]
 
 # changing linkIDS
-network_df.to_csv(r"intermediate\network.csv")
+network_df.to_csv(r"intermediate/network.csv")
 
 dictionary_of_column_name_and_format = dict(zip(all_list, format_list))
 
@@ -57,4 +57,4 @@ for column_name, formatting in dictionary_of_column_name_and_format.iteritems():
 
 network_df['new'] = network_df.apply(''.join, axis=1)
 network_df = network_df['new']
-network_df.to_csv(r"output\network.dat", index=False)
+network_df.to_csv(r"output/network.dat", index=False)

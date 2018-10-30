@@ -1,19 +1,9 @@
-GIS/
+gis/
 
-commodity/input/
-commodity/intermediate/
-!commodity/OFIPSORR.csv
+*/input/
+*/intermediate/
+*/output/
 
-cost/input
-
-network/input
-network/intermediate
-
-transfers/input
-transfers/intermediate
-
-
-exceptions/Exceptions.xlsx
 
 pythonscripts/
 
@@ -21,33 +11,16 @@ OngoingWork/
 
 Tools/
 
-Plots/
-!Plots/plots_to_gif.py
+plots/*/
 
 web/*.csv
 
-Netdata/Backups/
-Netdata/railnet2.1b/
-Netdata/railnet2.0b/
-Netdata/railnet2.0c/
-Netdata/parameters/
-
-Netdata/*.xnq
-Netdata/*.dat
-Netdata/*.LMF
-Netdata/*.xfr
-Netdata/*.PRM
-Netdata/*.lvl
-Netdata/*.exc
-Netdata/*.exe
-Netdata/*.RPT
-Netdata/*.XCQ
+netdata/*/
+netdata/*
+!netdata/*.py
 
 web/google_api
 web/openlayers_api
-
-output/output
-output/input
 
 
 *.mxd
@@ -59,3 +32,4 @@ output/input
 *.kml
 *.shp
 *.out
+*.jpg
