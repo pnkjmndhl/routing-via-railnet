@@ -2,6 +2,9 @@ from importlib import import_module
 import pandas
 import sys
 
+#tolerances
+odist_tolerance = 100 #miles (greater than this distance will be removed from the OD file)
+
 
 #shapefiles
 link_shp = '../GIS/alllinks.shp'
