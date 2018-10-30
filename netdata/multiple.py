@@ -5,7 +5,7 @@ import time
 import psutil
 
 # default CPU usage
-default_max_cpu_usage = 0.7
+default_max_cpu_usage = 70
 
 # Default values:
 network_prm_ = ['network.prm']
@@ -96,7 +96,7 @@ for network_prm in network_prm_:
                                     for netbld in netbld_:
                                         for commodty in commodty_:
                                             for railnet in railnet_:
-                                                while (psutil.cpu_percent() > default_max_cpu_usage)
+                                                while (psutil.cpu_percent() > default_max_cpu_usage):
                                                     time.sleep(10)
                                                     print(
                                                         "Maximum CPU usage reached... waiting for other processes to complete")
