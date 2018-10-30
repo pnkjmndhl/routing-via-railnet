@@ -19,6 +19,14 @@ import datetime
 # Link Volume File: volume.lvl
 
 
+
+# Default values:
+default_values = ['network.prm', 'network.dat', 'network.xfr', 'base.dat', '365', 'cost.dat', 'transfer.exc', 'link.exc', 'volume.lvl', "NETBLD.exe", "COMMODTY.exe", "RAILNET.exe"]
+
+
+
+
+
 network_prm = sys.argv[1]
 link_dat = sys.argv[2]
 transfer_xfr = sys.argv[3]
@@ -31,6 +39,17 @@ link_volume_lvl = sys.argv[9]
 netbld = sys.argv[10]
 commodty = sys.argv[11]
 railnet = sys.argv[12]
+
+
+non_default_values = [x.split(".")[0] for x in sys.argv[1:] if x not in default_values]
+
+non_default_values = [x for x in non_default_values if commodity_dat.split(".")[0] != x ]
+
+non_default_values_string ="_".join(str(x) for x in non_default_values)
+print ("Output LMF Name: " + commodity_dat.split('.')[0]+"_"+non_default_values_string+".LMF")
+
+
+#calculation of
 
 now = datetime.datetime.now()
 folder_name = now.strftime("%Y-%m-%d_%H%M%S") + "_" + commodity_dat.split('.')[0]
@@ -61,3 +80,9 @@ os.system(netbld + " " + network_prm + " " + link_dat + " " + transfer_xfr + " >
 os.system(commodty + " " + commodity_dat + " " + network_prm + " " + positive_number + " >> " + readme_name)
 os.system(railnet + " " + network_prm + " " + commodity_dat.split('.')[
     0] + '.xcq' + " " + cost_dat + " " + transfer_exc + " " + link_exc + " " + link_volume_lvl + "  >> " + readme_name)
+
+
+#copy it to LMF folder and rename
+print ("copy " + commodity_dat.split('.')[0]+".LMF " + "..\\..\\LMF\\"+commodity_dat.split('.')[0]+"_"+non_default_values_string+".LMF")
+
+os.system("copy " + commodity_dat.split('.')[0]+".LMF " + "..\\..\\LMF\\"+commodity_dat.split('.')[0]+"_"+non_default_values_string+".LMF" )
