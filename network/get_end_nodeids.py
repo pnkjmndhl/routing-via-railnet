@@ -16,6 +16,7 @@ def get_vertices_id(end):
         for row in cursor:
             vertices.append(row[0])
     if len(vertices) != 1:  # it has to return exactly one vertices per end
+        print ("Error: The vertex has {0} node/s: {1}".format(len(vertices),vertices))
         return [0]
     else:
         return vertices[0]
@@ -37,6 +38,6 @@ with arcpy.da.UpdateCursor(link_shp, ["FID", "A_NODE", "B_NODE", "ID"]) as curso
         check_if_list = isinstance(row[1], list) or isinstance(row[2], list)
         if 0 in [row[1], row[
             2]] or check_if_list:  # if the link has multiple parts, the link returns a list for either row[1] or row[2]
-            print ("Error: LinkID: " + str(row[3]) + ", skipped.")
+            print ("Error Source: LinkID: " + str(row[3]) + ", skipped.")
             continue
         cursor.updateRow(row)
