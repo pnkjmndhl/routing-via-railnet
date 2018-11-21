@@ -1,3 +1,8 @@
+# This program reads the <filename>.csv on ./intermediate folder
+# Either uses GIS near analysis to get nearest node with the specified startRR (new if create a new OFIPSORR.csv)
+# Or uses the OFIPSORR.csv file on ./intermediate to vectorically snap and use GIS for remaining (uses current OFIPSORR.csv)
+# and then vectorically snaps again the ones present on OFIPSORRcomm.csv {manual refined snapping)
+
 from rail import *
 import arcpy
 import re
@@ -8,6 +13,8 @@ import numpy as np
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+count = 0
+
 # overwrite files if its already present
 arcpy.env.overwriteOutput = True
 
@@ -16,7 +23,7 @@ if sys.argv[2] not in ['new', 'update', '-h']:
     print("Invalid Arguments")
     exit(0)
 elif sys.argv[2] in ['-h', '-help']:
-    print("Usage: python snap.py filename update/new ")
+    print("Usage: python snap.py <filename> update/new ")
     exit(0)
 
 OD = pandas.read_csv(r"intermediate/" + sys.argv[1] + ".csv")
@@ -31,19 +38,6 @@ fips_nearnodeid_dictionary = {}
 column_list = list(OD.columns.values)
 column_list = [x for x in column_list if 'Unnamed' not in x]
 OD = OD[column_list]
-
-#################  work on copies  ####################
-# fips_shp1 = "C:/GIS/FIPS.shp"
-# node_shp1 = "C:/GIS/allnodes.shp"
-# link_shp1 = "C:/GIS/alllink.shp"
-# arcpy.CopyFeatures_management(fips_shp, fips_shp1)
-# arcpy.CopyFeatures_management(node_shp, node_shp1)
-# arcpy.CopyFeatures_management(link_shp, link_shp1)
-# fips_shp = fips_shp1
-# node_shp = node_shp1
-# link_shp = link_shp1
-
-
 
 fips_orr_comm_to_node_odist_df = pandas.read_csv(ofips_orr_comm)
 
@@ -113,6 +107,11 @@ def get_nearest_onode_with_orr(origin_fips, origin_rr):
     fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.append(
         {"OFIPS": origin_fips, "startRR": origin_rr, "ONODE": origin_node_id, "ODIST": fips_to_node_id_snap_distance},
         ignore_index=True)
+    global count
+    count = count + 1
+    if count % 10 == 0:  # every 10 calls envokes saving action
+        fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
+        print("Saved")
     return [origin_node_id, fips_to_node_id_snap_distance]
 
 
@@ -143,16 +142,17 @@ def snap_by_commodity_rr_ofips():
     OD.update(to_node_odist_df_r0_c0.set_index(['OFIPS'])['ONode'])
     # for comm = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['OFIPS','startRR'])
+    OD = OD.set_index(['OFIPS', 'startRR'])
     to_node_odist_df_c0 = to_node_odist_df[(to_node_odist_df.comm == 0)]
-    OD.update(to_node_odist_df_c0.set_index(['OFIPS','startRR'])['ONode'])
+    OD.update(to_node_odist_df_c0.set_index(['OFIPS', 'startRR'])['ONode'])
     # for startRR = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['OFIPS','comm'])
+    OD = OD.set_index(['OFIPS', 'comm'])
     to_node_odist_df_r0 = to_node_odist_df[to_node_odist_df.startRR == 0]
-    OD.update(to_node_odist_df_r0.set_index(['OFIPS','comm'])['ONode'])
+    OD.update(to_node_odist_df_r0.set_index(['OFIPS', 'comm'])['ONode'])
     OD = OD.reset_index()
     print("Completed. :)")
+
 
 def snap_by_commodity_rr_dfips():
     global OD
@@ -170,14 +170,14 @@ def snap_by_commodity_rr_dfips():
     OD.update(to_node_odist_df_r0_c0.set_index(['DFIPS'])['DNode'])
     # for comm = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['DFIPS','startRR'])
+    OD = OD.set_index(['DFIPS', 'startRR'])
     to_node_odist_df_c0 = to_node_odist_df[(to_node_odist_df.comm == 0)]
-    OD.update(to_node_odist_df_c0.set_index(['DFIPS','startRR'])['DNode'])
+    OD.update(to_node_odist_df_c0.set_index(['DFIPS', 'startRR'])['DNode'])
     # for startRR = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['DFIPS','comm'])
+    OD = OD.set_index(['DFIPS', 'comm'])
     to_node_odist_df_r0 = to_node_odist_df[to_node_odist_df.startRR == 0]
-    OD.update(to_node_odist_df_r0.set_index(['DFIPS','comm'])['DNode'])
+    OD.update(to_node_odist_df_r0.set_index(['DFIPS', 'comm'])['DNode'])
     OD = OD.reset_index()
     print("Completed. :)")
 
@@ -202,10 +202,11 @@ if sys.argv[2] == "new":
 elif sys.argv[2] == "update":
     # read the FIPS to Node conversion csv file
     fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\OFIPSORR.csv")
-    snap_by_rr()
+    snap_by_rr()  # dictionary snapping
     index_of_od = OD.index[OD.ONode.isnull()]
 
-#  work only for ONode here ...
+# snap OFIPS to nearest ONODE that has startRR
+# snap DFIPS to nearest DNODE
 for i in index_of_od:
     OD['ONode'][i], OD['ODIST'][i] = get_nearest_onode_with_orr(OD.at[i, 'OFIPS'], OD.at[i, 'startRR'])
 
@@ -214,6 +215,7 @@ for i in index_of_od:
                                                                                           OD.at[i, 'startRR'],
                                                                                           OD['ONode'][i],
                                                                                           OD['ODIST'][i]))
+    OD['DNode'][i] = get_nearest_node(OD.at[i, 'OFIPS'])
 
 # after all the dictionary snappings and GIS snappings have occured, do the OFIPSorrcomm snappings
 snap_by_commodity_rr_ofips()
@@ -221,4 +223,5 @@ snap_by_commodity_rr_dfips()
 
 fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.drop_duplicates()
 fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
+
 OD[column_list].to_csv(r"intermediate/" + sys.argv[1] + "_1.csv")
