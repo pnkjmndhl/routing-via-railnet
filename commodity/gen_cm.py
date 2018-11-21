@@ -8,11 +8,6 @@ scenario_list = os.listdir('intermediate/')
 scenario_list = [x.split('.csv')[0] for x in scenario_list if "_2" in x]
 scenario_list = [x.replace('_2', '') for x in scenario_list]
 
-# parameters
-add = 50  # for empty
-no_of_commodity = 12
-
-
 def split_width(widths):
     borders = numpy.cumsum([0] + widths)
     split = list(zip(borders[:-1], borders[1:]))
@@ -59,7 +54,7 @@ for scenario in scenario_list:
     empty_base_df = pandas.merge(base_df, attributes_for_full, left_on=['startRR', 'comm'], right_on=['1', '2'],
                                  how = 'left')
     empty_base_df['quantity'] = empty_base_df['quantity'] * 1.0 / empty_base_df['8'] * empty_base_df['9']
-    empty_base_df.comm = empty_base_df.comm + add  # commodity for emptys is 90 + original
+    empty_base_df.comm = empty_base_df.comm + commodity_adder  # commodity for emptys is 90 + original
     empty_base_df['startRR'] = 0  # emptys can come back using any railroads
     empty_base_df = empty_base_df.rename(index= str, columns = {'DNode':'ONode', 'ONode':'DNode'})
     # empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
