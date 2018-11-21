@@ -6,6 +6,11 @@ import sys
 odist_tolerance = 100 #miles (greater than this distance will be removed from the OD file)
 
 
+# parameters
+commodity_adder = 50  # for empty
+no_of_commodity = 12
+
+
 #shapefiles
 link_shp = '../GIS/alllinks.shp'
 node_shp = '../GIS/allnodes.shp'
@@ -16,7 +21,7 @@ transfer_shp_snapped = r"../GIS/transfers_snapped.shp"
 transfer_xl_shp = r"../GIS/transfers_xl.shp"
 state_shp = "../GIS/standards/tl_2017_us_states.shp"
 transfer_exception_shp = '../GIS/transfer_exceptions.shp'
-link_exception_shp = '../GIS/transfer_exceptions.shp'
+link_exception_shp = '../GIS/link_exception.shp'
 ofips_orr_comm = r"../commodity/intermediate/OFIPSORRcomm.csv"
 
 #other temporary shapefiles
@@ -35,10 +40,10 @@ cost_xl_sheet = "COSTS_8_2018"
 cost_dat = r'..\cost\output\cost.dat'
 
 
-def get_network_rrs():
+def get_network_rrs(link_shp_ = link_shp):
     arcpy = import_module('arcpy')
     dumm1 = [[row.getValue("RR1"), row.getValue("RR2"), row.getValue("RR3"), row.getValue("RR4"), row.getValue("RR5"), row.getValue("RR6"), row.getValue("RR7")]
-             for row in arcpy.SearchCursor(link_shp)]
+             for row in arcpy.SearchCursor(link_shp_)]
     flat_list = list(set([x for sublist in dumm1 for x in sublist]))
     flat_list.remove(0)
     return flat_list
