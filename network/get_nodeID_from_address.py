@@ -29,16 +29,30 @@ def get_node(X, Y):
     return nodeID
 
 
+columns = [x for x in list(address_df) if 'Unnamed' not in x]
+address_df = address_df[columns]
+
+
 # get all coordinates
 for index in address_df.index.values:
-    if math.isnan(address_df['lon_x'][index]):
+    if math.isnan(address_df['lon_x'][index]): #if latitude/longitude is not given, get it from address
         print (address_df['Address'][index])
         print("Locating: " + address_df['Address'][index])
         address_df['lon_x'][index], address_df['lat_y'][index] = get_XY(address_df['Address'][index])
 
+
+# after getting all the coordinates, if the argument is reset, reset all nodes
+if len(sys.argv)==2:
+    if sys.argv[1]=='-r':
+        address_df['NODE'] = 0
+    else:
+        print("Usage: -r 'resets the nodeID, everything else would quit the program'")
+        exit(0)
+
 # get all nodes
 for index in address_df.index.values:
     address_df['NODE'][index] = get_node(address_df['lon_x'][index], address_df['lat_y'][index])
+    #address_df['NODE'][index] = get_node(address_df['lon_x'][index], address_df['lat_y'][index])
 
 
 address_df.to_csv(ofips_orr_comm)

@@ -13,5 +13,5 @@ for scenario in scenario_list:
     scenario_df = pandas.read_csv("intermediate/"+scenario+"_1.csv")
     base_df = pandas.read_csv("intermediate/base_1.csv")
     base_df = base_df.append(scenario_df)
-    base_df = base_df[['OFIPS', 'DFIPS', 'comm', 'quantity', 'startRR', 'ONode', 'DNode', 'ODIST']]
+    base_df = base_df[['OFIPS', 'DFIPS', 'comm', 'quantity', 'startRR','termiRR', 'ONode', 'DNode', 'ODIST']]
     base_df.to_csv("intermediate/"+scenario+"_1.csv")

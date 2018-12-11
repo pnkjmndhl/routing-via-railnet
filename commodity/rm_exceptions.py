@@ -15,10 +15,14 @@ start_rr_except = [555, 777, 103, 712, 400, 802, 105]
 all_rrs = get_network_rrs()
 RRs = [x for x in all_rrs if x not in start_rr_except]
 
+
 for scenario in scenario_list:
     print("Working on " + scenario)
     commodity_file = r"intermediate/" + scenario + "_1.csv"
     commodity_df = pandas.read_csv(commodity_file).dropna()
+    # ONode and DNode should always be int
+    commodity_df['ONode'] = commodity_df['ONode'].astype(int)
+    commodity_df['DNode'] = commodity_df['DNode'].astype(int)
     #commodity_df = pandas.read_csv(commodity_file)
     # removal process
     # remove distances greater than odist tolerance

@@ -55,7 +55,8 @@ for scenario in scenario_list:
                                  how = 'left')
     empty_base_df['quantity'] = empty_base_df['quantity'] * 1.0 / empty_base_df['8'] * empty_base_df['9']
     empty_base_df.comm = empty_base_df.comm + commodity_adder  # commodity for emptys is 90 + original
-    empty_base_df['startRR'] = 0  # emptys can come back using any railroads
+    empty_base_df['startRR'] = base_df['termiRR']  # emptys go back on the termiRR
+    empty_base_df['termiRR'] = base_df['startRR']
     empty_base_df = empty_base_df.rename(index= str, columns = {'DNode':'ONode', 'ONode':'DNode'})
     # empty_base_df['ONode'] = empty_base_df['DFIPS'].map(
     #     FIPStoNodes.set_index('FIPS').nodeshpID)  # ONode and DNode were swapped
@@ -75,8 +76,6 @@ for scenario in scenario_list:
     #base_df = base_df.sort_values(by=['comm', 'ONode', 'DNode', 'startRR'])
     #base_df.to_csv("before_pivottable.csv")
 
-
-
     base_df = pandas.pivot_table(base_df, values='quantity', index=['comm', 'ONode', 'DNode', 'startRR'], aggfunc=numpy.sum)
     base_df = base_df.reset_index()
     base_df =  base_df.sort_values(by=['comm', 'ONode', 'DNode', 'startRR'])
@@ -86,7 +85,7 @@ for scenario in scenario_list:
 
     base_df = base_df[base_df.quantity != 0]  # remove the ones with 0 quantity
     base_df = base_df[base_df.ONode != base_df.DNode].reset_index()  # # remove same origin and destination
-    base_df.to_csv("intermediate\cm2011.csv")
+    base_df.to_csv("intermediate/cm"+scenario+".csv")
 
     base_df = base_df[['ONode', 'DNode', 'comm', 'startRR', 'quantity']]
     #base_df = base_df.sort_values(['ONode', 'DNode', 'comm', 'startRR'], ascending=[True, True, True, True])

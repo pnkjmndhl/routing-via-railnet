@@ -31,6 +31,7 @@ OD = pandas.read_csv(r"intermediate/" + sys.argv[1] + ".csv")
 # if the startRR is not in our network, add 0 (can snap to any railroad)
 network_railroad_list = get_network_rrs()
 OD['startRR'][~OD.startRR.isin(network_railroad_list)] = 0
+OD['termiRR'][~OD.termiRR.isin(network_railroad_list)] = 0
 
 fips_nearnodeid_dictionary = {}
 
@@ -69,22 +70,15 @@ def update_nearest_node_dictionary():
     return fips_nearnodeid_dictionary
 
 
-# origin_fips = 40063
-# origin_rr = 802
-# get_nearest_onode_with_orr(40063, 802)
-
 def get_if_available(origin_fips, origin_rr):
     onodeofips = fips_orr_to_node_odist_df[
-        (fips_orr_to_node_odist_df.OFIPS == origin_fips) & (fips_orr_to_node_odist_df.startRR == origin_rr)]
+        (fips_orr_to_node_odist_df.FIPS == origin_fips) & (fips_orr_to_node_odist_df.RR == origin_rr)]
     if not onodeofips.empty:
-        return [list(onodeofips['ONODE'])[0], list(onodeofips['ODIST'])[0]]
+        return [list(onodeofips['NODE'])[0], list(onodeofips['DIST'])[0]]
     else:
         return 0
 
 
-# origin_fips = 26147
-# origin_rr = 103
-# get_nearest_onode_with_orr(17091, 103)
 def get_nearest_onode_with_orr(origin_fips, origin_rr):
     global fips_orr_to_node_odist_df
     # if present in dataframe, return
@@ -105,12 +99,12 @@ def get_nearest_onode_with_orr(origin_fips, origin_rr):
     origin_node_id = [row.getValue("ID_1") for row in arcpy.SearchCursor("in_memory/p2")][0]
     fips_to_node_id_snap_distance = dumm.values()[0] / 1609.34  # converting meters to miles
     fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.append(
-        {"OFIPS": origin_fips, "startRR": origin_rr, "ONODE": origin_node_id, "ODIST": fips_to_node_id_snap_distance},
+        {"FIPS": origin_fips, "RR": origin_rr, "NODE": origin_node_id, "DIST": fips_to_node_id_snap_distance},
         ignore_index=True)
     global count
     count = count + 1
     if count % 10 == 0:  # every 10 calls envokes saving action
-        fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
+        fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(r"intermediate\FIPSRR.csv")
         print("Saved")
     return [origin_node_id, fips_to_node_id_snap_distance]
 
@@ -126,66 +120,71 @@ def add_string(x, str_):
         return str_
 
 
-def snap_by_commodity_rr_ofips():
+def snap_by_commodity_rr_odfips(argument):
     global OD
+    if argument == "origin":
+        print("Snapping Origin...")
+        odfips = "OFIPS"
+        odnode = "ONode"
+        stRR = "startRR"
+        dist = "ODIST"
+    elif argument == "destination":
+        print("Snapping Destination...")
+        odfips = "DFIPS"
+        odnode = "DNode"
+        stRR = "termiRR"
+        dist= "DDIST"
+    else:
+        print("Invalid arguments at function snap_by_commodity_rr_odfips")
+        exit(0)
     print("Manual Snapping By Railroad and Commodity.")
-    to_node_odist_df = fips_orr_comm_to_node_odist_df[['FIPS', 'startRR', 'comm', 'NODE']]
-    to_node_odist_df.columns = [['OFIPS', 'startRR', 'comm', 'ONode']]
+    to_node_odist_df = fips_orr_comm_to_node_odist_df[['FIPS', 'RR', 'comm', 'NODE']]
+    to_node_odist_df[dist] = 0
+    to_node_odist_df.columns = [[odfips, stRR, 'comm', odnode, dist]]
     # for both commodity and railroad given
     OD = OD.reset_index()
-    OD = OD.set_index(['OFIPS', 'startRR', 'comm'])
-    OD.update(to_node_odist_df.set_index(['OFIPS', 'startRR', 'comm'])['ONode'])
+    OD = OD.set_index([odfips, stRR, 'comm'])
+    OD.update(to_node_odist_df.set_index([odfips, stRR, 'comm'])[dist])
+    OD.update(to_node_odist_df.set_index([odfips, stRR, 'comm'])[odnode])
     # for comm = 0 and startRR = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['OFIPS'])
-    to_node_odist_df_r0_c0 = to_node_odist_df[(to_node_odist_df.comm == 0) & (to_node_odist_df.startRR == 0)]
-    OD.update(to_node_odist_df_r0_c0.set_index(['OFIPS'])['ONode'])
+    OD = OD.set_index([odfips])
+    to_node_odist_df_r0_c0 = to_node_odist_df[(to_node_odist_df.comm == 0) & (to_node_odist_df[stRR] == 0)]
+    OD.update(to_node_odist_df_r0_c0.set_index([odfips])[dist])
+    OD.update(to_node_odist_df_r0_c0.set_index([odfips])[odnode])
     # for comm = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['OFIPS', 'startRR'])
+    OD = OD.set_index([odfips, stRR])
     to_node_odist_df_c0 = to_node_odist_df[(to_node_odist_df.comm == 0)]
-    OD.update(to_node_odist_df_c0.set_index(['OFIPS', 'startRR'])['ONode'])
+    OD.update(to_node_odist_df_c0.set_index([odfips, stRR])[dist])
+    OD.update(to_node_odist_df_c0.set_index([odfips, stRR])[odnode])
     # for startRR = 0
     OD = OD.reset_index()
-    OD = OD.set_index(['OFIPS', 'comm'])
-    to_node_odist_df_r0 = to_node_odist_df[to_node_odist_df.startRR == 0]
-    OD.update(to_node_odist_df_r0.set_index(['OFIPS', 'comm'])['ONode'])
-    OD = OD.reset_index()
-    print("Completed. :)")
-
-
-def snap_by_commodity_rr_dfips():
-    global OD
-    print("Manual Snapping By Railroad and Commodity.")
-    to_node_odist_df = fips_orr_comm_to_node_odist_df[['FIPS', 'startRR', 'comm', 'NODE']]
-    to_node_odist_df.columns = [['DFIPS', 'startRR', 'comm', 'DNode']]
-    # for both commodity and railroad given
-    OD = OD.reset_index()
-    OD = OD.set_index(['DFIPS', 'startRR', 'comm'])
-    OD.update(to_node_odist_df.set_index(['DFIPS', 'startRR', 'comm'])['DNode'])
-    # for comm = 0 and startRR = 0
-    OD = OD.reset_index()
-    OD = OD.set_index(['DFIPS'])
-    to_node_odist_df_r0_c0 = to_node_odist_df[(to_node_odist_df.comm == 0) & (to_node_odist_df.startRR == 0)]
-    OD.update(to_node_odist_df_r0_c0.set_index(['DFIPS'])['DNode'])
-    # for comm = 0
-    OD = OD.reset_index()
-    OD = OD.set_index(['DFIPS', 'startRR'])
-    to_node_odist_df_c0 = to_node_odist_df[(to_node_odist_df.comm == 0)]
-    OD.update(to_node_odist_df_c0.set_index(['DFIPS', 'startRR'])['DNode'])
-    # for startRR = 0
-    OD = OD.reset_index()
-    OD = OD.set_index(['DFIPS', 'comm'])
-    to_node_odist_df_r0 = to_node_odist_df[to_node_odist_df.startRR == 0]
-    OD.update(to_node_odist_df_r0.set_index(['DFIPS', 'comm'])['DNode'])
+    OD = OD.set_index([odfips, 'comm'])
+    to_node_odist_df_r0 = to_node_odist_df[to_node_odist_df[stRR] == 0]
+    OD.update(to_node_odist_df_r0.set_index([odfips, 'comm'])[dist])
+    OD.update(to_node_odist_df_r0.set_index([odfips, 'comm'])[odnode])
     OD = OD.reset_index()
     print("Completed. :)")
 
 
 def snap_by_rr():
-    OD['ONode'] = pandas.merge(OD, fips_orr_to_node_odist_df, how='left', on=['OFIPS', 'startRR'])['ONODE']
-    OD['ODIST'] = pandas.merge(OD, fips_orr_to_node_odist_df, how='left', on=['OFIPS', 'startRR'])['ODIST_y']
-    OD['DNode'] = OD.DFIPS.map(fips_nearnodeid_dictionary)
+    # for Origin using startRR
+    OD['ONode'] = \
+    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['OFIPS', 'startRR'], right_on=['FIPS', "RR"])[
+        'NODE']
+    OD['ODIST'] = \
+    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['OFIPS', 'startRR'], right_on=['FIPS', "RR"])[
+        'DIST']
+    # for Destination using TermiRR
+    OD['DNode'] = \
+    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['DFIPS', 'termiRR'], right_on=['FIPS', "RR"])[
+        'NODE']
+    OD['DDIST'] = \
+    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['DFIPS', 'termiRR'], right_on=['FIPS', "RR"])[
+        'DIST']
+
+    # OD['DNode'] = OD.DFIPS.map(fips_nearnodeid_dictionary)
 
 
 # main program starts here
@@ -197,13 +196,13 @@ fips_nearnodeid_dictionary = update_nearest_node_dictionary()
 if sys.argv[2] == "new":
     # read the new copy of csv file
     index_of_od = range(len(OD))
-    fips_orr_to_node_odist_df = pandas.DataFrame({"OFIPS": [], "startRR": [], "ONODE": [], "ODIST": []})
+    fips_orr_to_node_odist_df = pandas.DataFrame({"FIPS": [], "RR": [], "NODE": [], "DIST": []})
 
 elif sys.argv[2] == "update":
     # read the FIPS to Node conversion csv file
-    fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\OFIPSORR.csv")
+    fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\FIPSRR.csv")
     snap_by_rr()  # dictionary snapping
-    index_of_od = OD.index[OD.ONode.isnull()]
+    index_of_od = OD.index[OD.ONode.isnull() | OD.DNode.isnull()]
 
 # snap OFIPS to nearest ONODE that has startRR
 # snap DFIPS to nearest DNODE
@@ -215,13 +214,20 @@ for i in index_of_od:
                                                                                           OD.at[i, 'startRR'],
                                                                                           OD['ONode'][i],
                                                                                           OD['ODIST'][i]))
-    OD['DNode'][i] = get_nearest_node(OD.at[i, 'OFIPS'])
+    # OD['DNode'][i] = get_nearest_node(OD.at[i, 'OFIPS'])
+    OD['DNode'][i], OD['DDIST'][i] = get_nearest_onode_with_orr(OD.at[i, 'DFIPS'], OD.at[i, 'termiRR'])
+
+    print ("{0}:    DFP:{1:6.0f}    tRR:{3:3.0f}    DND:{4:6.0f}    DIST:{5:6.2f}".format(i, OD.at[i, 'DFIPS'],
+                                                                                          OD.at[i, 'DFIPS'],
+                                                                                          OD.at[i, 'termiRR'],
+                                                                                          OD['DNode'][i],
+                                                                                          OD['DDIST'][i]))
 
 # after all the dictionary snappings and GIS snappings have occured, do the OFIPSorrcomm snappings
-snap_by_commodity_rr_ofips()
-snap_by_commodity_rr_dfips()
+snap_by_commodity_rr_odfips("origin")
+snap_by_commodity_rr_odfips("destination")
 
 fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.drop_duplicates()
-fips_orr_to_node_odist_df[['OFIPS', 'startRR', 'ONODE', 'ODIST']].to_csv(r"intermediate\OFIPSORR.csv")
+fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(r"intermediate\FIPSRR.csv")
 
 OD[column_list].to_csv(r"intermediate/" + sys.argv[1] + "_1.csv")

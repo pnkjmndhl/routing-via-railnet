@@ -3,9 +3,14 @@ import os
 import thread
 import time
 import psutil
+import os
+import datetime
 
 # default CPU usage
 default_max_cpu_usage = 70
+
+now = datetime.datetime.now()
+folder_name = now.strftime("%Y%m%d%H%M%S")
 
 # Default values:
 network_prm_ = ['network.prm']
@@ -20,6 +25,7 @@ link_volume_lvl_ = ['volume.lvl']
 netbld_ = ["NETBLD.exe"]
 commodty_ = ["COMMODTY.exe"]
 railnet_ = ["RAILNET.exe"]
+folder_ = [folder_name]
 
 
 def assign_value(name, list):
@@ -57,6 +63,8 @@ def assign_value(name, list):
         commodty_ = list
     elif name == 'railnet_':
         railnet_ = list
+    elif name == 'folder_':
+        folder_ = list
     else:
         print("Parameter {0} not found in default values".format(name))
         exit(0)
@@ -96,12 +104,13 @@ for network_prm in network_prm_:
                                     for netbld in netbld_:
                                         for commodty in commodty_:
                                             for railnet in railnet_:
-                                                while (psutil.cpu_percent() > default_max_cpu_usage):
-                                                    time.sleep(10)
-                                                    print(
-                                                        "Maximum CPU usage reached... waiting for other processes to complete")
-                                                command_string = "python run.py " + network_prm + " " + link_dat + " " + transfer_xfr + " " + commodity_dat + " " + positive_number + " " + cost_dat + " " + transfer_exc + " " + link_exc + " " + link_volume_lvl + " " + netbld + " " + commodty + " " + railnet
-                                                print(command_string + " added to thread: " + str(
-                                                    thread.start_new_thread(os.system, (command_string,))))
-                                                time.sleep(1)
+                                                for folder in folder_:
+                                                    while (psutil.cpu_percent() > default_max_cpu_usage):
+                                                        time.sleep(10)
+                                                        print(
+                                                            "Maximum CPU usage reached... waiting for other processes to complete")
+                                                    command_string = "python run.py " + network_prm + " " + link_dat + " " + transfer_xfr + " " + commodity_dat + " " + positive_number + " " + cost_dat + " " + transfer_exc + " " + link_exc + " " + link_volume_lvl + " " + netbld + " " + commodty + " " + railnet + " " + folder
+                                                    print(command_string + " added to thread: " + str(
+                                                        thread.start_new_thread(os.system, (command_string,))))
+                                                    time.sleep(1)
 print("Running in background... Please wait for results...")

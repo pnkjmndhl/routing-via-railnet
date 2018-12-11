@@ -4,6 +4,7 @@ import pandas as pd
 import arcpy
 import sys
 import os
+import datetime
 
 # default values
 plot_folder = 'Plots/'
@@ -88,6 +89,14 @@ def export_to_jpeg(plot_type, exclude_plot, plot_path):
     print ("Completed")
 
 
+def check_scenario(base_,scenario_):
+    # put the checking code here...
+    # if no codes, plots everything
+
+    return 0
+
+
+
 # main program
 link_shp = 'gis/alllinks.shp'
 field_names = get_field_names(link_shp)  # getting field names
@@ -118,22 +127,30 @@ if base_arg == "":
 
 print("Generating Difference plot ...")
 plot = 'gis/plots/Plotdiff.shp'
-file_1 = "Netdata/LMF/" + folder_in_LMF + "/" + base_lmf[0]
 
-for scenario in scenarios:
-    print ("working on: " + base + "," + scenario)
-    file_2 = "Netdata/LMF/" + folder_in_LMF + "/" + scenario
-    flow_1 = split_to_dataframe(file_1, ['ID', 'qty'])
-    flow_2 = split_to_dataframe(file_2, ['ID', 'qty'])
-    flow = flow_1  # flow1 is always the base flow
-    get_plot_with_fieldnames(field_names)
-    flow['qty'] = flow_2['qty'] - flow_1['qty']
-    add_column_to_shp("qty")
-    plot_type = ["Plotdiff", 'allnodes']
-    exclude_plot = ['Plot']
-    plot_name = base + "_" + scenario
-    plot_path = 'plots/' + folder_in_LMF + "/" + plot_name
-    if not os.path.exists('plots/' + folder_in_LMF):
-        os.makedirs('plots/' + folder_in_LMF)
-    print plot_path
-    export_to_jpeg(plot_type, exclude_plot, plot_path)
+print base_lmf
+print scenarios
+
+for base in base_lmf:
+    file_1 = "Netdata/LMF/" + folder_in_LMF + "/" + base
+    for scenario in scenarios:
+        check_scenario(base,scenario)
+        print ("working on: " + base + ", " + scenario)
+        file_2 = "Netdata/LMF/" + folder_in_LMF + "/" + scenario
+        flow_1 = split_to_dataframe(file_1, ['ID', 'qty'])
+        flow_2 = split_to_dataframe(file_2, ['ID', 'qty'])
+        flow = flow_1  # flow1 is always the base flow
+        get_plot_with_fieldnames(field_names)
+        flow['qty'] = (flow_2['qty'] - flow_1['qty'])
+        #flow_1['qty'] = flow_1['qty'] + 0.1 # to avoid divide by zero
+        #flow_2['qty'] = flow_2['qty'] + 0.1  # to avoid divide by zero
+        #flow['qty'] = (flow_2['qty'] - flow_1['qty'])/(flow_1['qty'])
+        add_column_to_shp("qty")
+        plot_type = ["Plotdiff", 'allnodes']
+        exclude_plot = ['Plot']
+        plot_name = base + "_" + scenario
+        plot_path = 'plots/' + folder_in_LMF + "/" + plot_name
+        if not os.path.exists('plots/' + folder_in_LMF):
+            os.makedirs('plots/' + folder_in_LMF)
+        print plot_path
+        export_to_jpeg(plot_type, exclude_plot, plot_path)

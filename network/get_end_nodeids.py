@@ -16,7 +16,7 @@ def get_vertices_id(end):
         for row in cursor:
             vertices.append(row[0])
     if len(vertices) != 1:  # it has to return exactly one vertices per end
-        print ("Error: The vertex has {0} node/s: {1}".format(len(vertices),vertices))
+        print ("Error: One of the vertex has {0} node/s: {1}".format(len(vertices),vertices))
         return [0]
     else:
         return vertices[0]

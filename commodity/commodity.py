@@ -29,6 +29,8 @@ os.system("python rm_exceptions.py")
 
 os.system("python gen_cm.py")
 
+print("Completed.")
 
+print("Make sure that all the scenario's are copied to Netdata folder")
 
 
