@@ -4,6 +4,7 @@ import sys
 
 #tolerances
 odist_tolerance = 100 #miles (greater than this distance will be removed from the OD file)
+snap_dist_threshhold = 200 # miles (if they are snapped more than this distance, then they will be snapped to nearest)
 
 
 # parameters
@@ -15,6 +16,7 @@ no_of_commodity = 12
 link_shp = '../GIS/alllinks.shp'
 node_shp = '../GIS/allnodes.shp'
 fips_shp = r"../GIS/standards/FIPS.shp"
+county_shp = r"../GIS/standards/tl_2017_us_county.shp"
 transfer_manual_shp = r"../GIS/manualtransfers.shp"
 transfer_shp = r"../GIS/transfers.shp"
 transfer_shp_snapped = r"../GIS/transfers_snapped.shp"
@@ -22,6 +24,7 @@ transfer_xl_shp = r"../GIS/transfers_xl.shp"
 state_shp = "../GIS/standards/tl_2017_us_states.shp"
 transfer_exception_shp = '../GIS/transfer_exceptions.shp'
 link_exception_shp = '../GIS/link_exception.shp'
+base_flows_shp = '../GIS/base_flows.shp'
 ofips_orr_comm = r"../commodity/intermediate/OFIPSORRcomm.csv"
 
 #other temporary shapefiles
@@ -55,6 +58,7 @@ def get_network_rrs(link_shp_ = link_shp):
 link_shpf = "linkshp"
 fips_shpf = "FIPS"
 node_shpf = "nodeshp"
+county_shpf = "countyshp"
 
 # functions
 if __name__ == "__main__":

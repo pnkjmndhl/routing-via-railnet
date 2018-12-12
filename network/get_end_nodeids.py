@@ -23,7 +23,7 @@ def get_vertices_id(end):
 
 
 # delete existing A_NODE and B_NODE
-arcpy.DeleteField_management(node_shp, ["A_NODE", "B_NODE"])
+arcpy.DeleteField_management(link_shp, ["A_NODE", "B_NODE"])
 
 # main program
 arcpy.AddField_management(link_shp, "A_NODE", "LONG", "")
