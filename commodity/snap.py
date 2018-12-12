@@ -45,6 +45,7 @@ fips_orr_comm_to_node_odist_df = pandas.read_csv(ofips_orr_comm)
 arcpy.MakeFeatureLayer_management(link_shp, link_shpf)
 arcpy.MakeFeatureLayer_management(fips_shp, fips_shpf)
 arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
+arcpy.MakeFeatureLayer_management(county_shp, county_shpf)
 
 all_field_names = [x.name for x in arcpy.ListFields(link_shp)]
 rr_field_names = [x for x in all_field_names if re.match(r'RR\d', x)]
@@ -68,6 +69,22 @@ def update_nearest_node_dictionary():
                            arcpy.SearchCursor(node_shp)}
     fips_nearnodeid_dictionary = {x: near_fid_to_node_id[y] for x, y in fips_to_near_fid.iteritems()}
     return fips_nearnodeid_dictionary
+
+
+def update_node_county_dictionary():
+    # county_shp = r"../GIS/standards/tl_2017_us_county.shp"
+    # node_shp = '../GIS/allnodes.shp'
+    # node_shpf = "nodeshp"
+    # county_shpf = "countyshp"
+    # arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
+    # arcpy.MakeFeatureLayer_management(county_shp, county_shpf)
+    arcpy.SpatialJoin_analysis(county_shpf, node_shpf, "in_memory/p3", "JOIN_ONE_TO_MANY", "KEEP_COMMON", "", "COMPLETELY_CONTAINS", "", "")
+    # fieldnames = [f.name for f in arcpy.ListFields("in_memory/p3")]
+    node_fid_to_fips_fid = {row.getValue("JOIN_FID"): row.getValue("TARGET_FID") for row in arcpy.SearchCursor("in_memory/p3")}
+    node_fid_node_id = {row.getValue("FID"): row.getValue("ID") for row in arcpy.SearchCursor(node_shp)}
+    fips_fid_to_fips_id = {row.getValue("FID"): int(row.getValue("GEOID")) for row in arcpy.SearchCursor(county_shp)}
+    node_id_to_fips = {node_fid_node_id[x]: fips_fid_to_fips_id[y] for x,y in node_fid_to_fips_fid.iteritems()}
+    return node_id_to_fips
 
 
 def get_if_available(origin_fips, origin_rr):
@@ -139,7 +156,7 @@ def snap_by_commodity_rr_odfips(argument):
         exit(0)
     print("Manual Snapping By Railroad and Commodity.")
     to_node_odist_df = fips_orr_comm_to_node_odist_df[['FIPS', 'RR', 'comm', 'NODE']]
-    to_node_odist_df[dist] = 0
+    to_node_odist_df[dist] = -98
     to_node_odist_df.columns = [[odfips, stRR, 'comm', odnode, dist]]
     # for both commodity and railroad given
     OD = OD.reset_index()
@@ -187,11 +204,41 @@ def snap_by_rr():
     # OD['DNode'] = OD.DFIPS.map(fips_nearnodeid_dictionary)
 
 
+def snap_nearest_if_not_in_same_county_or_within_a_distance(argument):
+    print("Snapping to nearest for " + argument + " railroad not found in the county")
+    global OD
+    #fips_nearnodeid_dictionary
+    #change values here
+    if argument == "origin":
+        odfips = "OFIPS"
+        odnode = "ONode"
+        odnode1 = "ONode1"
+        dist = "ODIST"
+        odcounty = "ocounty"
+    elif argument == "destination":
+        odfips = "DFIPS"
+        odnode = "DNode"
+        odnode1 = "DNode1"
+        dist = "DDIST"
+        odcounty = "dcounty"
+    else:
+        print("Invalid arguments at function snap_nearest_if_not_in_same_county")
+        exit(0)
+
+    OD[odcounty] = OD[odnode].map(node_county_dict)
+    OD[odnode1] = OD[(OD[odcounty] != OD[odfips]) & (dist > snap_dist_threshhold)][odfips].map(fips_nearnodeid_dictionary)
+    OD[odnode].update(OD[odnode1])
+    OD.loc[(OD[odcounty] != OD[odfips]) & (dist > snap_dist_threshhold) ,dist] = -99
+
+
+
+
 # main program starts here
 # calculate D-node here
 
 # OD['ODIST'] = ""
 fips_nearnodeid_dictionary = update_nearest_node_dictionary()
+node_county_dict = update_node_county_dictionary()
 
 if sys.argv[2] == "new":
     # read the new copy of csv file
@@ -222,6 +269,10 @@ for i in index_of_od:
                                                                                           OD.at[i, 'termiRR'],
                                                                                           OD['DNode'][i],
                                                                                           OD['DDIST'][i]))
+
+#if the OFIPS and ONODE or DFIPS and DNODE are not in the same county:
+snap_nearest_if_not_in_same_county_or_within_a_distance("origin")
+snap_nearest_if_not_in_same_county_or_within_a_distance("destination")
 
 # after all the dictionary snappings and GIS snappings have occured, do the OFIPSorrcomm snappings
 snap_by_commodity_rr_odfips("origin")
