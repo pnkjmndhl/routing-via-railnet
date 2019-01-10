@@ -22,7 +22,6 @@ if 'n' in sys.argv[1]:
     os.system("python overwrite_missing.py")
     os.system("python get_readable_attributes.py")
     os.system("python gen_networkfile.py")
-    os.system("get_nodeID_from_address.py")
 elif 'u' in sys.argv[1]:
     os.system("python generate_nodeids.py update")
     os.system("python get_end_nodeids.py")
@@ -30,15 +29,12 @@ elif 'u' in sys.argv[1]:
     os.system("python overwrite_missing.py")
     os.system("python get_readable_attributes.py")
     os.system("python gen_networkfile.py")
-    os.system("get_nodeID_from_address.py")
 elif 'm' in sys.argv[1]:
     os.system("python overwrite_missing.py")
     os.system("python get_readable_attributes.py")
     os.system("python gen_networkfile.py")
-    os.system("get_nodeID_from_address.py")
 elif 's' in sys.argv[1]:
     os.system("python gen_networkfile.py")
-    os.system("get_nodeID_from_address.py")
 
 else:
     print("Invalid Switch")
