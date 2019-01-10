@@ -4,7 +4,7 @@ import sys
 
 #tolerances
 odist_tolerance = 100 #miles (greater than this distance will be removed from the OD file)
-snap_dist_threshhold = 200 # miles (if they are snapped more than this distance, then they will be snapped to nearest)
+snap_dist_threshhold = 50 # miles (if they are snapped more than this distance, then they will be snapped to nearest)
 
 
 # parameters
@@ -16,6 +16,7 @@ no_of_commodity = 12
 link_shp = '../GIS/alllinks.shp'
 node_shp = '../GIS/allnodes.shp'
 fips_shp = r"../GIS/standards/FIPS.shp"
+manual_snap_lines_shp = '../GIS/manual_snap_lines.shp'
 county_shp = r"../GIS/standards/tl_2017_us_county.shp"
 transfer_manual_shp = r"../GIS/manualtransfers.shp"
 transfer_shp = r"../GIS/transfers.shp"
@@ -27,9 +28,10 @@ link_exception_shp = '../GIS/link_exception.shp'
 base_flows_shp = '../GIS/base_flows.shp'
 ofips_orr_comm = r"../commodity/intermediate/OFIPSORRcomm.csv"
 
-#other temporary shapefiles
+#other temporary files
 memory_shp = "in_memory/dumm"
 disk_shp = "C:/GIS/dumm.shp"
+csv = "C:/GIS/temp/temp.csv"
 
 
 #xls and csv files
