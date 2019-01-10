@@ -8,8 +8,30 @@ import re
 import numpy as np
 
 
-#setting default values
+filenames = sys.argv[1]
+commodities = sys.argv[2]
+railroads = sys.argv[3]
+folder = "netdata/ADF/"+ sys.argv[4]
+
+
 plot_folder = 'Plots/'
+
+
+#setting default values
+name_of_railroad = 'all'
+name_of_commodity = 'all'
+mxdfile = r"Rail3_plot2.mxd"
+
+# #for commodities
+# mxdfile = r"Rail3_plot2_comm.mxd"
+# name_of_railroad = 'all'
+# name_of_commodity = commodities
+
+#for railroads
+# mxdfile = r"Rail3_plot2_railroad.mxd"
+# name_of_railroad = railroads
+# name_of_commodity = 'all'
+
 
 # This program plots the output commodity.lmf file to plot.shp
 
@@ -38,10 +60,7 @@ def convert_to_list(argument):
 # default values
 plot_folder = 'Plots/'
 
-filenames = sys.argv[1]
-commodities = sys.argv[2]
-railroads = sys.argv[3]
-folder = "netdata/ADF/"+ sys.argv[4]
+
 
 
 
@@ -90,8 +109,9 @@ print("Railroad List: {0}".format(railroad_list))
 def get_flow_from_adf(location):
     commodity_df = pandas.read_csv(location)
     commodity_df.columns = ["ID", "Arc", "DIR", "Comm", "RR", "NetTons", "X", "Delay", "traveltime", "length", "payload"]
+    commodity_df['GrossTons'] = commodity_df['NetTons']*commodity_df['X']
     commodity_df = commodity_df[commodity_df["RR"].isin(railroad_list) & commodity_df["Comm"].isin(commodity_list)]
-    commodity_table = pandas.pivot_table(commodity_df, values='NetTons', index=['ID'], aggfunc=np.sum).reset_index()
+    commodity_table = pandas.pivot_table(commodity_df, values='GrossTons', index=['ID'], aggfunc=np.sum).reset_index()
     return commodity_table
 
 
@@ -117,6 +137,7 @@ def add_column_to_shp(col_name):
             try:
                 row[1] = flow[flow.ID == row[0]][col_name].values[0]
             except:
+                #pass
                 print("Error on: linkID: " + str(row[0]))
             cursor.updateRow(row)
 
@@ -135,7 +156,7 @@ def get_plot_with_fieldnames(column_names):
 
 def export_to_jpeg(plot_type, exclude_plot, plot_path):
     now = datetime.datetime.now()
-    mxd = arcpy.mapping.MapDocument(r"Rail3_plot2.mxd")
+    mxd = arcpy.mapping.MapDocument(mxdfile)
     df = arcpy.mapping.ListDataFrames(mxd)[0]
     # print arcpy.mapping.ListLayers(mxd, "", df)[0].name
     for lyr in arcpy.mapping.ListLayers(mxd, "", df):
@@ -171,12 +192,13 @@ for base in bases:
     print ("working on: " + base)
     file_name = folder + "/" + base
     flow = get_flow_from_adf(file_name)
+    print flow
     get_plot_with_fieldnames(field_names)
-    add_column_to_shp("NetTons")
+    add_column_to_shp("GrossTons")
     plot_type = ['Plot', 'allnodes']
     exclude_plot = ['Plotdiff']
     plot_name = base
-    plot_path = 'plots/' + sys.argv[4] + "/" + plot_name
+    plot_path = 'plots/' + sys.argv[4] + "/" + plot_name + "_" + name_of_commodity + "_" + name_of_railroad
     if not os.path.exists('plots/' + sys.argv[4]):
         os.makedirs('plots/' + sys.argv[4])
     print plot_path
@@ -222,11 +244,11 @@ for scenario in scenarios:
     flow_1 = get_flow_from_adf(file_1)
     flow_2 = get_flow_from_adf(file_2)
     get_plot_with_fieldnames(field_names)
-    flow = subtract_values(flow_1, flow_2, "NetTons") # Base - Scenario
-    add_column_to_shp("NetTons")
+    flow = subtract_values(flow_1, flow_2, "GrossTons") # Base - Scenario
+    add_column_to_shp("GrossTons")
     plot_type = ["Plotdiff", 'allnodes']
     exclude_plot = ['Plot']
-    plot_name = base_lmf + "_" + scenario
+    plot_name = base_lmf + "_" + scenario + "_" + name_of_commodity + "_" + name_of_railroad
     plot_path = 'plots/' + sys.argv[4] + "/" + plot_name
     if not os.path.exists('plots/' + sys.argv[4]):
         os.makedirs('plots/' + sys.argv[4])
