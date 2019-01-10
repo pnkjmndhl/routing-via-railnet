@@ -185,23 +185,27 @@ def snap_by_commodity_rr_odfips(argument):
     print("Completed. :)")
 
 
-def snap_by_rr():
+def snap_by_rr(argument):
     # for Origin using startRR
-    OD['ONode'] = \
-    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['OFIPS', 'startRR'], right_on=['FIPS', "RR"])[
+    if argument == 'origin':
+        odnode = 'ONode'
+        odfips = 'OFIPS'
+        rr = 'startRR'
+        oddist = 'ODIST'
+    elif argument == 'destination':
+        odnode = 'DNode'
+        odfips = 'DFIPS'
+        rr = 'termiRR'
+        oddist = 'DDIST'
+    else:
+        print("invalid argument in snap_by_rr")
+        exit(0)
+    OD[odnode] = \
+    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=[odfips, rr], right_on=['FIPS', "RR"])[
         'NODE']
-    OD['ODIST'] = \
-    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['OFIPS', 'startRR'], right_on=['FIPS', "RR"])[
+    OD[oddist] = \
+    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=[odfips, rr], right_on=['FIPS', "RR"])[
         'DIST']
-    # for Destination using TermiRR
-    OD['DNode'] = \
-    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['DFIPS', 'termiRR'], right_on=['FIPS', "RR"])[
-        'NODE']
-    OD['DDIST'] = \
-    pandas.merge(OD, fips_orr_to_node_odist_df, how='left', left_on=['DFIPS', 'termiRR'], right_on=['FIPS', "RR"])[
-        'DIST']
-
-    # OD['DNode'] = OD.DFIPS.map(fips_nearnodeid_dictionary)
 
 
 def snap_nearest_if_not_in_same_county_or_within_a_distance(argument):
@@ -248,7 +252,8 @@ if sys.argv[2] == "new":
 elif sys.argv[2] == "update":
     # read the FIPS to Node conversion csv file
     fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\FIPSRR.csv")
-    snap_by_rr()  # dictionary snapping
+    snap_by_rr('origin')  # dictionary snapping
+    snap_by_rr('destination')  # dictionary snapping
     index_of_od = OD.index[OD.ONode.isnull() | OD.DNode.isnull()]
 
 # snap OFIPS to nearest ONODE that has startRR
@@ -271,7 +276,7 @@ for i in index_of_od:
                                                                                           OD['DDIST'][i]))
 
 #if the OFIPS and ONODE or DFIPS and DNODE are not in the same county:
-snap_nearest_if_not_in_same_county_or_within_a_distance("origin")
+#snap_nearest_if_not_in_same_county_or_within_a_distance("origin")
 snap_nearest_if_not_in_same_county_or_within_a_distance("destination")
 
 # after all the dictionary snappings and GIS snappings have occured, do the OFIPSorrcomm snappings
@@ -280,5 +285,12 @@ snap_by_commodity_rr_odfips("destination")
 
 fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.drop_duplicates()
 fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(r"intermediate\FIPSRR.csv")
+
+
+#if you dont want to do the destination snapping
+#add code here
+
+
+
 
 OD[column_list].to_csv(r"intermediate/" + sys.argv[1] + "_1.csv")
