@@ -42,6 +42,8 @@ def get_terrain(capcode):
         return "HILLY"
     elif capcode in [9, 10, 11, 12]:
         return "MNTNS"
+    elif capcode == 13:
+        return "CSCDT"
     else:
         return 0
 

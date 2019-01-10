@@ -15,12 +15,17 @@ folder_in_LMF = sys.argv[1]
 base_arg = sys.argv[2]
 
 try:
-    list_of_list_commodity = ast.literal_eval(sys.argv[3])
+    if sys.argv[3]=='0':
+        list_of_list_commodity = [range(1,no_of_commodity+1)]
+    else:
+        list_of_list_commodity = ast.literal_eval(sys.argv[3])
 except:
-
     list_of_list_commodity = [range(1,no_of_commodity+1)]
 try:
-    list_of_list_railroad = ast.literal_eval(sys.argv[4])
+    if sys.argv[4]=='0':
+        list_of_list_railroad = [get_network_rrs('gis/alllinks.shp')]
+    else:
+        list_of_list_railroad = ast.literal_eval(sys.argv[4])
 except:
     list_of_list_railroad = [get_network_rrs('gis/alllinks.shp')]
 
