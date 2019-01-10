@@ -41,12 +41,12 @@ base_flows_df.base_ton_daily_ba = base_flows_df.base_ton_daily_ba.astype(float)
 base_flows_df.base_ton_daily_ba = base_flows_df.base_ton_daily_ba.astype(float)
 
 base_flows_df['ID'] = base_flows_df['ID'].map('{:8d}'.format)
-base_flows_df['base_vol_daily_ab'] = base_flows_df['base_vol_daily_ab'].map('{:4d}'.format)
-base_flows_df['base_vol_daily_ba'] = base_flows_df['base_vol_daily_ba'].map('{:4d}'.format)
+base_flows_df['base_vol_daily_ab'] = base_flows_df['base_vol_daily_ab'].map('{:5d}'.format)
+base_flows_df['base_vol_daily_ba'] = base_flows_df['base_vol_daily_ba'].map('{:5d}'.format)
 base_flows_df['base_ton_daily_ab'] = base_flows_df['base_ton_daily_ab'].map('{:10.0f}'.format)
 base_flows_df['base_ton_daily_ba'] = base_flows_df['base_ton_daily_ba'].map('{:10.0f}'.format)
 
 base_flows_df = base_flows_df[['ID', 'base_vol_daily_ab', 'base_vol_daily_ba', 'base_ton_daily_ab', 'base_ton_daily_ba']].apply(
-    lambda x: '{}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4]), axis=1)
+    lambda x: '  {}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4]), axis=1)
 
 base_flows_df.to_csv("output/volume.lvl", index=False)
