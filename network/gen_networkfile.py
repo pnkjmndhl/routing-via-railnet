@@ -8,15 +8,12 @@ from simpledbf import Dbf5
 # Set the workspace environment to local file geodatabase
 #arcpy.env.workspace = r"C:/GIS"
 
-# overwrite link_shp
-# link_shp = r'..\GIS\test_alllinks.shp'
-
 # colnames and format and other lists
 integer_list = ['ID', 'A_NODE', 'B_NODE', 'ML_CLASS', 'LINK_TYPE', 'NO_RRS', 'RR1', 'RR2', 'RR3', 'RR4', 'RR5', 'RR6',
                 'RR7', 'RR8']
 all_list = ['ID', 'A_NODE', 'B_NODE', 'LENGTH', 'TTIME', 'CAPACITY', 'P1', 'P2', 'GAMMA', 'TADJ', 'ML_CLASS',
             'LINK_TYPE', 'NO_RRS', 'RR1', 'RR2', 'RR3', 'RR4', 'RR5', 'RR6', 'RR7', 'RR8']
-format_list = ['{:5d}', '{:5d}', '{:5d}', '{:6.1f}', '{:6.2f}', '{:6.1f}', '{:10.6f}', '{:10.6f}', '{:6.2f}', '{:6.2f}',
+format_list = ['{:5d}', '{:5d}', '{:5d}', '{:6.1f}', '{:6.1f}', '{:6.1f}', '{:10.6f}', '{:10.6f}', '{:6.2f}', '{:6.2f}',
                '{:1d}', '{:1d}', '{:1d}', '{:3d}', '{:3d}', '{:3d}', '{:3d}', '{:3d}', '{:3d}', '{:3d}', '{:3d}']
 RRs = ['RR1', 'RR2', 'RR3', 'RR4', 'RR5', 'RR6', 'RR7', 'RR8', 'RR9']
 
@@ -57,4 +54,4 @@ for column_name, formatting in dictionary_of_column_name_and_format.iteritems():
 
 network_df['new'] = network_df.apply(''.join, axis=1)
 network_df = network_df['new']
-network_df.to_csv(r"output/network.dat", index=False)
+network_df.to_csv(network_dat_output, index=False)

@@ -18,14 +18,6 @@ count = 0
 # overwrite files if its already present
 arcpy.env.overwriteOutput = True
 
-if sys.argv[2] not in ['new', 'update', '-h']:
-    print sys.argv[1]
-    print("Invalid Arguments")
-    exit(0)
-elif sys.argv[2] in ['-h', '-help']:
-    print("Usage: python snap.py <filename> update/new ")
-    exit(0)
-
 OD = pandas.read_csv(r"intermediate/" + sys.argv[1] + ".csv")
 
 # if the startRR is not in our network, add 0 (can snap to any railroad)
@@ -72,14 +64,7 @@ def update_nearest_node_dictionary():
 
 
 def update_node_county_dictionary():
-    # county_shp = r"../GIS/standards/tl_2017_us_county.shp"
-    # node_shp = '../GIS/allnodes.shp'
-    # node_shpf = "nodeshp"
-    # county_shpf = "countyshp"
-    # arcpy.MakeFeatureLayer_management(node_shp, node_shpf)
-    # arcpy.MakeFeatureLayer_management(county_shp, county_shpf)
     arcpy.SpatialJoin_analysis(county_shpf, node_shpf, "in_memory/p3", "JOIN_ONE_TO_MANY", "KEEP_COMMON", "", "COMPLETELY_CONTAINS", "", "")
-    # fieldnames = [f.name for f in arcpy.ListFields("in_memory/p3")]
     node_fid_to_fips_fid = {row.getValue("JOIN_FID"): row.getValue("TARGET_FID") for row in arcpy.SearchCursor("in_memory/p3")}
     node_fid_node_id = {row.getValue("FID"): row.getValue("ID") for row in arcpy.SearchCursor(node_shp)}
     fips_fid_to_fips_id = {row.getValue("FID"): int(row.getValue("GEOID")) for row in arcpy.SearchCursor(county_shp)}
@@ -208,6 +193,8 @@ def snap_by_rr(argument):
         'DIST']
 
 
+
+#if snapped distance is greater than a threshhold, or not in the same county, snap to closest
 def snap_nearest_if_not_in_same_county_or_within_a_distance(argument):
     print("Snapping to nearest for " + argument + " railroad not found in the county")
     global OD
@@ -219,16 +206,12 @@ def snap_nearest_if_not_in_same_county_or_within_a_distance(argument):
         odnode1 = "ONode1"
         dist = "ODIST"
         odcounty = "ocounty"
-    elif argument == "destination":
+    else: # argument == "destination":
         odfips = "DFIPS"
         odnode = "DNode"
         odnode1 = "DNode1"
         dist = "DDIST"
         odcounty = "dcounty"
-    else:
-        print("Invalid arguments at function snap_nearest_if_not_in_same_county")
-        exit(0)
-
     OD[odcounty] = OD[odnode].map(node_county_dict)
     OD[odnode1] = OD[(OD[odcounty] != OD[odfips]) & (dist > snap_dist_threshhold)][odfips].map(fips_nearnodeid_dictionary)
     OD[odnode].update(OD[odnode1])
@@ -244,20 +227,13 @@ def snap_nearest_if_not_in_same_county_or_within_a_distance(argument):
 fips_nearnodeid_dictionary = update_nearest_node_dictionary()
 node_county_dict = update_node_county_dictionary()
 
-if sys.argv[2] == "new":
-    # read the new copy of csv file
-    index_of_od = range(len(OD))
-    fips_orr_to_node_odist_df = pandas.DataFrame({"FIPS": [], "RR": [], "NODE": [], "DIST": []})
+fips_orr_to_node_odist_df = pandas.read_csv(fips_to_rr_csv)
+snap_by_rr('origin')  # dictionary snapping, saved ArcGIS snapping
+snap_by_rr('destination')
+index_of_od = OD.index[OD.ONode.isnull() | OD.DNode.isnull()] #find remaining to snap
 
-elif sys.argv[2] == "update":
-    # read the FIPS to Node conversion csv file
-    fips_orr_to_node_odist_df = pandas.read_csv(r"intermediate\FIPSRR.csv")
-    snap_by_rr('origin')  # dictionary snapping
-    snap_by_rr('destination')  # dictionary snapping
-    index_of_od = OD.index[OD.ONode.isnull() | OD.DNode.isnull()]
 
-# snap OFIPS to nearest ONODE that has startRR
-# snap DFIPS to nearest DNODE
+# snap OFIPS and DFIPE to nearest ONODE and DNODE
 for i in index_of_od:
     OD['ONode'][i], OD['ODIST'][i] = get_nearest_onode_with_orr(OD.at[i, 'OFIPS'], OD.at[i, 'startRR'])
 
@@ -275,22 +251,18 @@ for i in index_of_od:
                                                                                           OD['DNode'][i],
                                                                                           OD['DDIST'][i]))
 
+
 #if the OFIPS and ONODE or DFIPS and DNODE are not in the same county:
-#snap_nearest_if_not_in_same_county_or_within_a_distance("origin")
+snap_nearest_if_not_in_same_county_or_within_a_distance("origin")
 snap_nearest_if_not_in_same_county_or_within_a_distance("destination")
 
-# after all the dictionary snappings and GIS snappings have occured, do the OFIPSorrcomm snappings
+
+# after all the nearest snappings and GIS snappings have occured, do the final manual OFIPSorrcomm snappings
 snap_by_commodity_rr_odfips("origin")
 snap_by_commodity_rr_odfips("destination")
 
 fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.drop_duplicates()
-fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(r"intermediate\FIPSRR.csv")
-
-
-#if you dont want to do the destination snapping
-#add code here
-
-
-
+#update the newly GIS snapped table
+fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(r"../input/FIPSRR.csv")
 
 OD[column_list].to_csv(r"intermediate/" + sys.argv[1] + "_1.csv")

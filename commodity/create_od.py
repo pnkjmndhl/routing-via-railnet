@@ -4,24 +4,26 @@ import pandas as pd
 import os
 import sys
 
-commodity_list = os.listdir('input/' + sys.argv[1] + '/')
-commodity_list = [x.split('.')[0] for x in commodity_list]
-commodity_sheetname = "Sheet1"
+list_of_commodity_files = []
+for commodity_xls in os.listdir(base_folder_path):
+    list_of_commodity_files.append(base_folder_path + commodity_xls)
 
+for commodity_xls in os.listdir(scenario_folder_path):
+    list_of_commodity_files.append(scenario_folder_path + commodity_xls)
+
+commodity_sheetname = "Sheet1"
 ParameterList = ['OFIP', 'TFIP', 'RNCG', 'XTON', 'ORRA', 'TRRA']
 
-print("working on "+sys.argv[1]+ ' folder..')
-
-for commodity_filename in commodity_list:
-    OD = pd.ExcelFile('input/' + sys.argv[1] + '/' + commodity_filename + '.xlsx').parse(commodity_sheetname)[
-        ParameterList]
-    orra_to_orr_df = pd.read_csv(orra_to_orr)
-    orra_to_orr_dict = dict(zip(orra_to_orr_df.AARCode, orra_to_orr_df.ABBR))
-
+for commodity_filepath in list_of_commodity_files:
+    print("working on " + commodity_filepath)
+    commodity_filename = commodity_filepath.split("/")[-1].split('.')[0]
+    OD = pd.ExcelFile(commodity_filepath).parse(commodity_sheetname)[ParameterList]
+    orra_to_orr = pd.read_csv(all_aar_csv)
+    orra_to_orr_dict = dict(zip(orra_to_orr.AARCode, orra_to_orr.ABBR))
     # ORR converted to actual ORR
     OD['ORR'] = OD['ORRA'].map(orra_to_orr_dict)
     OD['TRR'] = OD['TRRA'].map(orra_to_orr_dict)
-    OD = OD.drop(['ORRA','TRRA'], axis=1)
+    OD = OD.drop(['ORRA', 'TRRA'], axis=1)
     OD = OD.fillna(0)
     OD.columns = ['OFIPS', 'DFIPS', 'comm', 'quantity', 'startRR', 'termiRR']
     OD['ONode'] = ""

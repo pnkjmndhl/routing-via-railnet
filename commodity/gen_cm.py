@@ -106,4 +106,4 @@ for scenario in scenario_list:
     # combine all the columns to one
     base_df = base_df[['comm', 'ONode', 'DNode', 'quantity', 'startRR']].apply(
         lambda x: '{}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4]), axis=1)
-    base_df.to_csv(r"output/" + scenario + ".dat", index=False)
+    base_df.to_csv(r"../output/" + scenario + ".dat", index=False)

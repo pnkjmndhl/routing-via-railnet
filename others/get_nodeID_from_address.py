@@ -1,3 +1,6 @@
+# this script changes the physical address or coordinates to nearest node
+# manual snaps moved to GIS, so this script is discontinued
+
 from rail import *
 from geopy.geocoders import Nominatim
 import arcpy

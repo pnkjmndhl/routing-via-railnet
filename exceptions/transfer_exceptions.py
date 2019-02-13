@@ -31,4 +31,4 @@ transfer_exception_df['cost'] = transfer_exception_df['cost'].map('{:10.2f}'.for
 
 transfer_exception_df = transfer_exception_df[['ID','RR1',	'RR2','comm','cost']].apply(lambda x : '{}  {}  {}{}{}'.format(x[0],x[1],x[2],x[3],x[4]), axis=1)
 
-transfer_exception_df.to_csv("output/transfer.exc", index = False)
+transfer_exception_df.to_csv(transfer_exc_output, index = False)

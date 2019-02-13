@@ -2,14 +2,40 @@ from importlib import import_module
 import pandas
 import sys
 
+
+
+
 #tolerances
 odist_tolerance = 100 #miles (greater than this distance will be removed from the OD file)
 snap_dist_threshhold = 50 # miles (if they are snapped more than this distance, then they will be snapped to nearest)
 
 
+#COMMODITY
+base_folder_path = r'../input/base/'
+scenario_folder_path = r'../input/scenario/'
+fips_to_rr_csv = r'../input/FIPSRR.csv'
+
 # parameters
 commodity_adder = 50  # for empty
 no_of_commodity = 12
+
+#COST
+add_for_emptys = 50
+# add railroads are not in the cost file (short-line 6 AA, is used as a sample for all unknown values)
+default_copy_railroad = 6
+
+#default cost values for emptys
+empty_traincostphr = 520.93
+empty_costpgrosstonmie = 0.055
+empty_terminalprocessingcostpcar = 96.67
+empty_terminalcostpcarhr =  1.14
+empty_transfercostphr = 157.92 #not that transfer multiplier is used on top of this
+
+#TRANSFER
+transfer_multiplier = 6
+# inputs/output files
+transfer_xl_file = r'../input/INTERCHANG_G3O.xlsx'
+all_aar_csv = r'../input/allAARCode.csv'
 
 
 #shapefiles
@@ -26,7 +52,7 @@ state_shp = "../GIS/standards/tl_2017_us_states.shp"
 transfer_exception_shp = '../GIS/transfer_exceptions.shp'
 link_exception_shp = '../GIS/link_exception.shp'
 base_flows_shp = '../GIS/base_flows.shp'
-ofips_orr_comm = r"../commodity/intermediate/OFIPSORRcomm.csv"
+ofips_orr_comm = r"../input/OFIPSORRcomm.csv"
 
 #other temporary files
 memory_shp = "in_memory/dumm"
@@ -35,14 +61,19 @@ csv = "C:/GIS/temp/temp.csv"
 
 
 #xls and csv files
-orra_to_orr = "../transfers/input/allAARCode.csv"
-signal_capacity_to_constants = r"../network/input/COEFFS.XLS"
-cost_xl = r'../cost/input/COST_PARMS_10_2018(B).xlsx'
+signal_capacity_to_constants = r"../input/COEFFS.XLS"
+cost_xl = r'../input/COST_PARMS_10_2018(B).xlsx'
 cost_xl_sheet = "COSTS_8_2018"
 
 
-#dat files
-cost_dat = r'..\cost\output\cost.dat'
+#output files
+cost_dat = r'../output/cost.dat'
+transfer_xfr_output = r'../output/network.xfr'
+network_dat_output = r"../output/network.dat"
+base_flows_output = r"../output/volume.lvl"
+link_exc_output = "../output/link.exc"
+transfer_exc_output = "../output/transfer.exc"
+cost_dat_output = r"../output/cost" + str(int(transfer_multiplier)) + ".dat"
 
 
 def get_network_rrs(link_shp_ = link_shp):

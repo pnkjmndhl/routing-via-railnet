@@ -1,36 +1,19 @@
 import sys
 import os
 
-if len(sys.argv) <=1:
-    print("Invalid switch. Use switch -h or -help for help")
-    print ("")
-    exit(0)
-if sys.argv[1] in ['-h', '-help']:
-    print("Usage: python commodity.py [-n|-u|-s]")
-    print("-n: creates a new FIPS to node conversion dictionary")
-    print("-u: updates the current FIPS to node conversion dictionary")
-    print("-s: adds scenario")
-    exit(0)
-    
-os.system("python create_od.py base")
+filenames = [x.split('.')[0] for x in os.listdir('intermediate/') if '_' not in x]
 
-if 'n' in sys.argv[1]:
-    os.system("python -W ignore snap.py base new")
-elif 'u' in sys.argv[1]:
-    os.system("python -W ignore snap.py base update")
-else:
-    print("No switch for snap.py provided. Updating...")
-    os.system("python -W ignore snap.py base update")
+os.system("python create_od.py")
 
-if 's' in sys.argv[1]:
-    os.system("python add_scenario.py")
+for filename in filenames:
+    os.system("python -W ignore snap.py "+filename)
+    #os.system("python snap.py "+filename)
 
+os.system("python append_scenario.py")
 os.system("python rm_exceptions.py")
-
 os.system("python gen_cm.py")
 
 print("Completed.")
-
 print("Make sure that all the scenario's are copied to Netdata folder")
 
 
