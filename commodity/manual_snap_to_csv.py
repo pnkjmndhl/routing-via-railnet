@@ -27,5 +27,5 @@ dbf_to_df['NODE'] = dbf_to_df['FID'].map(near_fid_to_id).map(node_fid_to_id)
 
 #changing the order of columns
 dbf_to_df = dbf_to_df[['FID', 'FIPS', 'RR', 'comm', 'NODE', 'Description']]
-dbf_to_df.to_csv("intermediate/OFIPSORRcomm.csv")
+dbf_to_df.to_csv(ofips_orr_comm)
 

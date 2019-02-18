@@ -48,8 +48,8 @@ base_lmf = [x for x in bases if base_arg in x]
 for filename in bases:
     for list_of_commodity in list_of_list_commodity:
         for list_of_railroad in list_of_list_railroad:
-            print("python plot2.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + filename)
-            os.system("python plot2.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + filename)
+            print("python plot/plot.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + filename)
+            os.system("python plot/plot.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + filename)
 
 if len(base_lmf) > 1:
     print("Multiple base cases found. Skipping scenario plots.")
@@ -61,5 +61,5 @@ if scenario_switch == 1:
     for filename in scenarios:
         for list_of_commodity in list_of_list_commodity:
             for list_of_railroad in list_of_list_railroad:
-                print("python plot2.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + base_lmf[0] + " " + filename)
-                os.system("python plot2.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + base_lmf[0] + " " + filename)
+                print("python plot/plot.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + base_lmf[0] + " " + filename)
+                os.system("python plot/plot.py " + str(list_of_commodity).replace(" ", "") + " " + str(list_of_railroad).replace(" ", "") + " " + base_lmf[0] + " " + filename)

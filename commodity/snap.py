@@ -18,7 +18,7 @@ count = 0
 # overwrite files if its already present
 arcpy.env.overwriteOutput = True
 
-OD = pandas.read_csv(r"intermediate/" + sys.argv[1] + ".csv")
+OD = pandas.read_csv(commodity_intermediate_path + sys.argv[1] + ".csv")
 
 # if the startRR is not in our network, add 0 (can snap to any railroad)
 network_railroad_list = get_network_rrs()
@@ -108,7 +108,7 @@ def get_nearest_onode_with_orr(origin_fips, origin_rr):
     global count
     count = count + 1
     if count % 10 == 0:  # every 10 calls envokes saving action
-        fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(r"intermediate\FIPSRR.csv")
+        fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(fips_to_rr_csv)
         print("Saved")
     return [origin_node_id, fips_to_node_id_snap_distance]
 
@@ -262,4 +262,4 @@ fips_orr_to_node_odist_df = fips_orr_to_node_odist_df.drop_duplicates()
 # update the newly GIS snapped table
 fips_orr_to_node_odist_df[['FIPS', 'RR', 'NODE', 'DIST']].to_csv(fips_to_rr_csv)
 
-OD[column_list].to_csv(r"intermediate/" + sys.argv[1] + "_1.csv")
+OD[column_list].to_csv(commodity_intermediate_path + sys.argv[1] + "_1.csv")

@@ -4,7 +4,7 @@ import pandas
 import numpy
 import os
 
-scenario_list = os.listdir('intermediate/')
+scenario_list = os.listdir(commodity_intermediate_path)
 scenario_list = [x.split('.csv')[0] for x in scenario_list if "_2" in x]
 scenario_list = [x.replace('_2', '') for x in scenario_list]
 
@@ -43,7 +43,7 @@ for i in range(1, no_of_commodity + 1):
 
 for scenario in scenario_list:
         # inputs from files
-    base_df = pandas.read_csv(r'intermediate/' + scenario + '_2.csv')
+    base_df = pandas.read_csv(commodity_intermediate_path + scenario + '_2.csv')
 
     empty_base_df = base_df.copy()
     # creating empty commodity payload & tare weight
@@ -85,7 +85,7 @@ for scenario in scenario_list:
 
     base_df = base_df[base_df.quantity != 0]  # remove the ones with 0 quantity
     base_df = base_df[base_df.ONode != base_df.DNode].reset_index()  # # remove same origin and destination
-    base_df.to_csv("intermediate/cm"+scenario+".csv")
+    base_df.to_csv(commodity_intermediate_path+"cm_"+scenario+".csv")
 
     base_df = base_df[['ONode', 'DNode', 'comm', 'startRR', 'quantity']]
     #base_df = base_df.sort_values(['ONode', 'DNode', 'comm', 'startRR'], ascending=[True, True, True, True])
@@ -106,4 +106,4 @@ for scenario in scenario_list:
     # combine all the columns to one
     base_df = base_df[['comm', 'ONode', 'DNode', 'quantity', 'startRR']].apply(
         lambda x: '{}{}{}{}{}'.format(x[0], x[1], x[2], x[3], x[4]), axis=1)
-    base_df.to_csv(r"../output/" + scenario + ".dat", index=False)
+    base_df.to_csv(output_path + scenario + ".dat", index=False)

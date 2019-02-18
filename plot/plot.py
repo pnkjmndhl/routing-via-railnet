@@ -29,7 +29,7 @@ except:
 
 ADF_path_of_plot_folder = plot_folder_path + folder_name
 
-mxd_file = r"plot.mxd"
+
 
 
 def convert_to_list(argument):
@@ -85,23 +85,23 @@ commodity_list = commodity_list + empty_list
 
 # setting default values
 if type_of_plot == 'all':
-    lyr_base = '../gis/symbology/Plot_all.lyr'
-    lyr_diff = '../gis/symbology/Plotdiff_all.lyr'
+    lyr_base = 'gis/symbology/Plot_all.lyr'
+    lyr_diff = 'gis/symbology/Plotdiff_all.lyr'
     name_of_railroad = '0'
     name_of_commodity = '0'
 
 
 # #for commodities
 elif type_of_plot == 'commodity':
-    lyr_base = '../gis/symbology/Plot_commodity.lyr'
-    lyr_diff = '../gis/symbology/Plotdiff_commodity.lyr'
+    lyr_base = 'gis/symbology/Plot_commodity.lyr'
+    lyr_diff = 'gis/symbology/Plotdiff_commodity.lyr'
     name_of_railroad = '0'
     name_of_commodity = name_of_commodity
 
 # for railroads
 elif type_of_plot == 'railroad':
-    lyr_base = '../gis/symbology/Plot_railroad.lyr'
-    lyr_diff = '../gis/symbology/Plotdiff_railroad.lyr'
+    lyr_base = 'gis/symbology/Plot_railroad.lyr'
+    lyr_diff = 'gis/symbology/Plotdiff_railroad.lyr'
     name_of_railroad = name_of_railroad
     name_of_commodity = '0'
 
@@ -156,7 +156,7 @@ def get_plot_with_fieldnames(column_names):
 
 def export_to_jpeg(plot_type, plot_file_name, symbologyLayer):
     # modify symbology if necessary
-    mxd = arcpy.mapping.MapDocument(mxd_file)
+    mxd = arcpy.mapping.MapDocument(plot_mxd_file)
     df = arcpy.mapping.ListDataFrames(mxd)[0]
     lyr = arcpy.mapping.ListLayers(mxd, plot_type, df)[0]
     arcpy.ApplySymbologyFromLayer_management(lyr, symbologyLayer)
@@ -194,7 +194,6 @@ field_names = [e for e in field_names if e not in ["ID", "FID", "Shape"]]
 
 print("Generating normal plot ...")
 plot = plot_shp
-print scenario_switch
 if scenario_switch == 0:  # do only base plot
     flow = get_flow_from_adf(base_lmf)
     # print flow

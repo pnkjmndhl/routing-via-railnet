@@ -1,19 +1,10 @@
+.gitignore
 gis/
 
-*/input/
+input/
 */intermediate/
-*/output/
+output/
 
-
-pythonscripts/
-
-OngoingWork/
-
-Tools/
-
-plots/*/
-
-web/*.csv
 
 netdata/*/
 netdata/*
@@ -22,7 +13,8 @@ netdata/*
 web/google_api
 web/openlayers_api
 
-
+*.qgs
+*.qgs~
 *.mxd
 *.ini
 *.exp

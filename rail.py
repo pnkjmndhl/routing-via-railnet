@@ -7,9 +7,9 @@ odist_tolerance = 100  # miles (greater than this distance will be removed from 
 snap_dist_threshhold = 50  # miles (if they are snapped more than this distance, then they will be snapped to nearest)
 
 # COMMODITY
-base_folder_path = r'../input/base/'
-scenario_folder_path = r'../input/scenario/'
-fips_to_rr_csv = r'../input/FIPSRR.csv'
+base_folder_path = r'input/base/'
+scenario_folder_path = r'input/scenario/'
+fips_to_rr_csv = r'input/FIPSRR.csv'
 
 # parameters
 commodity_adder = 50  # for empty
@@ -30,26 +30,29 @@ empty_transfercostphr = 157.92  # not that transfer multiplier is used on top of
 # TRANSFER
 transfer_multiplier = 6
 # inputs/output files
-transfer_xl_file = r'../input/INTERCHANG_G3O.xlsx'
-all_aar_csv = r'../input/allAARCode.csv'
-ofips_orr_comm = r"../input/OFIPSORRcomm.csv"
+transfer_xl_file = r'input/INTERCHANG_G3O.xlsx'
+all_aar_csv = r'input/allAARCode.csv'
+ofips_orr_comm = r"input/OFIPSORRcomm.csv"
+count_of_ids = "network/intermediate/countofIDs.csv"
+network_csv = "network/intermediate/network.csv"
+transfer_csv = "transfers/intermediate/transfercsv.csv"
 
 # shapefiles
-link_shp = '../GIS/alllinks.shp'
-node_shp = '../GIS/allnodes.shp'
-fips_shp = r"../GIS/standards/FIPS.shp"
-manual_snap_lines_shp = '../GIS/manual_snap_lines.shp'
-county_shp = r"../GIS/standards/tl_2017_us_county.shp"
-transfer_manual_shp = r"../GIS/manualtransfers.shp"
-transfer_shp = r"../GIS/transfers.shp"
-transfer_shp_snapped = r"../GIS/transfers_snapped.shp"
-transfer_xl_shp = r"../GIS/transfers_xl.shp"
-state_shp = "../GIS/standards/tl_2017_us_states.shp"
-transfer_exception_shp = '../GIS/transfer_exceptions.shp'
-link_exception_shp = '../GIS/link_exception.shp'
-base_flows_shp = '../GIS/base_flows.shp'
-plot_shp = '../gis/Plots/Plot.shp'
-plot_diff_shp = '../gis/Plots/Plotdiff.shp'
+link_shp = 'GIS/alllinks.shp'
+node_shp = 'GIS/allnodes.shp'
+fips_shp = r"GIS/standards/FIPS.shp"
+manual_snap_lines_shp = 'GIS/manual_snap_lines.shp'
+county_shp = r"GIS/standards/tl_2017_us_county.shp"
+transfer_manual_shp = r"GIS/manualtransfers.shp"
+transfer_shp = r"GIS/transfers.shp"
+transfer_shp_snapped = r"GIS/transfers_snapped.shp"
+transfer_xl_shp = r"GIS/transfers_xl.shp"
+state_shp = "GIS/standards/tl_2017_us_states.shp"
+transfer_exception_shp = 'GIS/transfer_exceptions.shp'
+link_exception_shp = 'GIS/link_exception.shp'
+base_flows_shp = 'GIS/base_flows.shp'
+plot_shp = 'gis/Plots/Plot.shp'
+plot_diff_shp = 'gis/Plots/Plotdiff.shp'
 
 # other temporary files
 memory_shp = "in_memory/dumm"
@@ -57,22 +60,25 @@ disk_shp = "C:/GIS/dumm.shp"
 csv = "C:/GIS/temp/temp.csv"
 
 # xls and csv files
-signal_capacity_to_constants = r"../input/COEFFS.XLS"
-cost_xl = r'../input/COST_PARMS_10_2018(B).xlsx'
+signal_capacity_to_constants = r"input/COEFFS.XLS"
+cost_xl = r'input/COST_PARMS_10_2018(B).xlsx'
 cost_xl_sheet = "COSTS_8_2018"
 
 # output files
-cost_dat = r'../output/cost.dat'
-transfer_xfr_output = r'../output/network.xfr'
-network_dat_output = r"../output/network.dat"
-base_flows_output = r"../output/volume.lvl"
-link_exc_output = "../output/link.exc"
-transfer_exc_output = "../output/transfer.exc"
-cost_dat_output = r"../output/cost" + str(int(transfer_multiplier)) + ".dat"
+cost_dat = r'output/cost.dat'
+transfer_xfr_output = r'output/network.xfr'
+network_dat_output = r"output/network.dat"
+base_flows_output = r"output/volume.lvl"
+link_exc_output = "output/link.exc"
+transfer_exc_output = "output/transfer.exc"
+cost_dat_output = r"output/cost" + str(int(transfer_multiplier)) + ".dat"
+output_path = r"output/"
 
 # folders
-adf_folder_path = '../netdata/ADF/'
-plot_folder_path = '../output/Plots/'
+adf_folder_path = 'netdata/ADF/'
+plot_folder_path = 'output/Plots/'
+commodity_intermediate_path = "commodity/intermediate/"
+plot_mxd_file = r"plot.mxd"
 
 
 def get_network_rrs(link_shp_=link_shp):

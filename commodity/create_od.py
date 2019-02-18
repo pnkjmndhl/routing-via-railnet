@@ -30,5 +30,5 @@ for commodity_filepath in list_of_commodity_files:
     OD['DNode'] = ""
     OD['ODIST'] = ""
     OD['DDIST'] = ""
-    OD.to_csv(r'intermediate/' + commodity_filename + '.csv')
+    OD.to_csv(commodity_intermediate_path + commodity_filename + '.csv')
     print(commodity_filename + '.csv created successfully')

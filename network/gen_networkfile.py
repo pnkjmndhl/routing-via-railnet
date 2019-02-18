@@ -43,7 +43,7 @@ network_df = pandas.merge(network_df, signal_capacity_to_constants_df, how='left
 network_df = network_df[all_list]
 
 # changing linkIDS
-network_df.to_csv(r"intermediate/network.csv")
+network_df.to_csv(network_csv)
 
 dictionary_of_column_name_and_format = dict(zip(all_list, format_list))
 
