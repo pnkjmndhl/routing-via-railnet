@@ -25,7 +25,7 @@ def get_average_tare_weight(comm):
 
 
 # using cost.dat
-attributes_for_full = pandas.read_fwf(cost_dat,
+attributes_for_full = pandas.read_fwf(cost_dat_output,
                                       colspecs=split_width([5, 5, 10, 10, 10, 10, 10, 5, 5, 10]),
                                       header=None)
 # attributes_for_full.columns = [['RR-Code','Commod.','TrainCost/hr','Cost/gross-ton-mile',
