@@ -91,9 +91,9 @@ if not os.path.exists("../../../ADF/" + multiple_folder_name):
     os.makedirs("../../../ADF/" + multiple_folder_name)
 
 
-os.system("copy " + commodity_dat.split('.')[0] + ".LMF " + "..\\..\\..\\LMF\\" + multiple_folder_name + "\\" +
-          commodity_dat.split('.')[
-              0] + "_" + non_default_values_string + ".LMF")
+#os.system("copy " + commodity_dat.split('.')[0] + ".LMF " + "..\\..\\..\\LMF\\" + multiple_folder_name + "\\" +
+#          commodity_dat.split('.')[
+#              0] + "_" + non_default_values_string + ".LMF")
 os.system("copy " + commodity_dat.split('.')[0] + ".ADF " + "..\\..\\..\\ADF\\" + multiple_folder_name + "\\" +
           commodity_dat.split('.')[
               0] + "_" + non_default_values_string + ".ADF")
