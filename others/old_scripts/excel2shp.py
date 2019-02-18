@@ -1,21 +1,16 @@
+# this script gets the subset of the original excel file thats present in the network and plots it on transfers.shp
+
 from rail import *
 import arcpy
 
 arcpy.env.overwriteOutput = True
 arcpy.env.workspace = r'C:/GIS/'
 
-near_distance = "5 Miles"  # the maximum distance the transfer would be snapped to
-
-# inputs/output files
-transfer_file = r'input/INTERCHANG_G3O.xlsx'
-sheet_name = "BASE"
-all_aar = r'input/allAARCode.csv'
-
 intermediate_csv = "intermediate/transfers.csv"
 
 # new data frames from files
-transfer = pandas.ExcelFile(transfer_file).parse(sheet_name)
-all_aar_df = pandas.read_csv(all_aar)
+transfer = pandas.ExcelFile(transfer_xl_file).parse("BASE")
+all_aar_csv_df = pandas.read_csv(all_aar_csv)
 
 
 def get_network_railroad_aar_dict():
@@ -25,7 +20,7 @@ def get_network_railroad_aar_dict():
             [row.getValue("RR1"), row.getValue("RR2"), row.getValue("RR3"), row.getValue("RR4"), row.getValue("RR5")])
     flat_list = list(set([x for sublist in dummy for x in sublist]))
     flat_list.remove(0)
-    new_dict = {x: list(all_aar_df[all_aar_df.ABBR == str(x)]['AARCode'].values) for x in flat_list}
+    new_dict = {x: list(all_aar_csv_df[all_aar_csv_df.ABBR == str(x)]['AARCode'].values) for x in flat_list}
     reverse_dict = {value: key for key in new_dict for value in new_dict[key]}
     return reverse_dict
 
@@ -36,8 +31,6 @@ my_aar_dict = get_network_railroad_aar_dict()
 transfer['JRR1NO'] = transfer.JRR1.map(my_aar_dict)
 transfer['JRR2NO'] = transfer.JRR2.map(my_aar_dict)
 transfer = transfer.dropna()  # remove the transfers not found in allaarCode (these are transfers that we dont need)
-#transfer['JRR1NO'].astype(int)
-#transfer['JRR2NO'].astype(int)
 
 dummy = []
 # for reading existing flags
@@ -51,8 +44,7 @@ dummy_df = dummy_df[dummy_df['flag'] != 0]  # keep only the records that have fl
 transfer = pandas.concat([transfer, dummy_df], axis=1)
 transfer = transfer.drop(['SPL_', 'JRR1_', 'JRR2_'], axis=1)
 
-
-transfer = transfer.fillna(0) #if not found in the old network file, its marked 0:(good nodes)
+transfer = transfer.fillna(0)  # if not found in the old network file, its marked 0:(good nodes)
 
 transfer['nearNID'] = ""
 transfer['nearNDist'] = ""
