@@ -3,7 +3,7 @@ import os
 import thread
 import time
 import psutil
-import os
+import re
 import datetime
 
 # default CPU usage
@@ -12,19 +12,22 @@ default_max_cpu_usage = 70
 now = datetime.datetime.now()
 folder_name = now.strftime("%Y%m%d%H%M%S")
 
-# Default values:
-network_prm_ = ['network.prm']
-link_dat_ = ['network.dat']
-transfer_xfr_ = ['network.xfr']
-commodity_dat_ = ['base.dat']
+# Default values get from folder
+file_names = os.listdir(".")
+all_filenames = " ".join(file_names)
+network_prm_ = re.findall("(?i) ([A-z0-9]*\.prm)",all_filenames)
+link_dat_ = re.findall("(?i) (net[A-z0-9]*\.dat)",all_filenames)
+transfer_xfr_ = re.findall("(?i) ([A-z0-9]*\.xfr)",all_filenames)
+cost_dat_ = re.findall("(?i) (cos[A-z0-9]*\.dat)",all_filenames)
+transfer_exc_ = re.findall("(?i) (tra[A-z0-9]*\.exc)",all_filenames)
+link_exc_ = re.findall("(?i) (lin[A-z0-9]*\.exc)",all_filenames)
+link_volume_lvl_ = re.findall("(?i)([A-z0-9]*\.lvl)",all_filenames)
+netbld_ = re.findall("(?i) (net[A-z0-9]*\.exe)",all_filenames)
+commodty_ = re.findall("(?i) (com[A-z0-9]*\.exe)",all_filenames)
+railnet_ = re.findall("(?i) (rai[A-z0-9]*\.exe)",all_filenames)
 positive_number_ = ['365']
-cost_dat_ = ['cost.dat']
-transfer_exc_ = ['transfer.exc']
-link_exc_ = ['link.exc']
-link_volume_lvl_ = ['volume.lvl']
-netbld_ = ["NETBLD.exe"]
-commodty_ = ["COMMODTY.exe"]
-railnet_ = ["RAILNET.exe"]
+commodity_dat_ = [x for x in re.findall("(?i) ([A-z0-9]*\.dat)",all_filenames) if x not in link_dat_+cost_dat_]
+print "Commodity files: {0}:".format(commodity_dat_)
 folder_ = [folder_name]
 
 
