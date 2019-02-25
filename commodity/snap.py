@@ -97,6 +97,8 @@ def get_nearest_onode_with_orr(origin_fips, origin_rr):
     arcpy.Near_analysis(fips_shpf, "p1", "", "NO_LOCATION", "NO_ANGLE", "GEODESIC")
     dumm = {row.getValue("NEAR_FID"): row.getValue("NEAR_DIST") for row in
             arcpy.SearchCursor(fips_shpf)}  # gets the FID of th nearest Node
+
+
     arcpy.SelectLayerByAttribute_management("p1", "NEW_SELECTION", """ "FID" = %d""" % dumm.keys()[0])
     arcpy.SpatialJoin_analysis("p1", node_shpf, "in_memory/p2", "", "", "", "CLOSEST", "", "")
     # ID for nodes gets changed to ID_1 automatically
