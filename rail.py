@@ -41,6 +41,7 @@ transfer_csv = "transfers/intermediate/transfercsv.csv"
 link_shp = 'GIS/alllinks.shp'
 node_shp = 'GIS/allnodes.shp'
 fips_shp = r"GIS/standards/FIPS.shp"
+splc_shp = r"GIS/allsplc.shp"
 manual_snap_lines_shp = 'GIS/manual_snap_lines.shp'
 county_shp = r"GIS/standards/tl_2017_us_county.shp"
 transfer_manual_shp = r"GIS/manualtransfers.shp"
@@ -98,6 +99,8 @@ link_shpf = "linkshp"
 fips_shpf = "FIPS"
 node_shpf = "nodeshp"
 county_shpf = "countyshp"
+splc_shpf = "splcshp"
+disk_shpf = "diskshpf"
 
 # functions
 if __name__ == "__main__":
