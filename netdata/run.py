@@ -56,17 +56,17 @@ print ("Output LMF Name: " + commodity_dat.split('.')[0] + "_" + non_default_val
 folder_name = multiple_folder_name + "\\" + now.strftime("%Y-%m-%d_%H%M%S") + "_" + commodity_dat.split('.')[0]
 
 readme_name = "Readme.txt"
-readme_path = "Backups\\" + folder_name + "\\" + readme_name
+readme_path = "netdata\\Backups\\" + folder_name + "\\" + readme_name
 
 arguments_full = ['Python File Name', 'Network Parameter File', 'Link Data File', 'Transfer Exception Data File',
                   'Commodity File', 'Positive Number', 'Default Cost file', 'Transfer Exception File',
                   'Link Exception File', 'Link Volume File', "NETBLD", "COMMODTY", "RAILNET", "Folder Name"]
 
-os.system("mkdir Backups\\" + folder_name)
+os.system("mkdir netdata\\Backups\\" + folder_name)
 for args in sys.argv[1:]:
-    os.system("copy " + args + ' Backups\\' + folder_name + "> NUL")
+    os.system("copy " + args + ' netdata\\Backups\\' + folder_name + "> NUL")
 
-os.chdir('Backups/' + folder_name)
+os.chdir('netdata/Backups/' + folder_name)
 
 os.system("ECHO ******************************************************** > " + readme_name)
 os.system("ECHO. >> " + readme_name)
