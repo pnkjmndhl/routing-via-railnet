@@ -13,7 +13,7 @@ now = datetime.datetime.now()
 folder_name = now.strftime("%Y%m%d%H%M%S")
 
 # Default values get from folder
-file_names = os.listdir(".")
+file_names = os.listdir("./netdata/")
 all_filenames = " ".join(file_names)
 network_prm_ = re.findall("(?i) ([A-z0-9]*\.prm)",all_filenames)
 link_dat_ = re.findall("(?i) (net[A-z0-9]*\.dat)",all_filenames)
@@ -112,7 +112,7 @@ for network_prm in network_prm_:
                                                         time.sleep(10)
                                                         print(
                                                             "Maximum CPU usage reached... waiting for other processes to complete")
-                                                    command_string = "python run.py " + network_prm + " " + link_dat + " " + transfer_xfr + " " + commodity_dat + " " + positive_number + " " + cost_dat + " " + transfer_exc + " " + link_exc + " " + link_volume_lvl + " " + netbld + " " + commodty + " " + railnet + " " + folder
+                                                    command_string = "python netdata/run.py " + network_prm + " " + link_dat + " " + transfer_xfr + " " + commodity_dat + " " + positive_number + " " + cost_dat + " " + transfer_exc + " " + link_exc + " " + link_volume_lvl + " " + netbld + " " + commodty + " " + railnet + " " + folder
                                                     print(command_string + " added to thread: " + str(
                                                         thread.start_new_thread(os.system, (command_string,))))
                                                     time.sleep(1)
