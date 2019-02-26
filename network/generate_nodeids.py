@@ -1,15 +1,14 @@
 from rail import *
 import arcpy
-
+import math
 
 arcpy.env.overwriteOutput = True
 
+fields_final = [f.name for f in arcpy.ListFields(node_shp)]
+fields_new = fields_final[:3]
 
-fields_final = ["FID", "Shape", "ID", "STATE_FP", "Abbr", "Name"]
-fields_new = ["FID", "Shape", "ID"]
 
-
-def keep_fields(shape_file, keep):
+def keep_field_in_shp(shape_file, keep):
     fields = [x.name for x in arcpy.ListFields(shape_file)]
     # delete if any of these fields are present
     try:
@@ -18,47 +17,48 @@ def keep_fields(shape_file, keep):
         pass
 
 
-# create new node names or update previous?
-if sys.argv[1] == "new":
-    count_in_county_dictionary = {}
-    print("Creating new NodeIDs")
-    arcpy.DeleteField_management(disk_shp, "ID")
-    arcpy.AddField_management(disk_shp, "ID", "LONG", "")
-
-elif sys.argv[1] == "update":
-    count_in_county_df = pandas.read_csv(count_of_ids)
-    count_in_county_dictionary = dict(zip([int(i) for i in list(count_in_county_df)], list(count_in_county_df.iloc[0])))
-    print("Updating NodeIDs")
-
-else:
-    print ("Invalid argument")
-    exit()
+# create a copy of node_shp
+arcpy.CopyFeatures_management(node_shp, disk_shp1)
 
 # strip down the attributes to fields_new
-keep_fields(node_shp, fields_new)
-# get FIPS of each Node in a field
-arcpy.SpatialJoin_analysis(node_shp, state_shp, disk_shp, "JOIN_ONE_TO_ONE", "KEEP_ALL", "", "COMPLETELY_WITHIN", "",
-                           "")
-keep_fields(disk_shp, fields_final)
+keep_field_in_shp(disk_shp1, fields_new)
+arcpy.SpatialJoin_analysis(disk_shp1, state_shp, disk_shp, "JOIN_ONE_TO_ONE", "KEEP_ALL", "", "COMPLETELY_WITHIN", "",
+                           "")  # get FIPS of each Node in a field
+keep_field_in_shp(disk_shp, fields_final)
+
+# creating count of county dictionary:
+arr = arcpy.da.TableToNumPyArray(disk_shp, fields_final[2:])
+node_shp_df = pandas.DataFrame(arr)  # 1st row as the column names
+
+count_of_county_dict = {x: 0 for x in range(1, 99)}
+
+new_nodes_flag = 0
+for ID in node_shp_df["ID"]:
+    if ID == 0:  # if the nodeID is new, no need to register
+        new_nodes_flag = 1
+        continue
+    state = math.floor(ID / 1000)
+    state_id = ID - state * 1000
+    if count_of_county_dict[state] < state_id:
+        count_of_county_dict[state] = state_id
 
 count = 0
+
+if new_nodes_flag == 0:
+    print "No new nodes found"
+    exit(0)
+
+print("List of Nodes added:")
 with arcpy.da.UpdateCursor(disk_shp, ["ID", "STATE_FP"]) as cursor:
     for row in cursor:
-        if sys.argv[1] == "update":
-            if row[0] != 0:
-                continue
+        if row[0] != 0:
+            continue
         count = count + 1
-        if row[1] in count_in_county_dictionary:
-            row[0] = 1000 * row[1] + count_in_county_dictionary.get(row[1]) + 1
-            count_in_county_dictionary.update({row[1]: count_in_county_dictionary.get(row[1]) + 1})
-        else:
-            count_in_county_dictionary.update({row[1]: 1})
-            row[0] = 1000 * row[1] + count_in_county_dictionary.get(row[1])
+        row[0] = 1000 * row[1] + count_of_county_dict.get(row[1]) + 1
+        print "{0}".format(int(row[0]))
+        count_of_county_dict.update({row[1]: count_of_county_dict.get(row[1]) + 1})
         cursor.updateRow(row)
-
-print (str(count) + " new nodes added")
 
 arcpy.CopyFeatures_management(disk_shp, node_shp)
 
-# the count of IDs csv file would be used to obtain the maximum number of nodes in a state in previous run
-pandas.DataFrame(count_in_county_dictionary, index=[0]).to_csv(count_of_ids, index=False)
+print (str(count) + " new nodes added to node_shp")
