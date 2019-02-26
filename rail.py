@@ -36,6 +36,7 @@ ofips_orr_comm = r"input/OFIPSORRcomm.csv"
 count_of_ids = "network/intermediate/countofIDs.csv"
 network_csv = "network/intermediate/network.csv"
 transfer_csv = "transfers/intermediate/transfercsv.csv"
+path_of_excel_manual_snap = r"C:\Users\pankaj\Dropbox\PANKAJ_NEW\SPLC_match.xlsx"
 
 # shapefiles
 link_shp = 'GIS/alllinks.shp'
@@ -58,6 +59,7 @@ plot_diff_shp = 'gis/Plots/Plotdiff.shp'
 # other temporary files
 memory_shp = "in_memory/dumm"
 disk_shp = "C:/GIS/dumm.shp"
+disk_shp1 = "C:/GIS/dumm1.shp"
 csv = "C:/GIS/temp/temp.csv"
 
 # xls and csv files
@@ -101,6 +103,10 @@ node_shpf = "nodeshp"
 county_shpf = "countyshp"
 splc_shpf = "splcshp"
 disk_shpf = "diskshpf"
+
+#access database location
+access_df_path = r"C:\Users\pankaj\Dropbox\PANKAJ_NEW\SPLC_match.laccdb"
+
 
 # functions
 if __name__ == "__main__":
