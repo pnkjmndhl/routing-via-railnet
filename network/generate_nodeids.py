@@ -4,61 +4,45 @@ import math
 
 arcpy.env.overwriteOutput = True
 
-fields_final = [f.name for f in arcpy.ListFields(node_shp)]
-fields_new = fields_final[:3]
+temp = "C:/GIS/temp.shp"
+
+#Rule 1, always generate nodes from links :)
+
+#get new nodes (calculate this)
+arcpy.FeatureVerticesToPoints_management(link_shp, node_shp, "BOTH_ENDS")
+arcpy.AddField_management(node_shp, "_X_", "DOUBLE")
+arcpy.AddField_management(node_shp, "_Y_", "DOUBLE")
+with arcpy.da.UpdateCursor(node_shp, ["SHAPE@XY", "_X_", "_Y_"]) as cursor:
+    for row in cursor:
+        row[1] = row[0][0]
+        row[2] = row[0][1]
+        cursor.updateRow(row)
+
+arcpy.DeleteIdentical_management(node_shp, ['_X_', '_Y_'])
+
+arcpy.SpatialJoin_analysis(node_shp, state_shp, temp, "JOIN_ONE_TO_ONE", "KEEP_ALL", "", "WITHIN")
+
+#get all the field names and drop them (since they are imported from link_shp)
+field_names =  [f.name for f in arcpy.ListFields(temp)]  # getting field names
+try:
+    arcpy.AddField_management(temp, "ID", "LONG")
+except: #if already has IDs, all should be 0 at first (later calculated)
+    arcpy.CalculateField_management(temp, "ID", 0, "PYTHON")  # all 0 at first
+field_names = [e for e in field_names if e not in ["ID", "FID", "Shape", "STATE_FP"]]
+arcpy.DeleteField_management(temp, field_names)
 
 
-def keep_field_in_shp(shape_file, keep):
-    fields = [x.name for x in arcpy.ListFields(shape_file)]
-    # delete if any of these fields are present
-    try:
-        arcpy.DeleteField_management(shape_file, [x for x in fields if x not in keep])
-    except:
-        pass
-
-
-# create a copy of node_shp
-arcpy.CopyFeatures_management(node_shp, disk_shp1)
-
-# strip down the attributes to fields_new
-keep_field_in_shp(disk_shp1, fields_new)
-arcpy.SpatialJoin_analysis(disk_shp1, state_shp, disk_shp, "JOIN_ONE_TO_ONE", "KEEP_ALL", "", "COMPLETELY_WITHIN", "",
-                           "")  # get FIPS of each Node in a field
-keep_field_in_shp(disk_shp, fields_final)
-
-# creating count of county dictionary:
-arr = arcpy.da.TableToNumPyArray(disk_shp, fields_final[2:])
-node_shp_df = pandas.DataFrame(arr)  # 1st row as the column names
-
+#all states contain no nodes at first
 count_of_county_dict = {x: 0 for x in range(1, 99)}
 
-new_nodes_flag = 0
-for ID in node_shp_df["ID"]:
-    if ID == 0:  # if the nodeID is new, no need to register
-        new_nodes_flag = 1
-        continue
-    state = math.floor(ID / 1000)
-    state_id = ID - state * 1000
-    if count_of_county_dict[state] < state_id:
-        count_of_county_dict[state] = state_id
-
-count = 0
-
-if new_nodes_flag == 0:
-    print "No new nodes found"
-    exit(0)
 
 print("List of Nodes added:")
-with arcpy.da.UpdateCursor(disk_shp, ["ID", "STATE_FP"]) as cursor:
+with arcpy.da.UpdateCursor(temp, ["ID", "STATE_FP"]) as cursor:
     for row in cursor:
         if row[0] != 0:
             continue
-        count = count + 1
         row[0] = 1000 * row[1] + count_of_county_dict.get(row[1]) + 1
-        print "{0}".format(int(row[0]))
         count_of_county_dict.update({row[1]: count_of_county_dict.get(row[1]) + 1})
         cursor.updateRow(row)
 
-arcpy.CopyFeatures_management(disk_shp, node_shp)
-
-print (str(count) + " new nodes added to node_shp")
+arcpy.CopyFeatures_management(temp, node_shp)
